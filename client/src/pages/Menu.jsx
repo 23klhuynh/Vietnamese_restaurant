@@ -32,7 +32,7 @@ function Menu() {
   return (
     <div className="menu">
       <div className="menu-header bg-gray-500 w-full h-[350px]">
-        {/* image or something */}
+        <img src="https://assets.vogue.com/photos/5a3aac8f0193fe386b1e3898/master/w_2560%2Cc_limit/vietnamese-food-holding.jpg" alt="" className="w-full h-full object-cover"/>
       </div>
       <div className="menu__search">
         <p className="menu__search-item">Appetizers</p>
@@ -51,9 +51,19 @@ function Menu() {
         <p className="menu__search-item">Boba drinks</p>
         <p className="menu__search-item">beer</p>
       </div>
-      <div className="menu__items">
-        <section className="appetizer items">
-          {handleMenuItem("appetizer")}
+
+      <div className="main">
+        <section className="content text-lg md:text-xl lg:text-2xl xl:text-3xl">
+          <div className="content__title">
+            <h1>Appetizer</h1>
+          </div>
+          <div className="items">{handleMenuItem("appetizer")}</div>
+        </section>
+        <section className="content text-lg md:text-xl lg:text-2xl xl:text-3xl">
+          <div className="content__title">
+            <h1>Dinner</h1>
+          </div>
+          <div className="items">{handleMenuItem("dinner")}</div>
         </section>
       </div>
     </div>
