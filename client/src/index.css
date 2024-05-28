@@ -99,6 +99,11 @@
 .navbar--scrolled {
   background-color: black;
 }
+.navbar--clicked{
+  background-color: black;
+  transition: none;
+
+}
 .navbar__items {
   display: flex;
   justify-content: center;
@@ -130,8 +135,29 @@
   height: 80px;
   width: 80px;
 }
-.mobile__icon {
+.navbar__mobile-icon {
   font-size: 2rem;
+}
+/* mobile navbar */
+.navbar__sidebar{
+  position: fixed;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  top: 80px;
+  left: 0;
+  z-index: 100;
+  color: white;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding-left: 25px;
+  background-color: black;
+  border-top: 1px solid gray;
+}
+.navbar__sidebar-item{
+  padding: 25px;
 }
 
 /* description */
@@ -151,16 +177,18 @@
   gap: 20px;
 }
 .welcome-section__container > h1 {
-  font-size: clamp(30px, 6vw, 50px);
+  font-size: clamp(25px, 6vw, 45px);
   font-weight: 800;
+  white-space: nowrap;
+
 }
 .welcome-section__container > h3 {
-  font-size: clamp(20px, 3vw, 30px);
+  font-size: clamp(18px, 3vw, 28px);
   font-weight: 400;
 }
 .welcome-section__container .btn-menu {
   background-color: var(--primary-color);
-  padding: 10px 30px;
+  padding: 5px 20px;
   color: black;
   font-size: 1.5rem;
   transition: background-color 0.5s;
@@ -312,22 +340,7 @@
 
 
 /* media query */
-
-@media screen and (min-width: 800px) {
-  .mobile__icon {
-    display: none;
-  }
-  /* .menu__items{
-    width: 100%;
-  } */
-}
-
-@media screen and (max-width: 800px) {
-  .navbar__link,
-  .navbar__items,
-  .navbar__facebook-link {
-    display: none;
-  }
+@media screen and (max-width: 1000px){
   .welcome-section {
     width: 100%;
   }
@@ -337,8 +350,33 @@
   .welcome-section__container .btn-menu {
     align-self: center;
   }
+}
+@media screen and (min-width: 800px) {
+  .navbar__mobile-icon {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .navbar__link,
+  .navbar__items,
+  .navbar__facebook-link {
+    display: none;
+  }
+  /* .welcome-section {
+    width: 100%;
+  }
+  .welcome-section__container {
+    text-align: center;
+  }
+  .welcome-section__container .btn-menu {
+    align-self: center;
+  } */
   .items{
     width: 100%;
+  }
+  .navbar__icon-img{
+    display: none;
   }
 }
 

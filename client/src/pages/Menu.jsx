@@ -31,8 +31,8 @@ function Menu() {
 
   return (
     <div className="menu">
-      <div className="menu-header bg-gray-500 w-full h-[350px]">
-        <img src="https://assets.vogue.com/photos/5a3aac8f0193fe386b1e3898/master/w_2560%2Cc_limit/vietnamese-food-holding.jpg" alt="" className="w-full h-full object-cover"/>
+      <div className="menu-header w-full h-[350px]">
+        <img src="https://assets.vogue.com/photos/5a3aac8f0193fe386b1e3898/master/w_2560%2Cc_limit/vietnamese-food-holding.jpg" alt="" className="w-full h-[350px] object-cover"/>
       </div>
       <div className="menu__search">
         <p className="menu__search-item">Appetizers</p>
