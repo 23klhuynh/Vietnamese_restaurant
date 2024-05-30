@@ -1,3 +1,1 @@
-1) fix the aboutUs: className etc
-
-2) create a horizontal slider: category
+1) fix the menu naming system

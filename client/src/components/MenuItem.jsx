@@ -10,7 +10,7 @@ function MenuItem({title, description, price}) {
         {description}
       </p>
       <p className="menu__item-price text-sm md:text-md lg:text-lg text-gray-500">
-        {price}
+        ${price}
       </p>
     </div>
   );
