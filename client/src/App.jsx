@@ -4,9 +4,11 @@ import Home from "./pages/Home";
 import Menu from "./pages/Menu";
 import Navbar from "./components/Navbar";
 import useScroll from "./components/useScroll";
+import SmoothScroll from "./components/SmoothScroll";
 
 function App() {
   const scroll = useScroll();
+  SmoothScroll();
   return (
     <>
       <Navbar scroll={scroll} />

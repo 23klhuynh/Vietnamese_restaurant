@@ -1,11 +1,10 @@
 import React from "react";
-
 import { Link as ScrollLink } from "react-scroll";
 import MenuItemSection from "../components/MenuItemSection";
 
 function Menu() {
   return (
-    <div className="menu">
+    <div className="menu" id="menu">
       <div className="menu-header w-full h-[350px]">
         <img
           src="https://assets.vogue.com/photos/5a3aac8f0193fe386b1e3898/master/w_2560%2Cc_limit/vietnamese-food-holding.jpg"
@@ -21,7 +20,7 @@ function Menu() {
             spy={true}
             smooth={true}
             offset={-120}
-            duration={500}
+            duration={100}
           >
             Appetizers
           </ScrollLink>
@@ -32,7 +31,7 @@ function Menu() {
             spy={true}
             smooth={true}
             offset={-120}
-            duration={500}
+            duration={100}
           >
             Main Course
           </ScrollLink>
@@ -102,7 +101,6 @@ function Menu() {
         <MenuItemSection title="Sandwiches" category="sandwich" />
         <MenuItemSection title="Vetetarian" category="vetetarian" />
         <MenuItemSection title="Beverages" category="beverage" />
-        
       </div>
     </div>
   );

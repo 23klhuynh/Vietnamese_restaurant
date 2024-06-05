@@ -12,7 +12,7 @@ function Footer() {
           Privacy Policy
         </a>
         <span>|</span>
-        <a href="" className="hover:underline">
+        <a href="" className="hover:underline ml-2">
           Terms of services
         </a>
       </p>
