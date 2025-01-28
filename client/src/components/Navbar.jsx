@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import FacebookLink from "../fragments/FacebookLink";
 import NavbarNavigation from "../fragments/NavbarNavigation";
 import Sidebar from "../fragments/Sidebar";
+import Logo from "../assets/PhoVietLogo.png";
 
 function Navbar({ scroll }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +37,7 @@ function Navbar({ scroll }) {
       <div className="navbar__icon cursor-pointer">
         <RouterLink to="/">
           <img
-            src="https://cdn-icons-png.flaticon.com/512/5433/5433249.png"
+            src= {Logo} /* "https://cdn-icons-png.flaticon.com/512/5433/5433249.png" */
             alt="Pho icon"
             className="navbar__icon-img"
           />

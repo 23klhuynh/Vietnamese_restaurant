@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="footer-container text-sm md:text-md lg:text-lg xl:text-xl text-center">
+    <div className="footer-container text-sm md:text-md lg:text-lg xl:text-xl text-center footer bg-gray-800 text-white py-4 mt-4" >
       <p>
         &copy; {new Date().getFullYear()} Pho Viet Restaurant. All rights
         reserved.
@@ -13,7 +13,7 @@ function Footer() {
         </a>
         <span>|</span>
         <a href="" className="hover:underline ml-2">
-          Terms of services
+          Terms of Services
         </a>
       </p>
     </div>

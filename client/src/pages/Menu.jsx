@@ -38,33 +38,11 @@ function Menu() {
         </li>
         <li className="menu__search-item">
           <ScrollLink
-            to="noodle"
+            to="sandwich"
             spy={true}
             smooth={true}
             offset={-120}
-            duration={500}
-          >
-            Noodles
-          </ScrollLink>
-        </li>
-        <li className="menu__search-item">
-          <ScrollLink
-            to="rice"
-            spy={true}
-            smooth={true}
-            offset={-120}
-            duration={500}
-          >
-            Rice
-          </ScrollLink>
-        </li>
-        <li className="menu__search-item">
-          <ScrollLink
-            to="swandwich"
-            spy={true}
-            smooth={true}
-            offset={-120}
-            duration={500}
+            duration={100}
           >
             Sandwiches
           </ScrollLink>
@@ -75,7 +53,7 @@ function Menu() {
             spy={true}
             smooth={true}
             offset={-120}
-            duration={500}
+            duration={100}
           >
             Vetetarian
           </ScrollLink>
@@ -86,22 +64,21 @@ function Menu() {
             spy={true}
             smooth={true}
             offset={-120}
-            duration={500}
+            duration={100}
           >
             Beverages
           </ScrollLink>
         </li>
       </ul>
 
-      <div className="menu-categories">
+      {/* <div className="menu-categories">
         <MenuItemSection title="Appetizers" category="appetizer" />
         <MenuItemSection title="Main Course" category="main" />
-        <MenuItemSection title="Noodles" category="noodle" />
-        <MenuItemSection title="Rice" category="rice" />
         <MenuItemSection title="Sandwiches" category="sandwich" />
-        <MenuItemSection title="Vetetarian" category="vetetarian" />
+        <MenuItemSection title="Vegetarian" category="Vegetarian" />
         <MenuItemSection title="Beverages" category="beverage" />
-      </div>
+      </div> */}
+
     </div>
   );
 }

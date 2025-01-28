@@ -1,6 +1,5 @@
 import React from "react";
 import Photo from "../assets/picture1.jpg";
-import { Link } from "react-router-dom";
 import { IoMdTime } from "react-icons/io";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -45,9 +44,6 @@ function BusinessDetail() {
           </h1>
           <p>1906 your mom drive</p>
         </div>
-        <button className="business-detail__btn business-detail__info bg-red-700 border-black-700 border-b-2">
-          <Link to="/about"> ABOUT US</Link>
-        </button>
       </div>
     </div>
   );
