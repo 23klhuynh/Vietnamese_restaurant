@@ -25,17 +25,25 @@ class User(db.Model):
         return cls.query.filter_by(username=username).first()
 
     def save(self):
-        db.session.add(self)
-        db.session.commit()
-    
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()  
+            raise e
+
     def delete(self):
-        db.session.delete(self)
-        db.session.commit()
+        try:
+            db.session.delete(self)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()  
+            raise e
     
 #logout
 class TokenBlocklist(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    jti = db.Column(db.String(), nullable=False)
+    jti = db.Column(db.String(), nullable=False) #IMPORTANT use uuid if use postquesql
     create_at = db.Column(db.DateTime(), default=datetime.utcnow)
     expires_at = db.Column(db.DataTime(), nullable=False)
 
@@ -43,8 +51,12 @@ class TokenBlocklist(db.Model):
         return f"<Token {self.jti}>"
 
     def save(self):
-        db.session.add(self)
-        db.session.commit()
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()  
+            raise e
 
     @classmethod
     def remove_expired(cls):

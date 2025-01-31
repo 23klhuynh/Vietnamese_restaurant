@@ -20,7 +20,7 @@ def get_all_users():
             page=page,
             per_page=per_page
         )
-        result = UserSchema().dump(users, many=True)
+        result = UserSchema().dump(users.items, many=True)
 
         return jsonify({"users": result}), 200
     

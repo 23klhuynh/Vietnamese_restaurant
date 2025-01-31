@@ -17,15 +17,13 @@ def register_user():
     user = User.get_user_by_username(username=data.get("username"))
 
     if user is not None:
-        return jsonify({"message": "Username is already exist!"}), 409
+        return jsonify({"error": "Username is already exist!"}), 409
     
     new_user = User(
-        username=data.get("username"),
+        username = data.get("username"),
         email = data.get("email")
     )
-
     new_user.set_password(password=data.get("password"))
-
     new_user.save()
 
     return jsonify({"message": "New user created successfully"}), 201
@@ -36,10 +34,9 @@ def login_user():
 
     data = request.get_json()
     user = User.get_user_by_username(username=data.get("username"))
-    password = user.check_password(password=data.get("password"))
 
-    if user and password:
-        
+    if user and user.check_password(password=data.get("password")):
+
         access_token = create_access_token(identity=user.username)
         refresh_token = create_refresh_token(identity=user.username)
 
@@ -53,7 +50,7 @@ def login_user():
     
     #call the clean up function for the expire token in the TokenBlocklist
 
-    return jsonify({"message": "username or password is invalid!"}), 400
+    return jsonify({"error": "username or password is invalid!"}), 400
 
 
 @auth_bp.get("/get_user")

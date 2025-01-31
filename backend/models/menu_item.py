@@ -7,7 +7,7 @@ class MenuItem(db.Model):
     id = db.Column(db.Integer, primary_key=True, default=str(uuid4))
     name = db.Column(db.String(200), nullable=False)
     description = db.Column(db.String(500), nullable=False)
-    price = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Numeric(10, 2), nullable=False)
     category = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
@@ -18,14 +18,22 @@ class MenuItem(db.Model):
             "id": self.id,
             "name": self.name,
             "description": self.description,
-            "price": self.price,
+            "price": str(self.price),
             "category": self.category
         }
     
     def save(self):
-        db.session.add(self)
-        db.session.commit()
-    
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()  
+            raise e
+
     def delete(self):
-        db.session.delete(self)
-        db.session.commit()
+        try:
+            db.session.delete(self)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()  
+            raise e

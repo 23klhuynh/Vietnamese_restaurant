@@ -1,13 +1,16 @@
 from flask import Flask, jsonify
 from flask_migrate import Migrate
+from flask_cors import CORS
 from extensions import db, jwt
 from routes.auth import auth_bp
 from admin import user_bp
+from routes.menu import menu_bp
 from models.user import User, TokenBlocklist
 
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
 
     app.config.from_prefixed_env()
 
@@ -18,6 +21,8 @@ def create_app():
     
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(user_bp, url_prefix="/users")
+    app.register_blueprint(menu_bp, url_prefix="/menu")
+
 
     @jwt.user_lookup_loader
     def user_lookup_callback(_jwt_header, jwt_data):
@@ -36,7 +41,7 @@ def create_app():
     
     @jwt.invalid_token_loader
     def invalid_token_callback(error):
-        return jsonify({"messgae": "Signiture varification failed", "error": "Invalid"}), 401
+        return jsonify({"message": "Signiture varification failed", "error": "Invalid"}), 401
 
     @jwt.unauthorized_loader
     def missing_token_callback(error):
@@ -44,7 +49,7 @@ def create_app():
 
     @jwt.token_in_blocklist_loader
     def token_in_blocklist_call(jwt_header, jwt_data):
-        jti = jwt_data("jti")
+        jti = jwt_data.get("jti")
         token = db.session.query(TokenBlocklist).filter(TokenBlocklist.jti == jti).scalar()
         return token is not None
         # check to make sure the revoke token is not being use to log in again
