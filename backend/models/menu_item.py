@@ -1,10 +1,12 @@
-from app import db
+from extensions import db
 from uuid import uuid4
+from sqlalchemy.dialects.postgresql import UUID
+
 
 
 class MenuItem(db.Model):
     __tablename__="menu_item"
-    id = db.Column(db.Integer, primary_key=True, default=str(uuid4))
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     name = db.Column(db.String(200), nullable=False)
     description = db.Column(db.String(500), nullable=False)
     price = db.Column(db.Numeric(10, 2), nullable=False)

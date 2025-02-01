@@ -1,6 +1,5 @@
-import React from "react";
 import { Link as ScrollLink } from "react-scroll";
-import MenuItemSection from "../components/MenuItemSection";
+/* import MenuItemSection from "../components/MenuItemSection"; */
 
 function Menu() {
   return (

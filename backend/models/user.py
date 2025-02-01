@@ -1,15 +1,16 @@
-from app import db
+from extensions import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from uuid import uuid4
+from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime
 
 #database structure
 class User(db.Model):
     __tablename__ = "user"
-    id = db.Column(db.Integer, primary_key=True, default=str(uuid4))
-    username = db.column(db.String, nullable=False)
-    email = db.column(db.String, nullable=False)
-    password = db.column(db.text)
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    username = db.Column(db.String, nullable=False)  
+    email = db.Column(db.String, nullable=False)     
+    password = db.Column(db.Text) 
 
     def __repr__(self):
         return f"<User {self.username}>"
@@ -42,10 +43,10 @@ class User(db.Model):
     
 #logout
 class TokenBlocklist(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     jti = db.Column(db.String(), nullable=False) #IMPORTANT use uuid if use postquesql
     create_at = db.Column(db.DateTime(), default=datetime.utcnow)
-    expires_at = db.Column(db.DataTime(), nullable=False)
+    expires_at = db.Column(db.DateTime(), nullable=False)
 
     def __repr__(self):
         return f"<Token {self.jti}>"

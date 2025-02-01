@@ -1,13 +1,11 @@
-import React from "react";
-
 function Footer() {
   return (
-    <div className="footer-container text-sm md:text-md lg:text-lg xl:text-xl text-center footer bg-gray-800 text-white py-4 mt-4" >
-      <p>
+    <div className="footer-container text-center footer bg-gray-800 text-white py-4 mt-4" >
+      <h3>
         &copy; {new Date().getFullYear()} Pho Viet Restaurant. All rights
         reserved.
-      </p>
-      <p>
+      </h3>
+      <h3>
         <a href="" className="hover:underline mr-2">
           Privacy Policy
         </a>
@@ -15,7 +13,7 @@ function Footer() {
         <a href="" className="hover:underline ml-2">
           Terms of Services
         </a>
-      </p>
+      </h3>
     </div>
   );
 }

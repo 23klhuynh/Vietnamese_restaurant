@@ -5,7 +5,7 @@ from schemas import UserSchema
 
 user_bp = Blueprint("users", __name__)
 
-@user_bp.get("/all")
+@user_bp.get("/all") 
 @jwt_required()
 def get_all_users():
     

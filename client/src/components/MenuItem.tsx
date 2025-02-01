@@ -1,6 +1,10 @@
-import React from "react";
+interface MenuItemProps {
+  title: string;
+  description: string;
+  price: number;
+}
 
-function MenuItem({title, description, price}) {
+function MenuItem({ title, description, price }: MenuItemProps) {
   return (
     <div className="menu__item">
       <h1 className="menu__item-header text-md md:text-lg lg:text-xl xl:text-2xl">

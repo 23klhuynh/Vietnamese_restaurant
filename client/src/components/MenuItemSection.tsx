@@ -1,10 +1,23 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import MenuItem from "../components/MenuItem";
 import { Element } from "react-scroll";
 
-function MenuItemSection({title, category}) {
-  const [data, setData] = useState([]);
+interface MenuItemData {
+  _id: string;
+  title: string;
+  description: string;
+  price: number;
+  category: string;
+}
+
+interface MenuItemSectionProps {
+  title: string;
+  category: string;
+}
+
+function MenuItemSection({ title, category }: MenuItemSectionProps) {
+  const [data, setData] = useState<MenuItemData[]>([]);
 
   useEffect(() => {
     axios
@@ -17,7 +30,7 @@ function MenuItemSection({title, category}) {
       });
   }, []);
 
-  const handleMenuItem = (category) => {
+  const handleMenuItem = (category: string) => {
     return data
       .filter((item) => item.category.toLowerCase() === category.toLowerCase())
       .map((item) => (

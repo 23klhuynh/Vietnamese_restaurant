@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
@@ -8,26 +8,31 @@ import NavbarNavigation from "../fragments/NavbarNavigation";
 import Sidebar from "../fragments/Sidebar";
 import Logo from "../assets/PhoVietLogo.png";
 
-function Navbar({ scroll }) {
+interface NavbarProps {
+  scroll: boolean;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const routeToTargetIdMap = {
+  const routeToTargetIdMap: { [key: string]: string } = {
     home: "/",
     contact: "/",
     menu: "/menu",
     about: "/",
   };
 
-  const handleNavigation = (targetId) => {
+  const handleNavigation = (targetId: string) => {
     const path = routeToTargetIdMap[targetId];
     navigate(path, { state: { targetId } });
   };
 
-  const handleAllClicks = (targetId) => {
+  const handleAllClicks = (targetId: string) => {
     handleNavigation(targetId);
     setIsOpen(!isOpen);
   };
+
   return (
     <nav
       className={`navbar ${scroll ? "navbar--scrolled" : "navbar--default"} ${
@@ -37,7 +42,7 @@ function Navbar({ scroll }) {
       <div className="navbar__icon cursor-pointer">
         <RouterLink to="/">
           <img
-            src= {Logo} /* "https://cdn-icons-png.flaticon.com/512/5433/5433249.png" */
+            src={Logo}
             alt="Pho icon"
             className="navbar__icon-img"
           />
@@ -57,13 +62,13 @@ function Navbar({ scroll }) {
         </div>
       </div>
 
-      <NavbarNavigation props={handleNavigation} />
+      <NavbarNavigation onNavigate={handleNavigation} />
 
-      <Sidebar open={isOpen} props={handleAllClicks} />
+      <Sidebar open={isOpen} onNavigate={handleAllClicks} />
 
       <FacebookLink />
     </nav>
   );
-}
+};
 
 export default Navbar;
