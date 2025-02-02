@@ -26,3 +26,10 @@ def get_all_users():
     
     return jsonify({"message": "You are not authorized to access this"}), 401
 
+
+""" 
+login
+then use the postman and go to the users/all put in the bear token and paste in the access token
+
+"""
+

@@ -10,12 +10,13 @@ from admin import user_bp
 from routes.menu import menu_bp
 from models.user import User, TokenBlocklist
 
-
+# DB is NOT NEEDED
 load_dotenv()
+
 url = os.environ.get("SUPABASE_URL")
 key = os.environ.get("SUPABASE_KEY")
 
-sb = create_client(url, key)
+supabase = create_client(url, key)
 
 def create_app():
     app = Flask(__name__)

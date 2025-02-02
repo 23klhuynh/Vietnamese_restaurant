@@ -1,8 +1,8 @@
+#NOT NEEDED IN PROJECT
+
 from extensions import db
 from uuid import uuid4
 from sqlalchemy.dialects.postgresql import UUID
-
-
 
 class MenuItem(db.Model):
     __tablename__="menu_item"
