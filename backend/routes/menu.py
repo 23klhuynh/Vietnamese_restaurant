@@ -1,8 +1,6 @@
-#***** need to work on this
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt
-from app import supabase
-from models.menu_item import MenuItem
+from config import supabase
 
 menu_bp = Blueprint("menu", __name__)
 
@@ -10,7 +8,6 @@ menu_bp = Blueprint("menu", __name__)
 @menu_bp.get("/all_menu")
 def get_all_menu_items():
     try: 
-        
         response = supabase.table("Menu_Item").select("*").execute()
 
         sort_by_category = {}
@@ -22,20 +19,8 @@ def get_all_menu_items():
             else:
                 sort_by_category[category].append(item)
         
-            return jsonify({sort_by_category}), 200
+            return jsonify({"data" : sort_by_category}), 200
 
-        """ # split by different category
-        categories = MenuItem.query.with_entities(MenuItem.category).distinct().all() 
-        menu_by_category = {}
-
-        for category, in categories:
-            # access all the items from the same category
-            items_in_category = MenuItem.query.filter_by(category=category).all() 
-            # get the items in a hashmap with spacific category 
-            menu_by_category[category] = [item.to_dict() for item in items_in_category] 
-        
-        return jsonify({"message": "Successfully fetched all menu items", "data": menu_by_category}), 200 """
-    
     except KeyError as e:
         return jsonify({"error": f"Missing field: {str(e)}"}), 400
     except Exception as e:
@@ -47,51 +32,54 @@ def get_all_menu_items():
 @jwt_required()
 def get_item(id):
     try:
-        data = MenuItem.query.get(id)
+        response = supabase.table("Menu_Item").select("*").eq("id", id).execute()
 
-        if not data:
+        if not response.data:
             return jsonify({"error": "Item not found"}), 404
+        
+        #get the first instance of the item
+        item = response.data[0]
 
-        return ({"item": 
-                {
-                "id": data.id,
-                "name": data.name,
-                "description": data.description,
-                "price": data.price,
-                "category": data.category
-                }}), 200
+        return jsonify({"item": {
+            "id": item["id"],
+            "name": item["name"],
+            "description": item["description"],
+            "price": item["price"],
+            "category": item["category"],
+        }}), 200
     
     except Exception as e:
         return jsonify({"error": "Something went wrong", "details": str(e)}), 500
 
     
-# ONLY ADMIN CAN UTILIZE THESE ENDPOINTS
+# ONLY ADMIN CAN UTILIZE THESE ENDPOINTS 
 
 # Adding a new menu item
 @menu_bp.post("/item")
 @jwt_required()
 def create_item():
     try:
-        claims = get_jwt() 
 
-        if claims.get("is_staff") == True:
+        claims = get_jwt()
+
+        if claims.get["is_staff"]:
             data = request.get_json()
 
-            if not all(key in data for key in ["name", "description", "price", "category"]):
-                return jsonify({"error": "Missing required fields"}), 400
-            
-            new_item = MenuItem(
-                name = data.get("name"),
-                description = data.get("description"),
-                price = data.get("price"),
-                category = data.get("category")
-            )
+            if not data or not all(key in data for key in ["name", "description", "price", "category"]):
+                return jsonify({"error": "Missing required fields!"}), 400
 
-            new_item.save()
+            menu_item = {
+                "name": data["name"],
+                "description": data["description"],
+                "price": data["price"],
+                "category": data["category"]
+            }
 
-            return jsonify({"messege": "New menu item added successfully"}), 201
+            supabase.table("Menu_Item").insert(menu_item).execute()
+
+            return jsonify({"message": "New menu item added successfully!"}), 201
         
-        return jsonify({"error": "Access forbidden: Only staff can add menu items"}), 403
+        return jsonify({"error": "Access forbidden: Only staff can add menu items!"}), 403
 
     except Exception as e:
         return jsonify({"error": "Something went wrong", "details": str(e)}), 500
@@ -102,39 +90,36 @@ def create_item():
 @jwt_required()
 def update_item(id):
     try:
-        claims = get_jwt() 
 
-        if claims.get("is_staff") == True:
+        claims = get_jwt()
+
+        if claims.get["is_staff"]:
             data = request.get_json()
+            response = supabase.table("Menu_Item").select("*").eq("id", id).execute()
 
             if not data:
-                return jsonify({"error": "No data provided"}), 400
+                return jsonify({"error": "No data provided!"}), 400
             
-            item = MenuItem.query.get(id)
-
-            if not item:
-                return jsonify({"error": "Item not found"}), 404
+            if not response.data:
+                return jsonify({"error": "Item not found!"}), 404
             
-            item.name = data.get("name", item.name)
-            item.description = data.get("description", item.description)
-            item.price = data.get("price", item.price)
-            item.category = data.get("category", item.category)
+            item = response.data[0]
 
-            item.save()
+            update_item = {
+                "name": data.get("name", item["name"]),
+                "description": data.get("description", item["description"]),
+                "price": data.get("price", item["price"]),
+                "category": data.get("category", item["category"]),
+            }
 
-            return jsonify({"message": "Update successful", "item": {
-                "id": item.id,
-                "name": item.name,
-                "description": item.description,
-                "price": item.price,
-                "category": item.category
-            }}), 200
+            update_response = supabase.table("Menu_Item").update(update_item).eq("id", id).execute()
+
+            return jsonify({"message": "Item update successfully!", "item" : update_response}), 200
         
-        return jsonify({"error": "Access forbidden: Only staff can update menu items"}), 403
+        return jsonify({"error": "Access forbidden: Only staff can add menu items!"}), 403
     
     except Exception as e:
         return jsonify({"error": "Something went wrong", "details": str(e)}), 500
-
 
 
 # Delete a menu item by name
@@ -142,21 +127,24 @@ def update_item(id):
 @jwt_required()
 def delete_item(id):
     try:
-        claims = get_jwt() 
 
-        if claims.get("is_staff") == True:
-            item = MenuItem.query.get(id)
+        claims = get_jwt()
 
-            if not item:
-                return jsonify({"error": "Item not found"}), 404
+        if claims.get("is_staff"):
+            response = supabase.table("Menu_Item").select("*").eq("id", id).execute()
 
-            item.delete()
+            if not response.data:
+                return jsonify({"error": "Item not found!"}), 404
+
+            supabase.table("Menu_Item").delete().eq("id", id).execute()
             
-            return jsonify({"messege": "Item delete successfully"}), 200
-        
-        return jsonify({"error": "Access forbidden: Only staff can delete menu items"}), 403
+            return jsonify({"message": "Item deleted successfully!"}), 200
+
+        return jsonify({"error": "Access forbidden: Only staff can add menu items!"}), 403
+
     except Exception as e:
         return jsonify({"error": "Something went wrong", "details": str(e)}), 500
+
 
 
 

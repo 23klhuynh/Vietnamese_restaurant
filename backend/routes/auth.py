@@ -1,5 +1,6 @@
+import os
 from flask import Blueprint, jsonify, request
-from app import supabase
+from config import supabase
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import (create_access_token, 
                                 create_refresh_token, 
@@ -30,25 +31,13 @@ def register_user():
     new_user = {
         "username": username,
         "email": email,
-        "password": password
+        "password": password,
+        "is_staff": False
     }
 
     response = supabase.table("Users").insert(new_user).execute()
 
-
-    return jsonify({"message": "New user created successfully", "complete": response.data}), 201
-
-    """ data = request.get_json()
-    user = User.get_user_by_username(username=data.get("username"))
-    if user is not None:
-        return jsonify({"error": "Username is already exist!"}), 409
-    new_user = User(
-        username = data.get("username"),
-        email = data.get("email")
-    )
-    new_user.set_password(password=data.get("password"))
-    new_user.save()
-    return jsonify({"message": "New user created successfully"}), 201 """
+    return jsonify({"message": "New user created successfully!", "complete": response.data}), 201
     
 
 @auth_bp.post("/login")
@@ -77,27 +66,12 @@ def login_user():
     refresh_token = create_refresh_token(identity=user["username"])
 
     return jsonify({
-            "message": "Logged in successfully",
+            "message": "Logged in successfully!",
             "token_pair": {
                 "access": access_token,
                 "refresh": refresh_token
             }
         }), 200
-
-    """ data = request.get_json()
-    user = User.get_user_by_username(username=data.get("username"))
-    if user and user.check_password(password=data.get("password")):
-        access_token = create_access_token(identity=user.username)
-        refresh_token = create_refresh_token(identity=user.username)
-        return jsonify({
-            "message": "Logged in",
-            "token_pair": {
-                "access": access_token,
-                "refresh": refresh_token
-            }
-        }), 200
-    #call the clean up function for the expire token in the TokenBlocklist
-    return jsonify({"error": "username or password is invalid!"}), 400 """
 
 
 @auth_bp.get("/get_user")
@@ -106,7 +80,7 @@ def get_user():
 
     user_info = get_jwt_identity()
 
-    return jsonify({"message": "User details fetched successfully", 
+    return jsonify({"message": "User details fetched successfully!", 
                     "user_details":{
                     "username": user_info["username"], 
                     "email": user_info["email"]
@@ -130,7 +104,36 @@ def logout_user():
     response = supabase.table("Token_Blocklist").insert({"jti": jti, "token_type":token_type}).execute()
 
     if response.status_code != 201:
-        return jsonify({"error": "Failed to block token"}), 500
+        return jsonify({"error": "Failed to block token!"}), 500
 
-    return jsonify({"message": f"{token_type} token revoked successfully"}), 200
+    return jsonify({"message": f"{token_type} token revoked successfully!"}), 200
 
+# CREATE ADMIN ONLY (THERE SHOULD ONLY BE ONE ADMIN)
+@auth_bp.post("/create_admin")
+def create_admin_user():
+    data = request.get_json()
+
+    admin_username = os.environ.get("ADMIN")
+    admin_email = os.environ.get("EMAIL")
+    admin_password = os.environ.get("PASSWORD")
+
+    if data.get("username") == admin_username and data.get("email") == admin_email and data.get("password") == admin_password:
+
+        response = supabase.table("Users").select("id").eq("username", admin_username).execute()
+        if response.data:
+            return jsonify({"message": "Admin already exists!"}), 400
+        
+        hashed_password = generate_password_hash(admin_password)
+
+        admin_data = {
+            "username": admin_username,
+            "email": admin_email,
+            "password": hashed_password,
+            "is_staff": True
+        }
+
+        supabase.table("Users").insert(admin_data).execute()
+
+        return jsonify({"message": "ADMIN CREATED SUCCESSFULLY!"}), 200
+    
+    return jsonify({"error": "CANNOT CREATE ADMIN!"}), 403
