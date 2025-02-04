@@ -12,16 +12,16 @@ html {
   --primary-color: #fcd7ad;
   --secondary-color: #91c7b1;
 }
-h1{
+h1 {
   font-size: 3.7vw;
 }
-h2{
+h2 {
   font-size: 2.3vw;
 }
-p{
+p {
   font-size: 1.8vw;
 }
-h3{
+h3 {
   font-size: 1.2vw;
 }
 
@@ -29,7 +29,7 @@ h3{
   position: relative;
   height: 100vh;
   background-image: url(https://assets.vogue.com/photos/5a3aac8f0193fe386b1e3898/master/w_2560%2Cc_limit/vietnamese-food-holding.jpg);
-  filter: brightness(1);
+  /* filter: brightness(0.8); */
   clip-path: polygon(
     100% 0%,
     0% 0%,
@@ -86,6 +86,16 @@ h3{
     100% 91.29%
   );
 }
+.home-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
 
 /* NAVBAR */
 .navbar {
@@ -98,7 +108,7 @@ h3{
   top: 0;
   transition: background-color 0.5s;
   height: 80px;
-  padding: 0 50px;
+  padding: 0 46px;
   z-index: 1000;
 }
 .navbar--default {
@@ -121,20 +131,27 @@ h3{
 .navbar__item:focus {
   color: var(--primary-color);
 }
+.navbar__contact-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  height: 60%;
+}
 .navbar__contact {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
   transition: background-color 0.5s;
   cursor: pointer;
   background-color: var(--primary-color);
   color: black;
   font-weight: 600;
-  height: 60%;
+  height: 100%;
   padding: 10px 15px;
-  border-radius: 10px;
+  border-radius: 20%;
 }
-.navbar__contact:hover{
+.navbar__contact:hover {
   background-color: var(--secondary-color);
 }
 .navbar__icon img {
@@ -157,7 +174,8 @@ h3{
   color: white;
   justify-content: flex-start;
   align-items: flex-start;
-  min-height: 100vh;
+  height: 100%;
+  overflow: hidden;
   padding-left: 25px;
   background-color: black;
   border-top: 1px solid gray;
@@ -246,7 +264,6 @@ h3{
   gap: 5px;
 }
 
-
 /* ABOUT US */
 
 .about {
@@ -333,17 +350,17 @@ h3{
 
 /* media query */
 @media screen and (max-width: 1000px) {
-  h1{
+  h1 {
     font-size: 6vmax;
   }
-  h2{
+  h2 {
     font-size: 3vmax;
   }
-  p{
+  p {
     font-size: 2vmax;
   }
-  h3{
-    font-size: 1vw;
+  h3 {
+    font-size: 1.5vmax;
   }
   .welcome-section {
     width: 100%;
@@ -367,41 +384,35 @@ h3{
     border-radius: 0;
   }
 }
+
 @media screen and (min-width: 800px) {
-  .navbar__mobile-icon {
+  .navbar__mobile-icon, .navbar__sidebar {
     display: none;
   }
 }
 
 @media screen and (max-width: 800px) {
   .navbar__link,
-  .navbar__items,
-  .navbar__facebook-link {
+  .navbar__items{
     display: none;
   }
-  /* .welcome-section {
-    width: 100%;
-  }
-  .welcome-section__container {
-    text-align: center;
-  }
-  .welcome-section__container .btn-menu {
-    align-self: center;
-  } */
   .items {
     width: 100%;
   }
   .navbar__icon-img {
     display: none;
   }
-}
-
-@media screen and (max-width: 700px) {
+  .home-container {
+    height: 80vh;
+  }
   .about {
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
+}
+
+@media screen and (max-width: 700px) {
   .items {
     grid-template-columns: repeat(1, 1fr);
   }

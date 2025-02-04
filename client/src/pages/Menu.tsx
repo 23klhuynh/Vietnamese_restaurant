@@ -8,7 +8,7 @@ function Menu() {
         <img
           src="https://assets.vogue.com/photos/5a3aac8f0193fe386b1e3898/master/w_2560%2Cc_limit/vietnamese-food-holding.jpg"
           alt=""
-          className="w-full h-[350px] object-cover"
+          className="w-full h-[350px] object-cover menu__bg"
         />
       </div>
 

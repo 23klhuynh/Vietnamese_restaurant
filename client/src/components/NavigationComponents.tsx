@@ -1,4 +1,6 @@
-import { useNavigate } from "react-router-dom";
+/* NEED TO IMPORT THIS TO THE NAVBAR */
+
+/* import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 type TargetId = "home" | "contact" | "menu" | "about"; 
@@ -21,4 +23,4 @@ const handleNavigation = (targetId: TargetId) => {
 const handleAllClicks = (targetId: TargetId) => {
   handleNavigation(targetId);
   setIsOpen(!isOpen);
-};
+}; */

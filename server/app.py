@@ -2,8 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from dotenv import load_dotenv
 from extensions import jwt
-from routes.auth import auth_bp
-from routes.menu import menu_bp
+from routes import auth_bp, menu_bp
 from jwt_handlers import *
 
 load_dotenv()

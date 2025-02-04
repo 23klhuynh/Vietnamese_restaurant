@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 import FacebookLink from "../fragments/FacebookLink";
 import NavbarNavigation from "../fragments/NavbarNavigation";
 import Sidebar from "../fragments/Sidebar";
+/* import {handleNavigation, handleAllClicks} from  */
 import Logo from "../assets/PhoVietLogo.png";
+import { debounce } from "lodash";
 
 interface NavbarProps {
   scroll: boolean;
@@ -33,6 +35,23 @@ const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
     setIsOpen(!isOpen);
   };
 
+  const handleResizeNavbar = useCallback(
+    debounce(() => {
+      if (window.innerWidth > 800) {
+        setIsOpen(false);
+      }
+    }, 200),
+    []
+  );
+
+  useEffect(() => {
+    handleResizeNavbar();
+    window.addEventListener("resize", handleResizeNavbar);
+    return () => {
+      window.removeEventListener("resize", handleResizeNavbar);
+    };
+  }, []);
+
   return (
     <nav
       className={`navbar ${scroll ? "navbar--scrolled" : "navbar--default"} ${
@@ -41,11 +60,7 @@ const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
     >
       <div className="navbar__icon cursor-pointer">
         <RouterLink to="/">
-          <img
-            src={Logo}
-            alt="Pho icon"
-            className="navbar__icon-img"
-          />
+          <img src={Logo} alt="Pho icon" className="navbar__icon-img" />
         </RouterLink>
         <div className="navbar__mobile">
           {isOpen ? (
@@ -65,8 +80,9 @@ const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
       <NavbarNavigation onNavigate={handleNavigation} />
 
       <Sidebar open={isOpen} onNavigate={handleAllClicks} />
-
+      
       <FacebookLink />
+      
     </nav>
   );
 };
