@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
+import Login from "./pages/Login";
 import Layout from "./components/Layout";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
           <Route index element={<Home />} /> 
           <Route path="menu" element={<Menu />} />
         </Route>
+        <Route path="login" element={<Login/>}/>
       </Routes>
     </>
   );
