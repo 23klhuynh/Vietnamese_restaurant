@@ -19,7 +19,7 @@ def get_all_menu_items():
             else:
                 sort_by_category[category].append(item)
         
-            return jsonify({"data" : sort_by_category}), 200
+        return jsonify({"data" : sort_by_category}), 200
 
     except KeyError as e:
         return jsonify({"error": f"Missing field: {str(e)}"}), 400
@@ -59,10 +59,9 @@ def get_item(id):
 @jwt_required()
 def create_item():
     try:
-
         claims = get_jwt()
 
-        if claims.get["is_staff"]:
+        if claims.get("is_staff"):
             data = request.get_json()
 
             if not data or not all(key in data for key in ["name", "description", "price", "category"]):
@@ -93,7 +92,7 @@ def update_item(id):
 
         claims = get_jwt()
 
-        if claims.get["is_staff"]:
+        if claims.get("is_staff"):
             data = request.get_json()
             response = supabase.table("Menu_Item").select("*").eq("id", id).execute()
 
