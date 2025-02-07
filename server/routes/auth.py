@@ -54,13 +54,13 @@ def login_user():
     response = supabase.table("Users").select("username, password").eq("username", username).execute()
 
     if not response.data:
-        return jsonify({"error": "Invalid username or password!"}), 400
+        return jsonify({"error": "Invalid username or password!"}), 401
     
     user = response.data[0]
     stored_hashed_password = user["password"]
 
     if not check_password_hash(stored_hashed_password, password):
-        return jsonify({"error": "Invalid username or password!"}), 400
+        return jsonify({"error": "Invalid username or password!"}), 401
     
     access_token = create_access_token(identity=user["username"])
     refresh_token = create_refresh_token(identity=user["username"])

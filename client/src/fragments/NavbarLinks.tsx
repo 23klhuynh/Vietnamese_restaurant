@@ -1,7 +1,7 @@
 import { FaFacebook } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-function FacebookLink() {
+function NavbarLinks({}) {
   return (
     <div className="navbar__contact-container">
       <a
@@ -12,11 +12,14 @@ function FacebookLink() {
       >
         <FaFacebook className="navbar__facebook-icon text-blue-600 text-2xl md:text-2xl lg:text-3xl xl:text-3xl" />
       </a>
+
       <button className="navbar__contact">
-        <Link to="/login" className="navbar__facebook-link">Sign In</Link>
+        <Link to="/login" className="navbar__facebook-link">
+          Sign In
+        </Link>
       </button>
     </div>
   );
 }
 
-export default FacebookLink;
+export default NavbarLinks;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
@@ -13,7 +13,7 @@ function Register() {
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,20 +24,13 @@ function Register() {
       !formInfo.email
     ) {
       console.log("Invalid info");
-      setError("The information is invalid. Please check!");
+      setError("The information is invalid. Please try again!");
       return; /* prevent submission */
     }
-    setError("Submission successful");
-    setFormInfo({
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    });
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:5000/auth/register", /* when deploy need to change this for BACKEND */
+        "http://127.0.0.1:5000/auth/register" /* when deploy need to change this for BACKEND */,
         {
           username: formInfo.username,
           email: formInfo.email,
@@ -49,17 +42,32 @@ function Register() {
           },
         }
       );
-
-      console.log(response.data);
-      navigate("/login");
+      if (response.data === 200) {
+        setError("Submission successful");
+        setFormInfo({
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+        navigate("/login");
+      }
     } catch (error) {
-      console.error(error);
+      const axiosError = error as AxiosError<{ error: string }>;
+      if (axiosError.response) {
+        if (axiosError.response.status === 409) {
+          setError("Account already exists!");
+        } else if (axiosError.response.status === 400) {
+          setError("Missing input!");
+        } else {
+          setError("An unexpected error occurred!");
+        }
+      }
     }
     /* MonsterLegend */
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormInfo({ ...formInfo, [e.target.name]: e.target.value });
-    setError("");
   };
 
   return (

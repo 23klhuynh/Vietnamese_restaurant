@@ -1,13 +1,13 @@
-import { useState } from "react";
-import axios from "axios";
+import React, { useState} from "react";
+import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
-/* NEED TO WORK ON THIS, why the error not showing up*/
+
 function Login() {
   const [formInfo, setFormInfo] = useState({ username: "", password: "" });
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,11 +28,20 @@ function Login() {
         setError("");
         setFormInfo({ username: "", password: "" });
         navigate("/");
-      } else {
-        setError("Invalid password or username!");
       }
+
+      /* Storing the jwt token in cookies session storage */
     } catch (error) {
-      console.error(error);
+      const axiosError = error as AxiosError<{ error: string }>;
+      if (axiosError.response) {
+        if (axiosError.response.status === 401) {
+          setError("Invalid password or username!");
+        } else if (axiosError.response.status === 400) {
+          setError("Missing input!");
+        } else {
+          setError("An unexpected error occurred!");
+        }
+      }
     }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,9 +92,16 @@ function Login() {
               </Link>
             </small>
           </div>
+          <div className="link">
+            <small>
+              Not interested in logging in?{" "}
+              <Link to="/" className="register-link">
+                Continue as Guest
+              </Link>
+            </small>
+          </div>
         </form>
       </section>
-
       <section className="login__image"></section>
     </main>
   );

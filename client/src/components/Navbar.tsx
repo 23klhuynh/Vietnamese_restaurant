@@ -3,7 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import FacebookLink from "../fragments/FacebookLink";
+import NavbarLinks from "../fragments/NavbarLinks";
 import NavbarNavigation from "../fragments/NavbarNavigation";
 import Sidebar from "../fragments/Sidebar";
 /* import {handleNavigation, handleAllClicks} from  */
@@ -15,7 +15,7 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const routeToTargetIdMap: { [key: string]: string } = {
@@ -76,13 +76,9 @@ const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
           )}
         </div>
       </div>
-
       <NavbarNavigation onNavigate={handleNavigation} />
-
       <Sidebar open={isOpen} onNavigate={handleAllClicks} />
-      
-      <FacebookLink />
-      
+      <NavbarLinks /> 
     </nav>
   );
 };
