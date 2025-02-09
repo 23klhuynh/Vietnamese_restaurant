@@ -1,4 +1,5 @@
 /* NEED to change the data fetching */
+/* Not need rightnow but need to use this as the menu items section */
 import { useState, useEffect } from "react";
 import axios from "axios";
 import MenuItem from "../components/MenuItem";

@@ -1,9 +1,11 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
 import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
+
+/* how to retrieve the token */
 
 function Login() {
   const [formInfo, setFormInfo] = useState({ username: "", password: "" });
@@ -21,6 +23,7 @@ function Login() {
           headers: {
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
 
@@ -29,8 +32,6 @@ function Login() {
         setFormInfo({ username: "", password: "" });
         navigate("/");
       }
-
-      /* Storing the jwt token in cookies session storage */
     } catch (error) {
       const axiosError = error as AxiosError<{ error: string }>;
       if (axiosError.response) {
@@ -46,7 +47,6 @@ function Login() {
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormInfo({ ...formInfo, [e.target.name]: e.target.value });
-    setError("");
   };
 
   return (

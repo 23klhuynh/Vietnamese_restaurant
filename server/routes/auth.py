@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, make_response
 from config import supabase
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import (create_access_token, 
@@ -65,6 +65,9 @@ def login_user():
     access_token = create_access_token(identity=user["username"])
     refresh_token = create_refresh_token(identity=user["username"])
 
+    response = make_response(jsonify({"message": "Logged in successfully"}))
+    response.set_cookie("access_token", access_token, httponly=True, secure=True, samesite="Lax", max_age=3600)
+
     return jsonify({
             "message": "Logged in successfully!",
             "token_pair": {
@@ -72,10 +75,20 @@ def login_user():
                 "refresh": refresh_token
             }
         }), 200
+    """ return response, 200 """
+
+
+# This line for the protected token send to the frontend
+@auth_bp.get("/protected")
+@jwt_required()
+def protected():
+    current_user = get_jwt_identity()
+    return jsonify({"message": "Protected content", "user": current_user}), 200
+
 
 
 @auth_bp.get("/get_user")
-@jwt_required
+@jwt_required()
 def get_user():
 
     user_info = get_jwt_identity()
@@ -105,8 +118,14 @@ def logout_user():
 
     if response.status_code != 201:
         return jsonify({"error": "Failed to block token!"}), 500
+    
+    response = make_response(jsonify({"message": "Logged out successfully!"}))
+    response.set_cookie("access_token", "", expires=0, httponly=True, secure=True, samesite="Strict")
+    return response, 200
 
-    return jsonify({"message": f"{token_type} token revoked successfully!"}), 200
+    """ return jsonify({"message": f"{token_type} token revoked successfully!"}), 200 """
+
+
 
 # CREATE ADMIN ONLY (THERE SHOULD ONLY BE ONE ADMIN)
 @auth_bp.post("/create_admin")

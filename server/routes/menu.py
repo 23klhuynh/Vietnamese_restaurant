@@ -16,8 +16,7 @@ def get_all_menu_items():
             category = item["category"]
             if category not in sort_by_category:
                 sort_by_category[category] = []
-            else:
-                sort_by_category[category].append(item)
+            sort_by_category[category].append(item)
         
         return jsonify({"data" : sort_by_category}), 200
 

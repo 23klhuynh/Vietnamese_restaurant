@@ -1,21 +1,40 @@
-import { Link as ScrollLink } from "react-scroll";
+import { useState, useEffect } from "react";
+import axios, { AxiosError } from "axios";
+import { Link as ScrollLink, Element } from "react-scroll";
 /* import MenuItemSection from "../components/MenuItemSection"; */
 
 function Menu() {
+  const [menuItems, setMenuItems] = useState<{ [key: string]: any[] }>({});
+
+  useEffect(() => {
+    const fetchAllMenuItem = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:5000/menu/all_menu");
+
+        setMenuItems(response.data.data);
+      } catch (error) {
+        const axiosError = error as AxiosError<{ error: string }>;
+
+        if (axiosError.response?.status === 400) {
+          console.log("Missing fields!");
+        } else if (axiosError.response?.status === 500) {
+          console.log("Something went wrong!");
+        } else {
+          console.log("Unexpected error!");
+        }
+      }
+    };
+
+    fetchAllMenuItem();
+  }, []);
+
   return (
     <div className="menu" id="menu">
-      <div className="menu-header w-full h-[350px]">
-        <img
-          src="https://assets.vogue.com/photos/5a3aac8f0193fe386b1e3898/master/w_2560%2Cc_limit/vietnamese-food-holding.jpg"
-          alt=""
-          className="w-full h-[350px] object-cover menu__bg"
-        />
-      </div>
-
+      <div className="menu-img"></div>
       <ul className="menu__search">
         <li className="menu__search-item">
           <ScrollLink
-            to="appetizer"
+            to="Appetizers"
             spy={true}
             smooth={true}
             offset={-120}
@@ -26,18 +45,18 @@ function Menu() {
         </li>
         <li className="menu__search-item">
           <ScrollLink
-            to="main"
+            to="Noodles"
             spy={true}
             smooth={true}
             offset={-120}
             duration={100}
           >
-            Main Course
+            Noodles
           </ScrollLink>
         </li>
         <li className="menu__search-item">
           <ScrollLink
-            to="sandwich"
+            to="Sandwich"
             spy={true}
             smooth={true}
             offset={-120}
@@ -48,7 +67,7 @@ function Menu() {
         </li>
         <li className="menu__search-item">
           <ScrollLink
-            to="vetetarian"
+            to="Vetetarian"
             spy={true}
             smooth={true}
             offset={-120}
@@ -59,7 +78,7 @@ function Menu() {
         </li>
         <li className="menu__search-item">
           <ScrollLink
-            to="beverage"
+            to="Beverage"
             spy={true}
             smooth={true}
             offset={-120}
@@ -70,14 +89,24 @@ function Menu() {
         </li>
       </ul>
 
-      {/* <div className="menu-categories">
-        <MenuItemSection title="Appetizers" category="appetizer" />
-        <MenuItemSection title="Main Course" category="main" />
-        <MenuItemSection title="Sandwiches" category="sandwich" />
-        <MenuItemSection title="Vegetarian" category="Vegetarian" />
-        <MenuItemSection title="Beverages" category="beverage" />
-      </div> */}
-
+      <section className="menu-item-container">
+        {Object.keys(menuItems).map((category) => (
+          <div key={category} className="menu-category">
+            <Element name={category}>
+              <h2 className="menu-header">{category}</h2>
+              <div className="menu-items">
+                {menuItems[category].map((item) => (
+                  <div key={item.id} className="menu-item">
+                    <p>{item.name}</p>
+                    <h3>{item.description}</h3>
+                    <h3>${item.price}</h3>
+                  </div>
+                ))}
+              </div>
+            </Element>
+          </div>
+        ))}
+      </section>
     </div>
   );
 }
