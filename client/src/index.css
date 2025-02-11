@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Merriweather', serif;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -31,7 +31,10 @@ h3 {
 .home-container {
   position: relative;
   height: 100vh;
-  background-image: url(https://assets.vogue.com/photos/5a3aac8f0193fe386b1e3898/master/w_2560%2Cc_limit/vietnamese-food-holding.jpg);
+  background-image: url("./assets/bg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   /* filter: brightness(0.8); */
   clip-path: polygon(
     100% 0%,
@@ -89,7 +92,7 @@ h3 {
     100% 91.29%
   );
 }
-.home-container::before {
+.home-container::before, .menu-img::before {
   content: "";
   position: absolute;
   top: 0;
@@ -98,6 +101,9 @@ h3 {
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1;
+}
+.menu-img::before{
+  height: 350px;
 }
 
 /* NAVBAR */
@@ -290,7 +296,7 @@ h3 {
 /* menu section */
 .menu-img{
   height: 350px;
-  background-image: url(https://assets.vogue.com/photos/5a3aac8f0193fe386b1e3898/master/w_2560%2Cc_limit/vietnamese-food-holding.jpg);
+  background-image: url("./assets/bg.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -565,6 +571,9 @@ h3 {
     flex-direction: column;
     gap: 20px;
   }
+  .menu-items{
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 @media screen and (max-width: 700px) {
@@ -575,5 +584,8 @@ h3 {
     height: 80%;
     padding: 5px 15px;
     font-size: small;
+  }
+  .menu-items{
+    width: 95%;
   }
 }

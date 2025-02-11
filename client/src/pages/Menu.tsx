@@ -6,6 +6,8 @@ import { Link as ScrollLink, Element } from "react-scroll";
 function Menu() {
   const [menuItems, setMenuItems] = useState<{ [key: string]: any[] }>({});
 
+  const categoryOrder = ["Appetizers", "Sandwiches", "Noodles", "House Specials", "Vegetarian", "Beverages"];
+
   useEffect(() => {
     const fetchAllMenuItem = async () => {
       try {
@@ -45,6 +47,17 @@ function Menu() {
         </li>
         <li className="menu__search-item">
           <ScrollLink
+            to="Sandwiches"
+            spy={true}
+            smooth={true}
+            offset={-120}
+            duration={100}
+          >
+            Sandwiches
+          </ScrollLink>
+        </li>
+        <li className="menu__search-item">
+          <ScrollLink
             to="Noodles"
             spy={true}
             smooth={true}
@@ -56,18 +69,19 @@ function Menu() {
         </li>
         <li className="menu__search-item">
           <ScrollLink
-            to="Sandwich"
+            to="House Specials"
             spy={true}
             smooth={true}
             offset={-120}
             duration={100}
           >
-            Sandwiches
+            House Specials
           </ScrollLink>
         </li>
+        
         <li className="menu__search-item">
           <ScrollLink
-            to="Vetetarian"
+            to="Vegetarian"
             spy={true}
             smooth={true}
             offset={-120}
@@ -78,7 +92,7 @@ function Menu() {
         </li>
         <li className="menu__search-item">
           <ScrollLink
-            to="Beverage"
+            to="Beverages"
             spy={true}
             smooth={true}
             offset={-120}
@@ -90,16 +104,16 @@ function Menu() {
       </ul>
 
       <section className="menu-item-container">
-        {Object.keys(menuItems).map((category) => (
+        {categoryOrder.map((category) => (
           <div key={category} className="menu-category">
             <Element name={category}>
               <h2 className="menu-header">{category}</h2>
               <div className="menu-items">
-                {menuItems[category].map((item) => (
+                {menuItems[category]?.map((item) => (
                   <div key={item.id} className="menu-item">
                     <p>{item.name}</p>
-                    <h3>{item.description}</h3>
-                    <h3>${item.price}</h3>
+                    <h3 style={{color:"rgba(0, 0, 0, 0.4)"}}>{item.description}</h3>
+                    <h3 style={{color:"rgba(0, 0, 0, 0.4)"}}>${item.price}</h3>
                   </div>
                 ))}
               </div>
