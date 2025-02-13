@@ -4,10 +4,9 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ open, onNavigate }) => {
-  if (!open) return null;
 
   return (
-    <ul className="navbar__sidebar">
+    <ul className={`navbar__sidebar ${open ? "open": ""}`}>
       {["home", "menu", "contact", "about"].map((item) => (
         <li className="navbar__sidebar-item cursor-pointer" key={item}>
           <button onClick={() => onNavigate(item)}>{item.toUpperCase()}</button>

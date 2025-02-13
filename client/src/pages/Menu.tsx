@@ -113,7 +113,7 @@ function Menu() {
                   <div key={item.id} className="menu-item">
                     <p>{item.name}</p>
                     <h3 style={{color:"rgba(0, 0, 0, 0.4)"}}>{item.description}</h3>
-                    <h3 style={{color:"rgba(0, 0, 0, 0.4)"}}>${item.price}</h3>
+                    <h3 style={{color:"rgba(0, 0, 0, 0.4)"}}>${item.price.toFixed(2)}</h3>
                   </div>
                 ))}
               </div>

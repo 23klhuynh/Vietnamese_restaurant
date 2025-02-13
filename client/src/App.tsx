@@ -4,10 +4,11 @@ import Menu from "./pages/Menu";
 import Login from "./pages/Login";
 import Layout from "./components/Layout";
 import Register from "./pages/Register";
+import { AuthProvider } from "./fragments/AuthContext";
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <Routes>
         <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>}>
           <Route index element={<Home />} /> 
@@ -16,7 +17,7 @@ function App() {
         <Route path="login" element={<Login/>}/>
         <Route path="register" element={<Register/>}/>
       </Routes>
-    </>
+    </AuthProvider>
   );
 }
 

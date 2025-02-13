@@ -66,16 +66,16 @@ def login_user():
     refresh_token = create_refresh_token(identity=user["username"])
 
     response = make_response(jsonify({"message": "Logged in successfully"}))
-    response.set_cookie("access_token", access_token, httponly=True, secure=True, samesite="Lax", max_age=3600)
+    response.set_cookie("access_token", access_token, httponly=True, secure=False, samesite="Lax", max_age=3600)
 
-    return jsonify({
+    """ return jsonify({
             "message": "Logged in successfully!",
             "token_pair": {
                 "access": access_token,
                 "refresh": refresh_token
             }
-        }), 200
-    """ return response, 200 """
+        }), 200 """
+    return response, 200
 
 
 # This line for the protected token send to the frontend

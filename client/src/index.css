@@ -130,6 +130,10 @@ h3 {
   background-color: black;
   transition: none;
 }
+.navbar__left{
+  display: flex;
+  gap: 40px;
+}
 .navbar__items {
   display: flex;
   justify-content: center;
@@ -157,13 +161,14 @@ h3 {
   color: black;
   font-weight: 600;
   height: 100%;
-  padding: 10px 20px;
-  border-radius: 15px;
+  /* padding: 10px 20px; */
+  border-radius: 40px;
+  min-width: 120px;
 }
 .navbar__contact:hover {
   background-color: var(--secondary-color);
 }
-.navbar__icon img {
+.navbar__left img {
   height: 60px;
   width: 60px;
 }
@@ -173,8 +178,8 @@ h3 {
 /* mobile navbar */
 .navbar__sidebar {
   position: fixed;
-  width: 100%;
   display: flex;
+  width: 0;
   flex-direction: column;
   gap: 10px;
   top: 80px;
@@ -185,12 +190,15 @@ h3 {
   align-items: flex-start;
   height: 100%;
   overflow: hidden;
-  padding-left: 25px;
   background-color: black;
   border-top: 1px solid gray;
+  transition: width 0.5s ease-in-out;
+}
+.navbar__sidebar.open{
+  width: 100%;
 }
 .navbar__sidebar-item {
-  padding: 25px;
+  padding: 25px 50px;
 }
 
 /* description */
@@ -209,16 +217,16 @@ h3 {
   flex-direction: column;
   gap: 20px;
 }
-.welcome-section__container > h1 {
+.welcome-section__container h1 {
   font-size: clamp(25px, 8vw, 45px);
   font-weight: 800;
   white-space: nowrap;
 }
-.welcome-section__container > h3 {
+.welcome-section__container h3 {
   font-size: clamp(18px, 6vw, 28px);
   font-weight: 400;
 }
-.welcome-section__container .btn-menu {
+.welcome-section__container .welcome-section__btn {
   background-color: var(--primary-color);
   padding: 5px 20px;
   color: black;
@@ -227,8 +235,8 @@ h3 {
   align-self: flex-start;
   border-radius: 10px;
 }
-.welcome-section__container .btn-menu:hover,
-.welcome-section__container .btn-menu:focus {
+.welcome-section__container .welcome-section__btn:hover,
+.welcome-section__container .welcome-section__btn:focus {
   background-color: var(--secondary-color);
 }
 
@@ -353,39 +361,8 @@ h3 {
   padding: 20px;
   border-radius: 20px;
   cursor: pointer;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
 }
-
-/* .content {
-  padding-top: 20px;
-}
-.content__title {
-  text-align: center;
-}
-.items {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  place-items: center;
-  padding: 20px;
-  width: 80%;
-  margin: 0 auto;
-}
-.menu__item {
-  padding: 30px;
-  border: 1px solid rgb(207, 207, 207);
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  width: 100%;
-  height: 100%;
-}
-.menu__item-description {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-} */
 
 /* LOGIN PAGE and Register*/
 .login {
@@ -498,13 +475,20 @@ h3 {
   h3 {
     font-size: 1.5vmax;
   }
+  .navbar__link,
+  .navbar__items {
+    display: none;
+  }
+  .navbar__left-img {
+    display: none;
+  }
   .welcome-section {
     width: 100%;
   }
   .welcome-section__container {
     text-align: center;
   }
-  .welcome-section__container .btn-menu {
+  .welcome-section__container .welcome-section__btn {
     align-self: center;
   }
   .business-detail {
@@ -545,7 +529,7 @@ h3 {
   }
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 1000px) {
   .navbar__mobile-icon,
   .navbar__sidebar {
     display: none;
@@ -553,15 +537,12 @@ h3 {
 }
 
 @media screen and (max-width: 800px) {
-  .navbar__link,
+  /* .navbar__link,
   .navbar__items {
     display: none;
-  }
+  } */
   .items {
     width: 100%;
-  }
-  .navbar__icon-img {
-    display: none;
   }
   .home-container {
     height: 80vh;

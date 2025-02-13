@@ -58,10 +58,12 @@ const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
         isOpen ? "navbar--clicked" : ""
       }`}
     >
-      <div className="navbar__icon cursor-pointer">
-        <RouterLink to="/">
-          <img src={Logo} alt="Pho icon" className="navbar__icon-img" />
+      <div className="navbar__left cursor-pointer">
+        <RouterLink className="navbar__left-img" to="/">
+          <img src={Logo} alt="Pho icon" />
         </RouterLink>
+
+        <NavbarNavigation onNavigate={handleNavigation} />
         <div className="navbar__mobile">
           {isOpen ? (
             <AiOutlineClose
@@ -76,9 +78,8 @@ const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
           )}
         </div>
       </div>
-      <NavbarNavigation onNavigate={handleNavigation} />
       <Sidebar open={isOpen} onNavigate={handleAllClicks} />
-      <NavbarLinks /> 
+      <NavbarLinks />
     </nav>
   );
 };

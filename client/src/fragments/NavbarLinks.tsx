@@ -1,22 +1,26 @@
-import { FaFacebook } from "react-icons/fa";
+/* import { FaShoppingCart } from "react-icons/fa"; */
 import { Link } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 function NavbarLinks({}) {
+  const {user} = useAuth();
+
   return (
     <div className="navbar__contact-container">
-      <a
-        className="navbar__contact"
-        href="https://www.facebook.com/profile.php?id=61559370593017"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <FaFacebook className="navbar__facebook-icon text-blue-600 text-2xl md:text-2xl lg:text-3xl xl:text-3xl" />
-      </a>
-
-      <button className="navbar__contact">
+      {user ? (<button className="navbar__contact">
+        <Link to="/login" className="navbar__facebook-link">
+          Sign Out
+        </Link>
+      </button>):(
+        <button className="navbar__contact">
         <Link to="/login" className="navbar__facebook-link">
           Sign In
         </Link>
+      </button>
+      )}
+      <button className="navbar__contact">
+        {/* <FaShoppingCart /> */}
+        Order Now
       </button>
     </div>
   );
