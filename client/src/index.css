@@ -140,6 +140,12 @@ h3 {
   align-items: center;
   gap: 20px;
 }
+.navbar__item{
+  cursor: pointer;
+}
+.navbar__item button{
+  cursor: pointer;
+}
 .navbar__item:hover,
 .navbar__item:focus {
   color: var(--primary-color);
@@ -363,6 +369,66 @@ h3 {
   cursor: pointer;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
 }
+/* //////////////////////////////// */
+/* Cart */
+/* ///////////////////////////////// */
+
+.cart{
+  position: absolute;
+  width: 0;
+  height: 100vh; 
+  background-color: whitesmoke;
+  right: 0;
+  top: 0;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: width 0.2s ease-in;
+}
+.cart.open-cart{
+  width: 25%;
+}
+.cart__header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 30px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.cart__order{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: white;
+  padding-top: 50px;
+  gap: 10px;
+}
+.cart__order h3{
+  color:grey;
+}
+.cart__icon{
+  width: 100px;
+  height: 100px;
+  color: grey;
+}
+.cart__order button{
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  width: 50%;
+  border-radius: 50px;
+  font-weight: 800;
+  padding: 5px 15px;
+  background-color: whitesmoke;
+  transition: border 0.2s ease-in-out;
+}
+.cart__order button:hover{
+  border: 2px solid black;
+}
+
+
 
 /* LOGIN PAGE and Register*/
 .login {

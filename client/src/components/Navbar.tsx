@@ -7,6 +7,7 @@ import NavbarLinks from "../fragments/NavbarLinks";
 import NavbarNavigation from "../fragments/NavbarNavigation";
 import Sidebar from "../fragments/Sidebar";
 /* import {handleNavigation, handleAllClicks} from  */
+import Cart from "./cart";
 import Logo from "../assets/PhoVietLogo.png";
 import { debounce } from "lodash";
 
@@ -16,6 +17,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [openCart, setOpenCart] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const routeToTargetIdMap: { [key: string]: string } = {
@@ -79,7 +81,11 @@ const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
         </div>
       </div>
       <Sidebar open={isOpen} onNavigate={handleAllClicks} />
-      <NavbarLinks />
+      <NavbarLinks setOpenCart={setOpenCart}/>
+
+      {openCart && (
+        <Cart openCart={openCart} setOpenCart={setOpenCart}/>
+      )}
     </nav>
   );
 };
