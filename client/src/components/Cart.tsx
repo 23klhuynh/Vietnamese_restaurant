@@ -8,7 +8,7 @@ interface NavbarLinksProps {
 
 function Cart({ openCart, setOpenCart }: NavbarLinksProps) {
   return (
-    <main className={`cart ${openCart ? "open-cart" : ""}`}>
+    <main className={`cart ${openCart ? "open-cart" : "closing-cart"}`}>
       <section className="cart__header">
         <p>My Order</p>
         <AiOutlineClose

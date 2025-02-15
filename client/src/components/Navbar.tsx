@@ -7,7 +7,7 @@ import NavbarLinks from "../fragments/NavbarLinks";
 import NavbarNavigation from "../fragments/NavbarNavigation";
 import Sidebar from "../fragments/Sidebar";
 /* import {handleNavigation, handleAllClicks} from  */
-import Cart from "./cart";
+import Cart from "./Cart";
 import Logo from "../assets/PhoVietLogo.png";
 import { debounce } from "lodash";
 
@@ -53,6 +53,21 @@ const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
       window.removeEventListener("resize", handleResizeNavbar);
     };
   }, []);
+
+  useEffect(()=>{
+    const handleScrolling = () => {
+      if (isOpen){
+        document.body.style.overflow = "hidden";
+      }else{
+        document.body.style.overflow = "auto"
+      }
+    }
+    handleScrolling();
+
+  return () => {
+    document.body.style.overflow = "auto"; 
+  };
+  },[isOpen])
 
   return (
     <nav

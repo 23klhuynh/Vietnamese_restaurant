@@ -2,7 +2,7 @@ node_modules/
 resturant_env/
 __pycache__/
 
-# Logs
+
 logs
 *.log
 npm-debug.log*
@@ -15,8 +15,6 @@ node_modules
 dist
 dist-ssr
 *.local
-
-# Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
