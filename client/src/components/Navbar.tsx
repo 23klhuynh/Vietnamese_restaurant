@@ -54,20 +54,20 @@ const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
     };
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     const handleScrolling = () => {
-      if (isOpen){
+      if (isOpen || openCart) {
         document.body.style.overflow = "hidden";
-      }else{
-        document.body.style.overflow = "auto"
+      } else {
+        document.body.style.overflow = "auto";
       }
-    }
+    };
     handleScrolling();
 
-  return () => {
-    document.body.style.overflow = "auto"; 
-  };
-  },[isOpen])
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen, openCart]);
 
   return (
     <nav
@@ -96,11 +96,13 @@ const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
         </div>
       </div>
       <Sidebar open={isOpen} onNavigate={handleAllClicks} />
-      <NavbarLinks setOpenCart={setOpenCart}/>
-
-      {openCart && (
-        <Cart openCart={openCart} setOpenCart={setOpenCart}/>
+      {!isOpen && (
+        <>
+          <NavbarLinks openCart={openCart} setOpenCart={setOpenCart} />
+          {openCart && <Cart openCart={openCart} setOpenCart={setOpenCart} />}
+        </>
       )}
+      
     </nav>
   );
 };

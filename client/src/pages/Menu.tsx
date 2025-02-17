@@ -1,12 +1,21 @@
 import { useState, useEffect } from "react";
 import axios, { AxiosError } from "axios";
 import { Link as ScrollLink, Element } from "react-scroll";
+import MenuImage from "../assets/bg.jpg";
+import { IoMdAdd } from "react-icons/io";
 /* import MenuItemSection from "../components/MenuItemSection"; */
 
 function Menu() {
   const [menuItems, setMenuItems] = useState<{ [key: string]: any[] }>({});
 
-  const categoryOrder = ["Appetizers", "Sandwiches", "Noodles", "House Specials", "Vegetarian", "Beverages"];
+  const categoryOrder = [
+    "Appetizers",
+    "Sandwiches",
+    "Noodles",
+    "House Specials",
+    "Vegetarian",
+    "Beverages",
+  ];
 
   useEffect(() => {
     const fetchAllMenuItem = async () => {
@@ -32,7 +41,14 @@ function Menu() {
 
   return (
     <div className="menu" id="menu">
-      <div className="menu-img"></div>
+      <div className="menu-img-container">
+        <img
+          className="menu-img"
+          src={MenuImage}
+          alt="menu background image"
+          loading="lazy"
+        />
+      </div>
       <ul className="menu__search">
         <li className="menu__search-item">
           <ScrollLink
@@ -78,7 +94,7 @@ function Menu() {
             House Specials
           </ScrollLink>
         </li>
-        
+
         <li className="menu__search-item">
           <ScrollLink
             to="Vegetarian"
@@ -111,9 +127,16 @@ function Menu() {
               <div className="menu-items">
                 {menuItems[category]?.map((item) => (
                   <div key={item.id} className="menu-item">
-                    <p>{item.name}</p>
-                    <h3 style={{color:"rgba(0, 0, 0, 0.4)"}}>{item.description}</h3>
-                    <h3 style={{color:"rgba(0, 0, 0, 0.4)"}}>${item.price.toFixed(2)}</h3>
+                    <div className="item-header">
+                      <p>{item.name}</p>
+                      <IoMdAdd className="item-add"/>
+                    </div>
+                    <h3 style={{ color: "rgba(0, 0, 0, 0.4)" }}>
+                      {item.description}
+                    </h3>
+                    <h3 style={{ color: "rgba(0, 0, 0, 0.4)" }}>
+                      ${item.price.toFixed(2)}
+                    </h3>
                   </div>
                 ))}
               </div>

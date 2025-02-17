@@ -1,14 +1,15 @@
-/* import { FaShoppingCart } from "react-icons/fa"; */
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 /* import { flatMap } from "lodash"; */
 
 interface NavbarLinksProps {
+  openCart: boolean;
   setOpenCart: (value: boolean) => void;
 }
 
-function NavbarLinks({ setOpenCart }: NavbarLinksProps) {
+function NavbarLinks({ openCart ,setOpenCart }: NavbarLinksProps) {
   const { user } = useAuth();
   const [resize, setResize] = useState<boolean>(window.innerWidth > 1000);
 
@@ -42,9 +43,8 @@ function NavbarLinks({ setOpenCart }: NavbarLinksProps) {
         ))}
       <button
         className="navbar__contact cursor-auto"
-        onClick={() => setOpenCart(true)}
+        onClick={() => setOpenCart(!openCart)}
       >
-        {/* <FaShoppingCart /> */}
         Order Now
       </button>
     </div>

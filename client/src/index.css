@@ -31,11 +31,10 @@ h3 {
 .home-container {
   position: relative;
   height: 100vh;
-  background-image: url("./assets/bg.jpg");
+  /* background-image: url("./assets/bg.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
-  /* filter: brightness(0.8); */
+  background-size: cover; */
   clip-path: polygon(
     100% 0%,
     0% 0%,
@@ -92,7 +91,16 @@ h3 {
     100% 91.29%
   );
 }
-.home-container::before, .menu-img::before {
+.home-bg{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.home-container::before{
   content: "";
   position: absolute;
   top: 0;
@@ -309,12 +317,27 @@ h3 {
 
 /* different page */
 /* menu section */
-.menu-img{
+.menu-img-container {
+  position: relative;
   height: 350px;
-  background-image: url("./assets/bg.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  width: 100%;
+}
+
+.menu-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.menu-img-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 1;
 }
 .menu__search {
   display: flex;
@@ -352,7 +375,7 @@ h3 {
 .menu-category {
   display: grid;
 }
-.menu-header {
+.menu-header{
   text-align: center;
   margin-top: 40px;
 }
@@ -367,15 +390,23 @@ h3 {
   margin: 10px;
   padding: 20px;
   border-radius: 20px;
-  cursor: pointer;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+}
+.item-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.item-add{
+  font-size: 25px;
+  cursor: pointer;
 }
 /* //////////////////////////////// */
 /* Cart */
 /* ///////////////////////////////// */
 
 .cart{
-  position: fixed;
+  position: absolute;
   width: 25%;
   height: 100vh; 
   background-color: whitesmoke;
@@ -385,7 +416,6 @@ h3 {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: slideOut 0.5s ease-in-out forwards;
 }
 .cart.open-cart {
   animation: slideIn 0.5s ease-in-out forwards;
@@ -406,18 +436,29 @@ h3 {
     right: -25%;
   }
 } */
-
-
+.cart.open-cart::before{
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
 /* need work */
 .cart__header{
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 40px 30px;
   height: 50px;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.05);
+  z-index: 2;
 }
 .cart__order{
+  position: relative;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -426,6 +467,7 @@ h3 {
   background-color: white;
   padding-top: 50px;
   gap: 10px;
+  z-index: 2;
 }
 .cart__order h3{
   color:grey;
@@ -459,13 +501,18 @@ h3 {
   flex: 1;
 }
 .login__image,
-.register__form {
+.register__form{
+  height: 100vh;
+  width: 100%;
+}
+.login__image{
+  object-fit: cover;
+}
+.register__form{
   background-image: url("./assets/login.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 100vh;
-  width: 100%;
 }
 /* this is where i will put the pho image when screen is smaller */
 .login__form,

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
+import LoginImage from "../assets/login.jpg"
 
 /* how to retrieve the token */
 
@@ -102,7 +103,7 @@ function Login() {
           </div>
         </form>
       </section>
-      <section className="login__image"></section>
+      <img className="login__image" src={LoginImage} alt="login page" loading="lazy"></img>
     </main>
   );
 }
