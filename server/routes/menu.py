@@ -145,6 +145,3 @@ def delete_item(id):
 
 
 
-
-
-    

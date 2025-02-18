@@ -8,14 +8,18 @@ import { AuthProvider } from "./fragments/AuthContext";
 
 function App() {
   return (
-    <AuthProvider>
+    <AuthProvider>{/* need work */}
       <Routes>
-        <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<Home />} /> 
           <Route path="menu" element={<Menu />} />
         </Route>
+
         <Route path="login" element={<Login/>}/>
         <Route path="register" element={<Register/>}/>
+
+        {/* <Route path="*" element={<NotFound />} /> */}
+
       </Routes>
     </AuthProvider>
   );

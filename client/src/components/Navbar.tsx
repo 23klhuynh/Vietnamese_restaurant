@@ -13,9 +13,10 @@ import { debounce } from "lodash";
 
 interface NavbarProps {
   scroll: boolean;
+  cartItems: { id: number; price: number; name: string; }[];
 }
 
-const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
+const Navbar: React.FC<NavbarProps> = ({ scroll, cartItems }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [openCart, setOpenCart] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ const Navbar: React.FC<NavbarProps> = ({ scroll }) => {
       {!isOpen && (
         <>
           <NavbarLinks openCart={openCart} setOpenCart={setOpenCart} />
-          {openCart && <Cart openCart={openCart} setOpenCart={setOpenCart} />}
+          {openCart && <Cart openCart={openCart} setOpenCart={setOpenCart} cartItems={cartItems}/>}
         </>
       )}
       

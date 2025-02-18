@@ -3,10 +3,17 @@ import axios, { AxiosError } from "axios";
 import { Link as ScrollLink, Element } from "react-scroll";
 import MenuImage from "../assets/bg.jpg";
 import { IoMdAdd } from "react-icons/io";
+import { useOutletContext } from "react-router-dom";
 /* import MenuItemSection from "../components/MenuItemSection"; */
+
+type CartContextType = {
+  /* cartItems: { id: number; name: string; price: number }[]; DONT THINK I NEEDED THIS*/
+  addToCart: (item: { id: number; name: string; price: number }) => void;
+};
 
 function Menu() {
   const [menuItems, setMenuItems] = useState<{ [key: string]: any[] }>({});
+  const { addToCart } = useOutletContext<CartContextType>();
 
   const categoryOrder = [
     "Appetizers",
@@ -129,7 +136,16 @@ function Menu() {
                   <div key={item.id} className="menu-item">
                     <div className="item-header">
                       <p>{item.name}</p>
-                      <IoMdAdd className="item-add"/>
+                      <IoMdAdd
+                        className="item-add"
+                        onClick={() =>
+                          addToCart({
+                            id: item.id,
+                            name: item.name,
+                            price: item.price,
+                          })
+                        }
+                      />
                     </div>
                     <h3 style={{ color: "rgba(0, 0, 0, 0.4)" }}>
                       {item.description}
