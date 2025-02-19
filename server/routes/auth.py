@@ -162,7 +162,7 @@ def create_admin_user():
 """ Storing the user items """
 """ /////////////////////////////////////////// """
 
-@auth_bp.post("/user_items")
+""" @auth_bp.post("/user_items")
 @jwt_required()
 def add_user_item():
     
@@ -175,8 +175,9 @@ def add_user_item():
 
     response = supabase.table("Users").insert({"cart_items": item_id}).execute()
 
-    return jsonify({"message": "Item added successfully!"}), 200
-
+    return jsonify({"message": "Item added successfully!", "cart_items": supabase.table("Users").select("cart_items")}), 200
+ """
+ 
 """ proablly need to move this into the different db for testing reason, but the 
 plans is when the button from the frontend it click it will store the item 
 to this db and use the useEffect to fetch the data with === id in the cart system """

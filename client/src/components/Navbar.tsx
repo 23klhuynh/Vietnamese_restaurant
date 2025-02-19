@@ -11,15 +11,24 @@ import Cart from "./Cart";
 import Logo from "../assets/PhoVietLogo.png";
 import { debounce } from "lodash";
 
-interface NavbarProps {
-  scroll: boolean;
-  cartItems: { id: number; price: number; name: string; }[];
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number; // Add a quantity field for each item
 }
 
-const Navbar: React.FC<NavbarProps> = ({ scroll, cartItems }) => {
+interface NavbarProps {
+  scroll: boolean;
+  cartItems: CartItem[];  
+  setCartItems: (cartItems: CartItem[]) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ scroll, cartItems, setCartItems }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [openCart, setOpenCart] = useState<boolean>(false);
   const navigate = useNavigate();
+
 
   const routeToTargetIdMap: { [key: string]: string } = {
     home: "/",
@@ -100,7 +109,7 @@ const Navbar: React.FC<NavbarProps> = ({ scroll, cartItems }) => {
       {!isOpen && (
         <>
           <NavbarLinks openCart={openCart} setOpenCart={setOpenCart} />
-          {openCart && <Cart openCart={openCart} setOpenCart={setOpenCart} cartItems={cartItems}/>}
+          {openCart && <Cart openCart={openCart} setOpenCart={setOpenCart} cartItems={cartItems} setCartItems={setCartItems}/>}
         </>
       )}
       
