@@ -15,36 +15,37 @@ auth_bp = Blueprint("auth", __name__)
 def register_user():
 
     data = request.get_json()
-
     username = data.get("username")
     email = data.get("email")
-    password = generate_password_hash(data.get("password"))
+    password = data.get("password")
 
     if not username or not email or not password:
         return jsonify({"error": "Missing input!"}), 400
-    
-    existing_user = supabase.table("Users").select("id").eq("username", username).execute()
 
+    password_hash = generate_password_hash(password)
+
+    existing_user = supabase.table("Users").select("id").eq("username", username).execute()
     if existing_user.data:
-       return jsonify({"error": "Username is already exist!"}), 409
-    
+        return jsonify({"error": "Username already exists!"}), 409
+
     new_user = {
         "username": username,
         "email": email,
-        "password": password,
+        "password": password_hash,
         "is_staff": False
     }
 
     response = supabase.table("Users").insert(new_user).execute()
+    
+    if response.error:
+        return jsonify({"error": "User registration failed!"}), 500
 
-    return jsonify({"message": "New user created successfully!", "complete": response.data}), 201
+    return jsonify({"message": "New user created successfully!"}), 201
     
 
 @auth_bp.post("/login")
 def login_user():
-
     data = request.get_json()
-
     username = data.get("username")
     password = data.get("password")
 
@@ -52,22 +53,19 @@ def login_user():
         return jsonify({"error": "Missing input!"}), 400
 
     response = supabase.table("Users").select("username, password").eq("username", username).execute()
-
     if not response.data:
         return jsonify({"error": "Invalid username or password!"}), 401
-    
-    user = response.data[0]
-    stored_hashed_password = user["password"]
 
-    if not check_password_hash(stored_hashed_password, password):
+    user = response.data[0]
+    if not check_password_hash(user["password"], password):
         return jsonify({"error": "Invalid username or password!"}), 401
-    
-    access_token = create_access_token(identity=user["username"])
-    refresh_token = create_refresh_token(identity=user["username"])
+
+    access_token = create_access_token(identity=username)
+    refresh_token = create_refresh_token(identity=username)
 
     response = make_response(jsonify({"message": "Logged in successfully"}))
-    response.set_cookie("access_token", access_token, httponly=True, secure=False, samesite="Lax", max_age=3600)
-
+    response.set_cookie("access_token", access_token, httponly=True, secure=True, samesite="None", max_age=3600)
+    return response, 200
     """ return jsonify({
             "message": "Logged in successfully!",
             "token_pair": {
@@ -75,15 +73,13 @@ def login_user():
                 "refresh": refresh_token
             }
         }), 200 """
-    return response, 200
 
 
 # This line for the protected token send to the frontend
 @auth_bp.get("/protected")
 @jwt_required()
 def protected():
-    current_user = get_jwt_identity()
-    return jsonify({"message": "Protected content", "user": current_user}), 200
+    return jsonify({"message": "Protected content", "user": get_jwt_identity()}), 200
 
 
 

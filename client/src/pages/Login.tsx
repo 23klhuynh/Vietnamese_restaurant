@@ -5,13 +5,16 @@ import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import LoginImage from "../assets/login.jpg"
+import { useUser } from "../fragments/UserContext";
 
 /* how to retrieve the token */
 
 function Login() {
   const [formInfo, setFormInfo] = useState({ username: "", password: "" });
   const [error, setError] = useState<string>("");
+  const {setUser} = useUser()
   const navigate = useNavigate();
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,6 +35,7 @@ function Login() {
         setError("");
         setFormInfo({ username: "", password: "" });
         navigate("/");
+        setUser(true)
       }
     } catch (error) {
       const axiosError = error as AxiosError<{ error: string }>;

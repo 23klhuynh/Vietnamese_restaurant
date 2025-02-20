@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useUser } from "./UserContext";
 /* import { flatMap } from "lodash"; */
 
 interface NavbarLinksProps {
@@ -10,7 +10,7 @@ interface NavbarLinksProps {
 }
 
 function NavbarLinks({ openCart ,setOpenCart }: NavbarLinksProps) {
-  const { user } = useAuth();
+  const { user } = useUser();
   const [resize, setResize] = useState<boolean>(window.innerWidth > 1000);
 
   useEffect(() => {
