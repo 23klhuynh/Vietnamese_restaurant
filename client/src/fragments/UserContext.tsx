@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
 
 interface UserContextType {
   user: boolean;
@@ -12,7 +12,14 @@ interface UserProviderProps {
 }
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<boolean>(false);
+  const [user, setUser] = useState<boolean>(!!localStorage.getItem("access_token"));
+
+  useEffect(()=>{
+    const handleStorageChange = () => {
+      setUser(!!localStorage.getItem("access_token"));
+    };
+    handleStorageChange()
+  }, [])
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

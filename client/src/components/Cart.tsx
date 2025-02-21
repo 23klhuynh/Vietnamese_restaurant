@@ -1,14 +1,16 @@
-
+import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiShoppingBag } from "react-icons/fi";
 import { IoIosRemove } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface CartItem {
   id: number;
   name: string;
   price: number;
-  quantity: number; // Add a quantity field for each item
+  quantity: number;
 }
 
 interface NavbarLinksProps {
@@ -24,6 +26,14 @@ function Cart({
   cartItems,
   setCartItems,
 }: NavbarLinksProps) {
+  const navigate = useNavigate();
+  const [total, setTotal] = useState<number>(0)
+
+  const handleTotalPrice = () => {
+    const totalPrice = cartItems.reduce((acc, item) => acc + (item.quantity * item.price), 0);
+    setTotal(totalPrice);
+  }
+
   const incrementQuantity = (id: number) => {
     const updatedCart = cartItems.map((item) =>
       item.id === id ? { ...item, quantity: item.quantity + 1 } : item
@@ -49,35 +59,56 @@ function Cart({
           onClick={() => setOpenCart(false)}
         />
       </section>
-      <section className="cart__order">
-        {cartItems.length > 0 ? (
-          <ul className="cart__items">
-            {cartItems.map((item) => (
-              <li key={item.id} className="cart__item">
-                <div className="cart__info">
-                  {item.name} - ${item.price.toFixed(2)}
+      <section className="order">
+        {localStorage.getItem("access_token") ? (
+          <div className="cart__order">
+            {cartItems.length > 0 ? (
+              <ul className="cart__items">
+                {cartItems.map((item) => (
+                  <li key={item.id} className="cart__item">
+                    <div className="cart__info">
+                      {item.name} - ${item.price.toFixed(2)}
+                    </div>
+                    <div className="cart__modify">
+                      <IoMdAdd
+                        onClick={() => incrementQuantity(item.id)}
+                        className="cart-icon"
+                      />
+                      <p>{item.quantity}</p>
+                      <IoIosRemove
+                        onClick={() => decrementQuantity(item.id)}
+                        className="cart-icon"
+                      />
+                    </div>
+                  </li>
+                ))}
+                <div className="cart__footer">
+                  <button onClick={()=>handleTotalPrice()}>DONE</button>
+                  <h3>TOTAL: {total}</h3>
                 </div>
-                <div className="cart__modify">
-                  <IoMdAdd
-                    onClick={() => incrementQuantity(item.id)}
-                    className="cart__icon"
-                  />
-                  <p>{item.quantity}</p>
-                  <IoIosRemove
-                    onClick={() => decrementQuantity(item.id)}
-                    className="cart__icon"
-                  />
-                </div>
-              </li>
-            ))}
-
-          </ul>
+              </ul>
+            ) : (
+              <>
+                <FiShoppingBag className="cart__icon" />
+                <h3>You don't have any item</h3>
+                <button
+                  onClick={() => {
+                    setOpenCart(false);
+                    navigate("/menu");
+                  }}
+                >
+                  START MY ORDER
+                </button>
+              </>
+            )}
+          </div>
         ) : (
-          <>
-            <FiShoppingBag className="cart__icon" />
-            <h3>You don't have any item</h3>
-            <button>START MY ORDER</button>
-          </>
+          <div className="cart__order">
+            <p>You need to login to access this </p>
+            <button>
+              <Link to="/login">Login</Link>
+            </button>
+          </div>
         )}
       </section>
     </main>

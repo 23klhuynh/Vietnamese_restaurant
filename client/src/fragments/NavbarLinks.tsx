@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "./UserContext";
@@ -9,8 +8,8 @@ interface NavbarLinksProps {
   setOpenCart: (value: boolean) => void;
 }
 
-function NavbarLinks({ openCart ,setOpenCart }: NavbarLinksProps) {
-  const { user } = useUser();
+function NavbarLinks({ openCart, setOpenCart }: NavbarLinksProps) {
+  const { user, setUser } = useUser();
   const [resize, setResize] = useState<boolean>(window.innerWidth > 1000);
 
   useEffect(() => {
@@ -19,7 +18,7 @@ function NavbarLinks({ openCart ,setOpenCart }: NavbarLinksProps) {
     };
 
     window.addEventListener("resize", handleResize);
-    
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -30,7 +29,14 @@ function NavbarLinks({ openCart ,setOpenCart }: NavbarLinksProps) {
       {resize &&
         (user ? (
           <button className="navbar__contact cursor-pointer">
-            <Link to="/login" className="navbar__facebook-link">
+            <Link
+              to="/"
+              className="navbar__facebook-link"
+              onClick={() => {
+                localStorage.removeItem("access_token");
+                setUser(false);
+              }}
+            >
               Sign Out
             </Link>
           </button>

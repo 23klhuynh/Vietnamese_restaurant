@@ -37,7 +37,9 @@ const BusinessDetail: React.FC = () => {
           <h2 className="flex items-center gap-2 ">
             <FaMapMarkerAlt /> Location
           </h2>
-          <p>1906 your mom drive</p>
+          <p>5218 Hwy 70 W suite B</p>
+          <h3>Morehead City, NC 28557</h3>
+          
         </div>
       </div>
     </div>

@@ -36,6 +36,7 @@ function Login() {
         setFormInfo({ username: "", password: "" });
         navigate("/");
         setUser(true)
+        localStorage.setItem("access_token", response.data.access_token);
       }
     } catch (error) {
       const axiosError = error as AxiosError<{ error: string }>;
