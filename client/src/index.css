@@ -211,7 +211,6 @@ h3 {
 .navbar__sidebar.open{
   width: 100%;
 }
-
 .navbar__sidebar-item {
   padding: 25px 50px;
 }
@@ -225,12 +224,13 @@ h3 {
   left: 0;
   padding: 50px;
   color: white;
-  width: 50%;
+  width: 100%;
 }
 .welcome-section__container {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  text-align: center;
 }
 .welcome-section__container h1 {
   font-size: clamp(25px, 8vw, 45px);
@@ -249,6 +249,7 @@ h3 {
   transition: background-color 0.5s;
   align-self: flex-start;
   border-radius: 10px;
+  margin: 0 auto;
 }
 .welcome-section__container .welcome-section__btn:hover,
 .welcome-section__container .welcome-section__btn:focus {
@@ -535,6 +536,12 @@ h3 {
   padding-top: 10px;
   margin-top: 10px;
 }
+.cart__footer p{
+  margin: 10px;
+}
+.cart__footer button{
+  width: 100%;
+}
 /* /////////////// */
 
 
@@ -661,15 +668,15 @@ h3 {
   .navbar__left-img {
     display: none;
   }
-  .welcome-section {
+  /* .welcome-section {
     width: 100%;
-  }
-  .welcome-section__container {
+  } */
+  /* .welcome-section__container {
     text-align: center;
-  }
-  .welcome-section__container .welcome-section__btn {
+  } */
+  /* .welcome-section__container .welcome-section__btn {
     align-self: center;
-  }
+  } */
   .business-detail {
     display: flex;
     flex-direction: column;

@@ -17,8 +17,9 @@ function Intro() {
           href="https://www.facebook.com/profile.php?id=61559370593017"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Visit our Facebook page"
         >
-          <FaFacebook className="w-24 h-10 text-blue-600 text-3xl md:text-3xl lg:text-3xl xl:text-3xl " />
+          <FaFacebook className=" text-blue-600 text-3xl" />
         </a>
       </div>
     </article>

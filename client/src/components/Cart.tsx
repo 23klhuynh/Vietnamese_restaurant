@@ -27,12 +27,15 @@ function Cart({
   setCartItems,
 }: NavbarLinksProps) {
   const navigate = useNavigate();
-  const [total, setTotal] = useState<number>(0)
+  const [total, setTotal] = useState<number>(0);
 
   const handleTotalPrice = () => {
-    const totalPrice = cartItems.reduce((acc, item) => acc + (item.quantity * item.price), 0);
+    const totalPrice = cartItems.reduce(
+      (acc, item) => acc + item.quantity * item.price,
+      0
+    );
     setTotal(totalPrice);
-  }
+  };
 
   const incrementQuantity = (id: number) => {
     const updatedCart = cartItems.map((item) =>
@@ -83,8 +86,8 @@ function Cart({
                   </li>
                 ))}
                 <div className="cart__footer">
-                  <button onClick={()=>handleTotalPrice()}>DONE</button>
-                  <h3>TOTAL: {total}</h3>
+                  <p>TOTAL: ${total.toFixed(2)}</p>
+                  <button onClick={() => handleTotalPrice()}>DONE</button>
                 </div>
               </ul>
             ) : (

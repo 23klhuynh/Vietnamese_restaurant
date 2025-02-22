@@ -1,3 +1,5 @@
+
+/* not needed */
 interface MenuItemProps {
   title: string;
   description: string;
