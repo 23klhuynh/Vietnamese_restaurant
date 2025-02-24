@@ -520,13 +520,14 @@ h3 {
   justify-content: space-evenly;
   align-items: center;
   gap: 5px;
-  border: 2px solid black;
-  border-radius: 10px;
-  width: 50%;
+  border: 3px solid black;
+  border-radius: 30px;
+  width: 35%;
+  height: 30px;
 }
 .cart-icon{
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   color: black;
   cursor: pointer;
 }
@@ -645,6 +646,25 @@ h3 {
 .register-link:hover,
 .login-link:hover {
   text-decoration: underline;
+}
+
+/* ///////////////////////////////// */
+/* NOT FOUND */
+/* ///////////////////////////////// */
+
+.not-found{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.not-found-btn{
+  border: 2px solid black;
+  padding: 10px 20px;
+  border-radius: 30px;
+}
+.not-found-btn:hover{
+  border-color: tomato;
 }
 
 /* media query */

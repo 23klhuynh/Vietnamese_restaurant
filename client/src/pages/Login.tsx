@@ -1,20 +1,19 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
-import LoginImage from "../assets/login.jpg"
+import LoginImage from "../assets/login.jpg";
 import { useUser } from "../fragments/UserContext";
+import toast from "react-hot-toast";
 
 /* how to retrieve the token */
 
 function Login() {
   const [formInfo, setFormInfo] = useState({ username: "", password: "" });
-  const [error, setError] = useState<string>("");
-  const {setUser} = useUser()
+  const { setUser } = useUser();
   const navigate = useNavigate();
-
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,21 +31,21 @@ function Login() {
       );
 
       if (response.status === 200) {
-        setError("");
+        toast.success("Login successful!");
         setFormInfo({ username: "", password: "" });
         navigate("/");
-        setUser(true)
+        setUser(true);
         localStorage.setItem("access_token", response.data.access_token);
       }
     } catch (error) {
       const axiosError = error as AxiosError<{ error: string }>;
       if (axiosError.response) {
         if (axiosError.response.status === 401) {
-          setError("Invalid password or username!");
+          toast.error("Invalid username or password!");
         } else if (axiosError.response.status === 400) {
-          setError("Missing input!");
+          toast.error("Please fill out all fields.");
         } else {
-          setError("An unexpected error occurred!");
+          toast.error("An unexpected error occurred. Try again!");
         }
       }
     }
@@ -85,11 +84,6 @@ function Login() {
           <button type="submit" className="login__btn">
             Submit
           </button>
-          {error && (
-            <h3 className="link" style={{ color: "red" }}>
-              {error}
-            </h3>
-          )}
           <div className="link">
             <small>
               Don't have an account?{" "}
@@ -108,7 +102,12 @@ function Login() {
           </div>
         </form>
       </section>
-      <img className="login__image" src={LoginImage} alt="login page" loading="lazy"></img>
+      <img
+        className="login__image"
+        src={LoginImage}
+        alt="login page"
+        loading="lazy"
+      ></img>
     </main>
   );
 }

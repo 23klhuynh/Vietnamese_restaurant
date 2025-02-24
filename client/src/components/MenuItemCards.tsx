@@ -1,6 +1,7 @@
 import { Element } from "react-scroll";
 import { IoMdAdd } from "react-icons/io";
 import { useOutletContext } from "react-router-dom";
+import toast from "react-hot-toast";
 
 type CartContextType = {
   addToCart: (item: { id: number; name: string; price: number }) => void;
@@ -41,13 +42,14 @@ function MenuItemCards({ menuItems }: MenuItemCardsProps) {
                     <p>{item.name}</p>
                     <IoMdAdd
                       className="item-add"
-                      onClick={() =>
+                      onClick={() =>{
                         addToCart({
                           id: item.id,
                           name: item.name,
                           price: item.price,
-                        })
-                      }
+                        });
+                        {localStorage.getItem("access_token") ? toast.success("Item added successfully!"): toast.error("Sign in to continue adding items!")}
+                      }}
                     />
                   </div>
                   <h3 style={{ color: "rgba(0, 0, 0, 0.4)" }}>

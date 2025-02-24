@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "./UserContext";
+import toast from "react-hot-toast";
 /* import { flatMap } from "lodash"; */
 
 interface NavbarLinksProps {
@@ -35,6 +36,7 @@ function NavbarLinks({ openCart, setOpenCart }: NavbarLinksProps) {
               onClick={() => {
                 localStorage.removeItem("access_token");
                 setUser(false);
+                toast.success("Logged out successfully!")
               }}
             >
               Sign Out

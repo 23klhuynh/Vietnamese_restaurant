@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
@@ -13,7 +14,6 @@ function Register() {
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState<string>("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,8 +23,7 @@ function Register() {
       !formInfo.username ||
       !formInfo.email
     ) {
-      console.log("Invalid info");
-      setError("The information is invalid. Please try again!");
+      toast.error("Check your input! Passwords may not match or fields are empty.");
       return; /* prevent submission */
     }
 
@@ -43,7 +42,7 @@ function Register() {
         }
       );
       if (response.data === 200) {
-        setError("Submission successful");
+        toast.success("Registration successful!");
         setFormInfo({
           username: "",
           email: "",
@@ -56,15 +55,14 @@ function Register() {
       const axiosError = error as AxiosError<{ error: string }>;
       if (axiosError.response) {
         if (axiosError.response.status === 409) {
-          setError("Account already exists!");
+          toast.error("Account already exists!");
         } else if (axiosError.response.status === 400) {
-          setError("Missing input!");
+          toast.error("Please complete all fields");
         } else {
-          setError("An unexpected error occurred!");
+          toast("Something went wrong. Try again!");
         }
       }
     }
-    /* MonsterLegend */
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormInfo({ ...formInfo, [e.target.name]: e.target.value });
@@ -122,11 +120,6 @@ function Register() {
             <button type="submit" className="register__btn">
               Submit
             </button>
-            {error && (
-              <h3 className="link" style={{ color: "red" }}>
-                {error}
-              </h3>
-            )}
             <div className="link">
               <small>
                 Already have an account?{" "}

@@ -5,6 +5,7 @@ import { IoIosRemove } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 interface CartItem {
   id: number;
@@ -73,14 +74,21 @@ function Cart({
                       {item.name} - ${item.price.toFixed(2)}
                     </div>
                     <div className="cart__modify">
-                      <IoMdAdd
-                        onClick={() => incrementQuantity(item.id)}
-                        className="cart-icon"
-                      />
+                      {item.quantity > 1 ? (
+                        <IoIosRemove
+                          className="cart-icon"
+                          onClick={() => decrementQuantity(item.id)}
+                        />
+                      ) : (
+                        <FaRegTrashAlt
+                          className="cart-icon" onClick={()=>setCartItems(cartItems.filter(food => food.id !== item.id))}
+                        />
+                      )}
+
                       <p>{item.quantity}</p>
-                      <IoIosRemove
-                        onClick={() => decrementQuantity(item.id)}
+                      <IoMdAdd
                         className="cart-icon"
+                        onClick={() => incrementQuantity(item.id)}
                       />
                     </div>
                   </li>
