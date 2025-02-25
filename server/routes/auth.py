@@ -66,21 +66,37 @@ def login_user():
     """ response = make_response(jsonify({"message": "Logged in successfully"}))
     response.set_cookie("access_token", access_token, httponly=True, secure=True, samesite="None", max_age=3600) """
     """ return response, 200 """
-    return jsonify({
+    """ return jsonify({
             "message": "Logged in successfully!",
             "token_pair": {
                 "access": access_token,
                 "refresh": refresh_token
             }
-        }), 200
+        }), 200 """
 
-
-# This line for the protected token send to the frontend
-@auth_bp.get("/protected")
-@jwt_required()
-def protected():
-    return jsonify({"message": "Protected content", "user": get_jwt_identity()}), 200
-
+    response = make_response()
+    response.set_cookie(
+        "access_token",
+        value=access_token,
+        max_age=60,  
+        expires=None,
+        path="/",
+        secure=True,
+        httponly=True,
+        samesite="None"
+    )
+    response.set_cookie(
+        "refresh_token",
+        value=refresh_token,
+        max_age=60, 
+        expires=None,
+        path="/",
+        secure=True,
+        httponly=True,
+        samesite="None"
+    )
+    
+    return response, 200
 
 
 @auth_bp.get("/get_user")
@@ -119,8 +135,6 @@ def logout_user():
     response.set_cookie("access_token", "", expires=0, httponly=True, secure=True, samesite="Strict")
     return response, 200
 
-    """ return jsonify({"message": f"{token_type} token revoked successfully!"}), 200 """
-
 
 
 # CREATE ADMIN ONLY (THERE SHOULD ONLY BE ONE ADMIN)
@@ -152,28 +166,3 @@ def create_admin_user():
         return jsonify({"message": "ADMIN CREATED SUCCESSFULLY!"}), 200
     
     return jsonify({"error": "CANNOT CREATE ADMIN!"}), 403
-
-
-""" /////////////////////////////////////////// """
-""" Storing the user items """
-""" /////////////////////////////////////////// """
-
-""" @auth_bp.post("/user_items")
-@jwt_required()
-def add_user_item():
-    
-    data = request.get_json() #id
-
-    if not data:
-        return jsonify({"error": "No item id provided!"}), 400
-    
-    item_id = data["id"]
-
-    response = supabase.table("Users").insert({"cart_items": item_id}).execute()
-
-    return jsonify({"message": "Item added successfully!", "cart_items": supabase.table("Users").select("cart_items")}), 200
- """
- 
-""" proablly need to move this into the different db for testing reason, but the 
-plans is when the button from the frontend it click it will store the item 
-to this db and use the useEffect to fetch the data with === id in the cart system """

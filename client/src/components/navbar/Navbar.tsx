@@ -3,12 +3,11 @@ import { Link as RouterLink } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import NavbarLinks from "../fragments/NavbarLinks";
-import NavbarNavigation from "../fragments/NavbarNavigation";
-import Sidebar from "../fragments/Sidebar";
-/* import {handleNavigation, handleAllClicks} from  */
-import Cart from "./Cart";
-import Logo from "../assets/PhoVietLogo.png";
+import NavbarLinks from "./NavbarLinks";
+import NavbarNavigation from "./NavbarNavigation";
+import Sidebar from "./Sidebar";
+import Cart from "../cart/Cart";
+import Logo from "../../assets/PhoVietLogo.png"
 import { debounce } from "lodash";
 
 interface CartItem {
@@ -20,7 +19,7 @@ interface CartItem {
 
 interface NavbarProps {
   scroll: boolean;
-  cartItems: CartItem[];  
+  cartItems: CartItem[];
   setCartItems: (cartItems: CartItem[]) => void;
 }
 
@@ -28,7 +27,6 @@ const Navbar: React.FC<NavbarProps> = ({ scroll, cartItems, setCartItems }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [openCart, setOpenCart] = useState<boolean>(false);
   const navigate = useNavigate();
-
 
   const routeToTargetIdMap: { [key: string]: string } = {
     home: "/",
@@ -109,10 +107,16 @@ const Navbar: React.FC<NavbarProps> = ({ scroll, cartItems, setCartItems }) => {
       {!isOpen && (
         <>
           <NavbarLinks openCart={openCart} setOpenCart={setOpenCart} />
-          {openCart && <Cart openCart={openCart} setOpenCart={setOpenCart} cartItems={cartItems} setCartItems={setCartItems}/>}
+          {openCart && (
+            <Cart
+              openCart={openCart}
+              setOpenCart={setOpenCart}
+              cartItems={cartItems}
+              setCartItems={setCartItems}
+            />
+          )}
         </>
       )}
-      
     </nav>
   );
 };

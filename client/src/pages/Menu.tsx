@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios, { AxiosError } from "axios";
 import MenuImage from "../assets/bg.jpg";
-import MenuItemCards from "../components/MenuItemCards";
-import MenuItemsNav from "../components/MenuItemsNav";
+import MenuItemCards from "../components/menu/MenuItemCards";
+import MenuItemsNav from "../components/menu/MenuItemsNav";
 
 function Menu() {
   const [menuItems, setMenuItems] = useState<{ [key: string]: any[] }>({});

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useUser } from "./UserContext";
+import { useUser } from "../../auth/UserContext";
 import toast from "react-hot-toast";
 /* import { flatMap } from "lodash"; */
 

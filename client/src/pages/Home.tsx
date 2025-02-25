@@ -1,6 +1,6 @@
-import Intro from "../components/Intro";
-import BusinessDetail from "../components/BusinessDetail";
-import About from "../components/About";
+import Intro from "../components/fragments/Intro";
+import BusinessDetail from "../components/fragments/BusinessDetail";
+import About from "../components/fragments/About";
 import HomeImage from "../assets/bg.jpg";
 
 function Home() {

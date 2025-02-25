@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import LoginImage from "../assets/login.jpg";
-import { useUser } from "../fragments/UserContext";
+import { useUser } from "../auth/UserContext";
 import toast from "react-hot-toast";
 
 /* how to retrieve the token */
@@ -25,8 +25,10 @@ function Login() {
         {
           headers: {
             "Content-Type": "application/json",
+            /* Authorization: `Bearer ${accessToken}` */
           },
           withCredentials: true,
+          
         }
       );
 

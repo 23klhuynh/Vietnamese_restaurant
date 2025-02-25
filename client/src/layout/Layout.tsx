@@ -1,9 +1,9 @@
 import { useState} from "react";
 import { Outlet } from "react-router-dom/dist";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import useScroll from "./useScroll";
-import SmoothScroll from "./SmoothScroll";
+import Navbar from "../components/navbar/Navbar";
+import Footer from "../components/fragments/Footer";
+import useScroll from "../hooks/useScroll";
+import SmoothScroll from "../hooks/SmoothScroll";
 
 type CartItem = {
   id: number;

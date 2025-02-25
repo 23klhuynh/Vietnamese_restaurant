@@ -2,11 +2,11 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
 import Login from "./pages/Login";
-import Layout from "./components/Layout";
+import Layout from "./layout/Layout";
 import Register from "./pages/Register";
-import NotFound from "./components/NotFound";
+import NotFound from "./pages/NotFound";
 import { Toaster } from "react-hot-toast";
-import { UserProvider } from "./fragments/UserContext";
+import { UserProvider } from "./auth/UserContext";
 
 function App() {
   return (

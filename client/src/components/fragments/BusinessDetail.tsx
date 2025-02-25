@@ -1,4 +1,4 @@
-import Photo from "../assets/picture1.jpg";
+import Photo from "../../assets/picture1.jpg"
 import { IoMdTime } from "react-icons/io";
 import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 
