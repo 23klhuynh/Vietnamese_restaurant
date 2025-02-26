@@ -595,7 +595,7 @@ h3 {
   object-fit: cover;
 }
 .register__form{
-  background-image: url("../../assets/logout.jpg");
+  background-image: url("./assets/logout.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

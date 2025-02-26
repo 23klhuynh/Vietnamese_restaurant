@@ -41,7 +41,7 @@ function Register() {
           },
         }
       );
-      if (response.data === 200) {
+      if (response.data === 201) {
         toast.success("Registration successful!");
         setFormInfo({
           username: "",
