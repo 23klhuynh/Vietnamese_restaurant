@@ -342,6 +342,8 @@ h3 {
 }
 .menu__search {
   display: flex;
+  justify-content: center;
+  align-items: center;
   height: 60px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
   overflow-x: scroll;
