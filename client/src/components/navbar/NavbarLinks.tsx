@@ -29,28 +29,24 @@ function NavbarLinks({ openCart, setOpenCart }: NavbarLinksProps) {
     <div className="navbar__contact-container">
       {resize &&
         (user ? (
-          <button className="navbar__contact cursor-pointer">
-            <Link
-              to="/"
-              className="navbar__facebook-link"
-              onClick={() => {
-                localStorage.removeItem("access_token");
-                setUser(false);
-                toast.success("Logged out successfully!")
-              }}
-            >
-              Sign Out
-            </Link>
-          </button>
+          <Link
+            to="/"
+            className="navbar__contact auth cursor-pointer"
+            onClick={() => {
+              localStorage.removeItem("access_token");
+              setUser(false);
+              toast.success("Logged out successfully!");
+            }}
+          >
+            Sign Out
+          </Link>
         ) : (
-          <button className="navbar__contact cursor-pointer">
-            <Link to="/login" className="navbar__facebook-link">
-              Sign In
-            </Link>
-          </button>
+          <Link to="/login" className="navbar__contact auth cursor-pointer">
+            Sign In
+          </Link>
         ))}
       <button
-        className="navbar__contact cursor-auto"
+        className="navbar__contact cursor-auto "
         onClick={() => setOpenCart(!openCart)}
       >
         Order Now

@@ -33,7 +33,7 @@ const BusinessDetail: React.FC = () => {
           <h2 className="flex items-center gap-2 ">
             <FaPhoneAlt /> PHONE
           </h2>
-          <p>123-456-7890</p>
+          <p>(252)-499-4096</p>
           <h2 className="flex items-center gap-2 ">
             <FaMapMarkerAlt /> Location
           </h2>

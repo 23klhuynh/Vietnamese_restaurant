@@ -29,7 +29,7 @@ function Register() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:5000/auth/register" /* when deploy need to change this for BACKEND */,
+        "https://vietnamese-restaurant-backend.onrender.com/auth/register" /* when deploy need to change this for BACKEND */,
         {
           username: formInfo.username,
           email: formInfo.email,

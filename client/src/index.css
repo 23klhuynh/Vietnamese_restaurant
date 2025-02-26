@@ -129,7 +129,7 @@ h3 {
   z-index: 1000;
 }
 .navbar--default {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0);
 }
 .navbar--scrolled {
   background-color: black;
@@ -169,14 +169,13 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--primary-color);
   transition: background-color 0.5s;
   cursor: pointer;
-  background-color: var(--primary-color);
   color: black;
   font-weight: 1000;
   height: 100%;
-  /* padding: 10px 20px; */
-  border-radius: 40px;
+  border-radius: 15px;
   min-width: 100px;
 }
 .navbar__contact:hover {
@@ -213,6 +212,7 @@ h3 {
 }
 .navbar__sidebar-item {
   padding: 25px 50px;
+  white-space: nowrap;
 }
 
 /* description */
@@ -373,6 +373,9 @@ h3 {
 .menu-item-container{
   min-height: 100vh;
 }
+.menu-cards{
+  min-height: 100vh;
+}
 .menu-category {
   display: grid;
 }
@@ -405,6 +408,34 @@ h3 {
 .item-add:hover{
   box-shadow: 1px 1px 1px black;
 }
+/* menu loading faze */
+.loading-bar{
+  height: 5px;
+  position: relative;
+  overflow: hidden;
+}
+.loading-bar::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -70;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-color);
+  animation: loading 1s linear infinite;
+}
+@keyframes loading {
+  0% {
+    transform: translateX(-100%); 
+  }
+  50% {
+    transform: translateX(0); 
+  }
+  100% {
+    transform: translateX(100%); 
+  }
+}
+
 /* //////////////////////////////// */
 /* Cart */
 /* ///////////////////////////////// */
@@ -485,16 +516,17 @@ h3 {
   height: 100px;
   color: grey;
 }
-.cart__order button{
+.cart__order .cart__btn{
   border: 2px solid rgba(0, 0, 0, 0.3);
   width: 50%;
+  text-align: center;
   border-radius: 50px;
   font-weight: 800;
   padding: 5px 15px;
   background-color: whitesmoke;
   transition: border 0.2s ease-in-out;
 }
-.cart__order button:hover{
+.cart__order .cart__btn:hover{
   border: 2px solid black;
 }
 .cart__items{
@@ -563,7 +595,7 @@ h3 {
   object-fit: cover;
 }
 .register__form{
-  background-image: url("./assets/login.jpg");
+  background-image: url("../../assets/logout.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -574,7 +606,7 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(73, 73, 73);
+  background-color: rgb(38, 38, 38);
   min-height: 100vh;
 }
 .login__form form,
@@ -790,11 +822,6 @@ h3 {
 @media screen and (max-width: 700px) {
   .items {
     grid-template-columns: repeat(1, 1fr);
-  }
-  .navbar__contact {
-    height: 80%;
-    padding: 5px 15px;
-    font-size: small;
   }
   .menu-items{
     width: 95%;

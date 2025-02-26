@@ -20,7 +20,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:5000/auth/login",
+        "https://vietnamese-restaurant-backend.onrender.com/auth/login",
         { username: formInfo.username, password: formInfo.password },
         {
           headers: {

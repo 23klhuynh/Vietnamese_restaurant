@@ -7,14 +7,14 @@ import NavbarLinks from "./NavbarLinks";
 import NavbarNavigation from "./NavbarNavigation";
 import Sidebar from "./Sidebar";
 import Cart from "../cart/Cart";
-import Logo from "../../assets/PhoVietLogo.png"
+import Logo from "../../assets/PhoVietLogo.png";
 import { debounce } from "lodash";
 
 interface CartItem {
   id: number;
   name: string;
   price: number;
-  quantity: number; // Add a quantity field for each item
+  quantity: number; 
 }
 
 interface NavbarProps {
@@ -103,7 +103,11 @@ const Navbar: React.FC<NavbarProps> = ({ scroll, cartItems, setCartItems }) => {
           )}
         </div>
       </div>
-      <Sidebar open={isOpen} onNavigate={handleAllClicks} />
+      <Sidebar
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        onNavigate={handleAllClicks}
+      />
       {!isOpen && (
         <>
           <NavbarLinks openCart={openCart} setOpenCart={setOpenCart} />

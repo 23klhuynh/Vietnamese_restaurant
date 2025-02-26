@@ -5,12 +5,14 @@ import MenuItemCards from "../components/menu/MenuItemCards";
 import MenuItemsNav from "../components/menu/MenuItemsNav";
 
 function Menu() {
-  const [menuItems, setMenuItems] = useState<{ [key: string]: any[] }>({});
+  const [menuItems, setMenuItems] = useState<{ [key: string]: any[] } | null>(null);
 
   useEffect(() => {
     const fetchAllMenuItem = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/menu/all_menu");
+        const response = await axios.get(
+          "https://vietnamese-restaurant-backend.onrender.com/menu/all_menu"
+        );
         setMenuItems(response.data.data);
       } catch (error) {
         const axiosError = error as AxiosError<{ error: string }>;
@@ -37,6 +39,7 @@ function Menu() {
         />
       </div>
       <MenuItemsNav />
+
       <MenuItemCards menuItems={menuItems} />
     </div>
   );

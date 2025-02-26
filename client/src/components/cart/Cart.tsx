@@ -81,7 +81,12 @@ function Cart({
                         />
                       ) : (
                         <FaRegTrashAlt
-                          className="cart-icon" onClick={()=>setCartItems(cartItems.filter(food => food.id !== item.id))}
+                          className="cart-icon"
+                          onClick={() =>
+                            setCartItems(
+                              cartItems.filter((food) => food.id !== item.id)
+                            )
+                          }
                         />
                       )}
 
@@ -116,9 +121,10 @@ function Cart({
         ) : (
           <div className="cart__order">
             <p>You need to login to access this </p>
-            <button>
-              <Link to="/login">Login</Link>
-            </button>
+
+            <Link to="/login" className="cart__btn">
+              Login
+            </Link>
           </div>
         )}
       </section>
