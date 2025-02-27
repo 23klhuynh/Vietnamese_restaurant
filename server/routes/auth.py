@@ -36,9 +36,6 @@ def register_user():
     }
 
     response = supabase.table("Users").insert(new_user).execute()
-    
-    if response.error:
-        return jsonify({"error": "User registration failed!"}), 500
 
     return jsonify({"message": "New user created successfully!"}), 200
     
