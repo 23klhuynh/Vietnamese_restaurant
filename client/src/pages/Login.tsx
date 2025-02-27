@@ -28,7 +28,6 @@ function Login() {
             /* Authorization: `Bearer ${accessToken}` */
           },
           withCredentials: true,
-          
         }
       );
 

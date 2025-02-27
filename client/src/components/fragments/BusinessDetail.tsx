@@ -4,13 +4,13 @@ import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 
 const BusinessDetail: React.FC = () => {
   const hours = [
-    "Monday - 11am-9pm",
-    "Tuesday - 11am-9pm",
-    "Wednesday - 11am-9pm",
-    "Thursday - 11am-9pm",
-    "Friday - 11am-9pm",
-    "Saturday - 11am-9pm",
-    "Sunday - 11am-9pm",
+    "Monday: 11:00 AM - 9:00 PM",
+    "Tuesday: 11:00 AM - 9:00 PM",
+    "Wednesday: 11:00 AM - 9:00 PM",
+    "Thursday: 11:00 AM - 9:00 PM",
+    "Friday: 11:00 AM - 9:00 PM",
+    "Saturday: 11:00 AM - 9:00 PM",
+    "Sunday: 11:00 AM - 9:00 PM"
   ];
 
   return (

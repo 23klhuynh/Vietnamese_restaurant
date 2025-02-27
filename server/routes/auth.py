@@ -40,7 +40,7 @@ def register_user():
     if response.error:
         return jsonify({"error": "User registration failed!"}), 500
 
-    return jsonify({"message": "New user created successfully!"}), 201
+    return jsonify({"message": "New user created successfully!"}), 200
     
 
 @auth_bp.post("/login")
