@@ -9,7 +9,7 @@ load_dotenv()
 
 def create_app():
     app = Flask(__name__)
-    CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}})  
+    CORS(app, supports_credentials=True, resources={r"/*": {"origins": ["http://localhost:5173", "https://pho-viet.vercel.app"]}})
 
     app.config.from_prefixed_env()
 
