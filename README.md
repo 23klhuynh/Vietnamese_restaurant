@@ -32,10 +32,10 @@ flask app.py
 
 ## Acknowledgements
 
-*Through this project, I have learned a lot about building and improving websites.
-*Learned the process of developing and testing the application for a smooth user experience.
-*Implemented an authentication system using JSON Web Token (JWT).
-*Deployed the application on Render and Vercel.
+* Through this project, I have learned a lot about building and improving websites.
+* Learned the process of developing and testing the application for a smooth user experience.
+* Implemented an authentication system using JSON Web Token (JWT).
+* Deployed the application on Render and Vercel.
 
 
 
