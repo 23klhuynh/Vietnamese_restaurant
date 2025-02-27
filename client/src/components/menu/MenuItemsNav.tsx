@@ -10,7 +10,7 @@ function MenuItemsNav() {
     "Beverages",
   ];
   return (
-    <ul className="menu__search">
+    <ul className="menu__search ">
       {categoryOrder.map((category, index) => (
         <li key={index} className="menu__search-item">
           <ScrollLink

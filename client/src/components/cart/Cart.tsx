@@ -100,11 +100,11 @@ function Cart({
                 ))}
                 <div className="cart__footer">
                   <p>TOTAL: ${total.toFixed(2)}</p>
-                  <button onClick={() => handleTotalPrice()}>DONE</button>
+                  <button onClick={() => handleTotalPrice()} className="cart__btn">DONE</button>
                 </div>
               </ul>
             ) : (
-              <>
+              <div className="cart__order">
                 <FiShoppingBag className="cart__icon" />
                 <h3>You don't have any item</h3>
                 <button
@@ -112,17 +112,18 @@ function Cart({
                     setOpenCart(false);
                     navigate("/menu");
                   }}
+                  className="cart__btn"
                 >
                   START MY ORDER
                 </button>
-              </>
+              </div>
             )}
           </div>
         ) : (
           <div className="cart__order">
             <p>You need to login to access this </p>
 
-            <Link to="/login" className="cart__btn">
+            <Link to="/login" className="login-btn">
               Login
             </Link>
           </div>

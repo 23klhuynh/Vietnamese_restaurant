@@ -46,7 +46,7 @@ function NavbarLinks({ openCart, setOpenCart }: NavbarLinksProps) {
           </Link>
         ))}
       <button
-        className="navbar__contact cursor-auto "
+        className="navbar__contact special cursor-auto "
         onClick={() => setOpenCart(!openCart)}
       >
         Order Now

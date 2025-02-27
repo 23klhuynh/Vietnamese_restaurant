@@ -13,7 +13,7 @@ html {
 }
 :root {
   --primary-color: #fcd7ad;
-  --secondary-color: #91c7b1;
+  --secondary-color: #ffc480;
 }
 h1 {
   font-size: 3.7vw;
@@ -169,7 +169,7 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--primary-color);
+  background-color: #DDDBF1;
   transition: background-color 0.5s;
   cursor: pointer;
   color: black;
@@ -178,7 +178,13 @@ h3 {
   border-radius: 15px;
   min-width: 100px;
 }
-.navbar__contact:hover {
+.navbar__contact:hover{
+  background-color: #bbb7ed;
+}
+.navbar__contact.special{
+  background-color: var(--primary-color);
+}
+.navbar__contact.special:hover {
   background-color: var(--secondary-color);
 }
 .navbar__left img {
@@ -211,8 +217,9 @@ h3 {
   width: 100%;
 }
 .navbar__sidebar-item {
-  padding: 25px 50px;
+  padding: 15px 40px;
   white-space: nowrap;
+  margin: 10px;
 }
 
 /* description */
@@ -318,6 +325,10 @@ h3 {
 
 /* different page */
 /* menu section */
+/* .menu{
+  display: flex;
+  flex-direction: column;
+} */
 .menu-img-container {
   position: relative;
   height: 350px;
@@ -342,30 +353,29 @@ h3 {
 }
 .menu__search {
   display: flex;
-  justify-content: center;
   align-items: center;
   height: 60px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-  overflow-x: scroll;
-  padding-left: 20px;
-  padding-top: 15px;
+  overflow-x: auto;
   justify-content: space-evenly;
-  gap: 25px;
+  gap: 50px;
   position: sticky;
   top: 80px;
   background-color: white;
 }
 .menu__search::-webkit-scrollbar {
-  width: 0;
+  display: none;
 }
 .menu__search-item {
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 20px;
+  padding: 0 10px;
   cursor: pointer;
   white-space: nowrap;
   color: grey;
+  height: 100%;
 }
 .menu__search-item:hover,
 .menu__search-item:focus {
@@ -520,6 +530,16 @@ h3 {
 }
 .cart__order .cart__btn{
   border: 2px solid rgba(0, 0, 0, 0.3);
+  width: 100%;
+  text-align: center;
+  border-radius: 50px;
+  font-weight: 800;
+  padding: 5px 15px;
+  background-color: whitesmoke;
+  transition: border 0.2s ease-in-out;
+}
+.login-btn{
+  border: 2px solid rgba(0, 0, 0, 0.3);
   width: 50%;
   text-align: center;
   border-radius: 50px;
@@ -528,7 +548,7 @@ h3 {
   background-color: whitesmoke;
   transition: border 0.2s ease-in-out;
 }
-.cart__order .cart__btn:hover{
+.cart__order .cart__btn:hover, .login-btn:hover{
   border: 2px solid black;
 }
 .cart__items{
@@ -542,7 +562,6 @@ h3 {
   align-items: center;
   flex-direction: column;
   gap: 2px;
-
 }
 .cart__info{
   border: 2px solid rgba(0, 0, 0, 0.3);
@@ -565,18 +584,18 @@ h3 {
   color: black;
   cursor: pointer;
 }
-
 .cart__footer{
   border-top: 1px solid black;
   padding-top: 10px;
   margin-top: 10px;
+  margin-bottom: 100px;
 }
 .cart__footer p{
   margin: 10px;
 }
-.cart__footer button{
+/* .cart__footer button{
   width: 100%;
-}
+} */
 /* /////////////// */
 
 
@@ -596,19 +615,20 @@ h3 {
 .login__image{
   object-fit: cover;
 }
-.register__form{
+/* .register__form{
   background-image: url("./assets/logout.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-}
+} */
 /* this is where i will put the pho image when screen is smaller */
 .login__form,
 .register__form {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(38, 38, 38);
+  background: linear-gradient(45deg, rgb(91, 91, 91), rgb(38, 38, 38));
+
   min-height: 100vh;
 }
 .login__form form,
