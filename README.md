@@ -1,12 +1,12 @@
-# Pho Viet
+#Pho Viet
 
 In this project, I developed a restaurant application that includes authentication (JWT), a cart system, and a PostgreSQL database to store the menu items.
 
-## Deployment
+##Deployment
 
 `https://pho-viet.vercel.app/`
 
-## Installation
+##Installation
 
 1. Clone the repository:
 ```bash
@@ -30,12 +30,12 @@ flask app.py
 ```
 5. Open your browser and visit `http://localhost:5173/` to see the app in action.
 
-## Acknowledgements
+##Acknowledgements
 
-* Through this project, I have learned a lot about building and improving websites.
-* Learned the process of developing and testing the application for a smooth user experience.
-* Implemented an authentication system using JSON Web Token (JWT).
-* Deployed the application on Render and Vercel.
+*Through this project, I have learned a lot about building and improving websites.
+*Learned the process of developing and testing the application for a smooth user experience.
+*Implemented an authentication system using JSON Web Token (JWT).
+*Deployed the application on Render and Vercel.
 
 
 
