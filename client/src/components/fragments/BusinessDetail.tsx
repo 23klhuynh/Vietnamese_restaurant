@@ -31,22 +31,33 @@ const BusinessDetail: React.FC = () => {
           </h1>
           <div className="business-detail__content">
             <p>
-              At Pho Viet, we believe that creating the perfect bowl of pho is
-              both an art and a sicence. Our chefs have trained for years in
-              Vietnam to perfect the techniques needed to create authentic
-              soul-warming ramen.
+              At Pho Viet, crafting the perfect bowl of pho is both art and
+              science. Our chefs trained in Vietnam to master authentic,
+              soul-warming flavors.
             </p>
             <p>
-              Our Broths are simmered for 12-18 hours to extract maximum flavor
-              and richness. We make our noodles fresh daily using a traditional
-              recipe, and our toppings are prepared with meticulous attention to
-              details.
+              Our broths simmer for 12–18 hours for deep, rich flavor. We make
+              fresh noodles daily and prepare toppings with meticulous care.
             </p>
           </div>
           <div className="business-detail__facts">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor ut
-            ratione et ea quo quos hic quae debitis odio expedita assumenda
-            optio cum, omnis libero iste, excepturi velit quis dolore.
+            <div className="business-detail__fact">
+              <h3 className="text-orange-500">12+</h3>
+              <small>Hours of Broth Simmering</small>
+            </div>
+            <div className="business-detail__fact">
+              <h3 className="text-orange-500">15+</h3>
+              <small>Pho Varieties</small>
+            </div>
+
+            <div className="business-detail__fact">
+              <h3 className="text-orange-500">100%</h3>
+              <small>Authentic Recipies</small>
+            </div>
+            <div className="business-detail__fact">
+              <h3 className="text-orange-500">Daily</h3>
+              <small>Fresh Noodles</small>
+            </div>
           </div>
         </div>
         {/* <div className="business-detail__heading business-detail__info border-b-2 border-black px-6 pt-6">
