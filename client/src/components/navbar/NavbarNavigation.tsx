@@ -7,8 +7,8 @@ const NavbarNavigation: React.FC<NavbarNavigationProps> = ({ onNavigate }) => {
     <ul className="navbar__items">
       {["home", "menu", "contact", "about"].map((item) => (
         <li className="navbar__item" key={item} onClick={() => onNavigate(item)}>
-          <button >
-            {item.toUpperCase()}
+          <button>
+            {item[0].toUpperCase()+item.slice(1)}
           </button>
         </li>
       ))}
