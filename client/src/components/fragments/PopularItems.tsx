@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 
-/* need work */
 function PopularItems() {
   const navigate = useNavigate();
   return (
@@ -23,28 +22,15 @@ function PopularItems() {
         <div className="popular__cards">
           <div className="popular__card">
             <img
-              src="https://media.istockphoto.com/id/1462352351/photo/pho.jpg?s=612x612&w=0&k=20&c=TaNeUcQyazuboL2g6sC_EMzuF9ZvW9xPvDL6FZgWKVM="
+              src="https://www.akfood.vn/wp-content/uploads/2024/07/image11.jpg"
               alt=""
+              loading="lazy"
             />
             <div className="popular__card-content">
-              <h3>Special Pho</h3>
+              <h3>Special Phở</h3>
               <small>
-                A rich beef broth with rare steak, brisket, tendon, tripe, and meatballs, topped with fresh herbs and traditional garnishes.
-              </small>
-              <button className="bg-gradient-to-r from-orange-500 to-orange-700 text-white">
-                Order Now
-              </button>
-            </div>
-          </div>
-          <div className="popular__card test">
-            <img
-              src="https://media.istockphoto.com/id/1462352351/photo/pho.jpg?s=612x612&w=0&k=20&c=TaNeUcQyazuboL2g6sC_EMzuF9ZvW9xPvDL6FZgWKVM="
-              alt=""
-            />
-            <div className="popular__card-content">
-              <h3>Special Pho</h3>
-              <small>
-                A rich beef broth with rare steak, brisket, tendon, tripe, and meatballs, topped with fresh herbs and traditional garnishes.
+                A rich beef broth with rare steak, brisket, tendon, tripe, and
+                meatballs, topped with fresh herbs and traditional garnishes.
               </small>
               <button className="bg-gradient-to-r from-orange-500 to-orange-700 text-white">
                 Order Now
@@ -53,13 +39,34 @@ function PopularItems() {
           </div>
           <div className="popular__card">
             <img
-              src="https://media.istockphoto.com/id/1462352351/photo/pho.jpg?s=612x612&w=0&k=20&c=TaNeUcQyazuboL2g6sC_EMzuF9ZvW9xPvDL6FZgWKVM="
+              src="https://www.oliveandmango.com/images/uploads/2021_12_26_beef_pho_noodle_soup_recipe_1.jpg"
               alt=""
+              loading="lazy"
             />
             <div className="popular__card-content">
-              <h3>Special Pho</h3>
+              <h3>Beef Phở</h3>
               <small>
-                A rich beef broth with rare steak, brisket, tendon, tripe, and meatballs, topped with fresh herbs and traditional garnishes.
+                The classic and most popular version, made with a rich,
+                slow-simmered beef bone broth, rice noodles, and cuts like
+                brisket, flank, or rare beef slices.
+              </small>
+              <button className="bg-gradient-to-r from-orange-500 to-orange-700 text-white">
+                Order Now
+              </button>
+            </div>
+          </div>
+          <div className="popular__card">
+            <img
+              src="https://cdn.shortpixel.ai/spai2/q_glossy+ret_img+to_auto/www.hungryhuy.com/wp-content/uploads/bun-bo-hue-bowl.jpg"
+              alt=""
+              loading="lazy"
+            />
+            <div className="popular__card-content">
+              <h3>Bún bò Huế</h3>
+              <small>
+                a spicy Vietnamese beef noodle soup with bold lemongrass flavor,
+                thick rice noodles, and tender beef slices, originating from the
+                city of Huế.
               </small>
               <button className="bg-gradient-to-r from-orange-500 to-orange-700 text-white">
                 Order Now

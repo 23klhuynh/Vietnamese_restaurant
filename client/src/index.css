@@ -311,6 +311,9 @@ h3 {
   flex: 1;
   border: 1px solid grey;
   border-radius: 10px;
+  height: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
 }
 .popular__card img {
   width: 100%;
@@ -324,9 +327,18 @@ h3 {
   justify-content: center;
   align-items: flex-start;
   gap: 5px;
+  height: 100%;
+}
+.popular__card-content small{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .popular__card-content button {
   align-self: center;
+  margin-top: auto;
   border: 1px solid black;
   width: 100%;
   border-radius: 5px;
@@ -348,11 +360,21 @@ h3 {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-/* @media screen and (max-width: 800px){
-  .test{
-    flex: 2;
+@media screen and (max-width: 700px){
+  .popular__cards{
+    flex-direction: column;
+    width: 70%;
+    margin: 0 auto;
+    gap: 20px;
+    margin-top: 20px;
   }
-} */
+}
+@media screen and (max-width: 500px){
+  .popular__cards{
+    width: 100%;
+    
+  }
+}
 
 /* 
 //////////////////////////////////////////////
@@ -1024,6 +1046,14 @@ h3 {
     display: none;
   }
 }
+@media screen and (max-width: 900px) {
+  .footer__top{
+    grid-template-columns: repeat(1, 1fr);
+    place-items: start;
+    
+  }
+}
+
 
 @media screen and (max-width: 800px) {
   /* .navbar__link,
@@ -1047,6 +1077,7 @@ h3 {
   .menu-items {
     grid-template-columns: repeat(1, 1fr);
   }
+  
 }
 
 @media screen and (max-width: 700px) {
