@@ -7,7 +7,8 @@ import NavbarLinks from "./NavbarLinks";
 import NavbarNavigation from "./NavbarNavigation";
 import Sidebar from "./Sidebar";
 import Cart from "../cart/Cart";
-import Logo from "../../assets/PhoVietLogo.png";
+/* import Logo from "../../assets/PhoVietLogo.png"; */
+import Logo from "../../assets/NewIcon.png"
 import { debounce } from "lodash";
 
 interface CartItem {
@@ -85,7 +86,7 @@ const Navbar: React.FC<NavbarProps> = ({ scroll, cartItems, setCartItems }) => {
     >
       <div className="navbar__left cursor-pointer">
         <RouterLink className="navbar__left-img" to="/">
-          <img src={Logo} alt="Pho icon" />
+          <img src={Logo} alt="Pho icon" className="invert"/>
         </RouterLink>
 
         <NavbarNavigation onNavigate={handleNavigation} />

@@ -51,7 +51,7 @@ function MenuItemCards({ menuItems }: MenuItemCardsProps) {
                     {menuItems?.[category]?.map((item) => (
                       <div key={item.id} className="menu-item">
                         <div className="item-header">
-                          <p>{item.name}</p>
+                          <p className="text-lg">{item.name}</p>
                           <IoMdAdd
                             className="item-add"
                             onClick={() => {
@@ -68,10 +68,10 @@ function MenuItemCards({ menuItems }: MenuItemCardsProps) {
                             }}
                           />
                         </div>
-                        <h3 style={{ color: "rgba(0, 0, 0, 0.4)" }}>
+                        <h3 style={{ color: "rgba(0, 0, 0, 0.4)" }} className="text-sm">
                           {item.description}
                         </h3>
-                        <h3 style={{ color: "rgba(0, 0, 0, 0.4)" }}>
+                        <h3 style={{ color: "rgba(0, 0, 0, 0.4)" }} className="text-sm">
                           ${item.price.toFixed(2)}
                         </h3>
                       </div>

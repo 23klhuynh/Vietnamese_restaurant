@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
-import LoginImage from "../assets/login.jpg";
 import { useUser } from "../auth/UserContext";
 import toast from "react-hot-toast";
 
@@ -103,12 +102,6 @@ function Login() {
           </div>
         </form>
       </section>
-      <img
-        className="login__image"
-        src={LoginImage}
-        alt="login page"
-        loading="lazy"
-      ></img>
     </main>
   );
 }
