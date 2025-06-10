@@ -19,7 +19,7 @@ public class MenuItem {
     private String description;
 
     @Column(nullable = false)
-    private Integer price;
+    private Double price;
 
     @Column(nullable = false)
     private String category;
