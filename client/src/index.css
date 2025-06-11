@@ -190,7 +190,7 @@ h3 {
 }
 .navbar__contact.special {
   background-color: var(--primary-color);
-   border: 1px solid var(--primary-color);
+  border: 1px solid var(--primary-color);
   color: black;
 }
 .navbar__contact.special:hover {
@@ -198,8 +198,15 @@ h3 {
   border-color: var(--secondary-color);
 }
 .navbar__left img {
-  height: 60px;
-  width: 60px;
+  height: 40px;
+  width: 40px;
+}
+.navbar__left-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
 }
 .navbar__mobile-icon {
   font-size: 2rem;
@@ -637,11 +644,16 @@ h3 {
   padding: 20px;
   border-radius: 20px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+  display: grid;
 }
 .item-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.menu__price{
+  margin-top: auto;
+  padding-top: 5px;
 }
 .item-add {
   font-size: 25px;

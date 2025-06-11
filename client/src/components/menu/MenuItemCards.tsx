@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 type CartContextType = {
   addToCart: (item: { id: number; name: string; price: number }) => void;
 };
-interface MenuItem {
+/* interface MenuItem {
   id: number;
   name: string;
   description: string;
@@ -17,8 +17,23 @@ interface MenuItemCardsProps {
   menuItems: {
     [category: string]: MenuItem[];
   } | null;
+} */
+interface MenuItem {
+  id: string, 
+  name: string,
+  description: string,
+  price: string
 }
-function MenuItemCards({ menuItems }: MenuItemCardsProps) {
+
+type MenuByCategory  = {
+  [category: string]: MenuItem[];
+}
+
+interface MenuItemCardsProps {
+  menuItems: MenuByCategory | null;
+}
+
+function MenuItemCards({ menuItems }: MenuItemCardsProps ) {
   const { addToCart } = useOutletContext<CartContextType>();
   const [showMenuItems, setShowMenuItems] = useState<boolean>(false);
 
@@ -39,6 +54,56 @@ function MenuItemCards({ menuItems }: MenuItemCardsProps) {
   }, []);
 
   return (
+    <section className="menu-item-container">
+      {menuItems ? (
+        showMenuItems ? (
+          <div className="menu-cards">
+            {categoryOrder.map((category) => (
+              <div key={category} className="menu-category">
+                <Element name={category}>
+                  <h2 className="menu-header">{category}</h2>
+                  <div className="menu-items">
+                    {menuItems[category]?.map((item) => (
+                      <div key={item.id} className="menu-item">
+                        <div className="item-header">
+                          <p className="text-lg">{item.name}</p>
+                          <IoMdAdd
+                            className="item-add"
+                            onClick={() => {
+                              addToCart({
+                                id: Number(item.id), 
+                                name: item.name,
+                                price: +item.price,  
+                              });
+                              localStorage.getItem("access_token")
+                                ? toast.success("Item added successfully!")
+                                : toast.error("Sign in to continue adding items!");
+                            }}
+                          />
+                        </div>
+                        <h3 style={{ color: "rgba(0, 0, 0, 0.4)" }} className="text-sm">
+                          {item.description}
+                        </h3>
+                        <h3 style={{ color: "rgba(0, 0, 0, 0.4)" }} className="text-sm menu__price">
+                          ${(+item.price).toFixed(2)}
+                        </h3>
+                      </div>
+                    ))}
+                  </div>
+                </Element>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="loading-bar"></div>
+        )
+      ) : (
+        <div className="loading-bar"></div>
+      )}
+    </section>
+  );
+
+  /* return (
     <section className="menu-item-container">
       {menuItems ? (
         showMenuItems ? (
@@ -71,7 +136,7 @@ function MenuItemCards({ menuItems }: MenuItemCardsProps) {
                         <h3 style={{ color: "rgba(0, 0, 0, 0.4)" }} className="text-sm">
                           {item.description}
                         </h3>
-                        <h3 style={{ color: "rgba(0, 0, 0, 0.4)" }} className="text-sm">
+                        <h3 style={{ color: "rgba(0, 0, 0, 0.4)" }} className="text-sm menu__price">
                           ${item.price.toFixed(2)}
                         </h3>
                       </div>
@@ -88,7 +153,8 @@ function MenuItemCards({ menuItems }: MenuItemCardsProps) {
         <div className="loading-bar"></div>
       )}
     </section>
-  );
+  ); */
+
 }
 
 export default MenuItemCards;

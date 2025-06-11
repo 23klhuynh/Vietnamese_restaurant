@@ -86,7 +86,7 @@ const Navbar: React.FC<NavbarProps> = ({ scroll, cartItems, setCartItems }) => {
     >
       <div className="navbar__left cursor-pointer">
         <RouterLink className="navbar__left-img" to="/">
-          <img src={Logo} alt="Pho icon" className="invert"/>
+          <img src={Logo} alt="Pho icon" className="invert"/> Phở Việt
         </RouterLink>
 
         <NavbarNavigation onNavigate={handleNavigation} />
