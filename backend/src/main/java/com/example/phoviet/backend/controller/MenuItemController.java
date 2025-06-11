@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/menu-items")
@@ -20,7 +21,7 @@ public class MenuItemController {
     private final MenuItemService menuItemService;
 
     @GetMapping
-    public ResponseEntity<List<MenuItem>> getAllMenuItems(){
+    public ResponseEntity<Map<String, Map<String, String>[]>> getAllMenuItems(){
        return menuItemService.all();
     }
 

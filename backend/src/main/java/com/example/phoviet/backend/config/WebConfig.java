@@ -1,16 +1,16 @@
-package com.example.phoviet.backend.config;
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-@Configuration
-public class WebConfig implements WebMvcConfigurer {
-
-    // need to move this to the filterchange
-
-
+//package com.example.phoviet.backend.config;
+//
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.transaction.annotation.Transactional;
+//import org.springframework.web.servlet.config.annotation.CorsRegistry;
+//import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+//
+//@Configuration
+//public class WebConfig implements WebMvcConfigurer {
+//
+//    // need to move this to the filterchange
+//
+//
 //    @Override
 //    public void addCorsMappings(CorsRegistry registry){
 //        registry.addMapping("/**")
@@ -20,6 +20,6 @@ public class WebConfig implements WebMvcConfigurer {
 ////                .allowCredentials(true)
 //                .maxAge(3600);
 //    }
-
-
-}
+//
+//
+//}
