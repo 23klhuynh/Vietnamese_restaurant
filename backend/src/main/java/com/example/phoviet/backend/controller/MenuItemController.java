@@ -1,5 +1,6 @@
 package com.example.phoviet.backend.controller;
 
+import com.example.phoviet.backend.DTO.CategoryDTO;
 import com.example.phoviet.backend.model.MenuItem;
 import com.example.phoviet.backend.repository.MenuItemRepository;
 import com.example.phoviet.backend.service.MenuItemService;
@@ -21,7 +22,7 @@ public class MenuItemController {
     private final MenuItemService menuItemService;
 
     @GetMapping
-    public ResponseEntity<Map<String, Map<String, String>[]>> getAllMenuItems(){
+    public ResponseEntity<List<CategoryDTO>> getAllMenuItems(){
        return menuItemService.all();
     }
 
