@@ -7,21 +7,21 @@ import MenuItemsNav from "../components/menu/MenuItemsNav";
 /* done but need check */
 /* new */
 interface MenuItem {
-  id: string, 
-  name: string,
-  description: string,
-  price: string
+  id: string;
+  name: string;
+  description: string;
+  price: string;
 }
 
-type MenuByCategory  = {
-  [category: string]: MenuItem[];
-}
-
+type MenuByCategory = {
+  category: string;
+  items: MenuItem[];
+};
 
 function Menu() {
-  /* const [menuItems, setMenuItems] = useState<{ [key: string]: any[] } | null>(null); */
-
-const [menuItems, setMenuItems] = useState<MenuByCategory | null>(null);
+  /*   const [menuItems, setMenuItems] = useState<{ [key: string]: any[] } | null>(null);
+   */
+  const [menuItems, setMenuItems] = useState<MenuByCategory[]>([]);
 
   useEffect(() => {
     const fetchAllMenuItem = async () => {
