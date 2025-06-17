@@ -13,12 +13,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, onNavigate }) => {
   return (
     <ul className={`navbar__sidebar ${isOpen ? "open" : ""}`}>
       {["home", "menu", "contact", "about"].map((item) => (
-        <li className="navbar__sidebar-item cursor-pointer" key={item}>
-          <button onClick={() => onNavigate(item)}>{item.toUpperCase()}</button>
+        <li className="navbar__sidebar-item cursor-pointer py-[10px] px-[40px]" key={item}>
+          <button onClick={() => onNavigate(item)}>{item[0].toUpperCase()+item.slice(1)}</button>
         </li>
       ))}
       {localStorage.getItem("access_token") ? (
-        <li className="navbar__sidebar-item cursor-pointer border border-white margin">
+        <li className="navbar__sidebar-item cursor-pointer border border-white margin rounded-xl py-[10px]">
           <button
             onClick={() => {
               navigate("/");
@@ -31,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, onNavigate }) => {
           </button>
         </li>
       ) : (
-        <li className="navbar__sidebar-item cursor-pointer border border-white margin">
+        <li className="navbar__sidebar-item special cursor-pointer border border-white margin rounded-xl py-[10px]">
           <button
             onClick={() => {
               navigate("/login");
@@ -42,6 +42,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, onNavigate }) => {
           </button>
         </li>
       )}
+      <li
+        className="navbar__sidebar-item special cursor-pointer border border-white margin rounded-xl bg-orange-400 py-[10px]"
+        /* onClick={() => setOpenCart(!openCart)} */
+      >
+        Order Now
+      </li>
     </ul>
   );
 };

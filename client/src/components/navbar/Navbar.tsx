@@ -90,6 +90,7 @@ const Navbar: React.FC<NavbarProps> = ({ scroll, cartItems, setCartItems }) => {
         </RouterLink>
 
         <NavbarNavigation onNavigate={handleNavigation} />
+        
         <div className="navbar__mobile">
           {isOpen ? (
             <AiOutlineClose
