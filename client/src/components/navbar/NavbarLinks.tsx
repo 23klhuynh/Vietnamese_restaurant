@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "../../auth/UserContext";
 import toast from "react-hot-toast";
-import { CiShoppingCart } from "react-icons/ci";
+/* import { CiShoppingCart } from "react-icons/ci"; */
 /* import { flatMap } from "lodash"; */
 
 interface NavbarLinksProps {

@@ -5,6 +5,7 @@ import Footer from "../components/fragments/Footer";
 import useScroll from "../hooks/useScroll";
 import SmoothScroll from "../hooks/SmoothScroll";
 
+
 type CartItem = {
   id: number;
   price: number;

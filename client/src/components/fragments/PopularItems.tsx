@@ -77,7 +77,10 @@ function PopularItems() {
         <div className="popular__footer">
           <button
             className="px-3 py-2 my-3 border border-black rounded"
-            onClick={() => navigate("/menu")}
+            onClick={() => {
+              navigate("/menu");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
           >
             View Full Menu →
           </button>
