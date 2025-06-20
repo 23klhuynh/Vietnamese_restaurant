@@ -1,11 +1,17 @@
+import { FaCircleCheck } from "react-icons/fa6";
+import { FaCartFlatbedSuitcase } from "react-icons/fa6";
+import { LuMapPinCheckInside } from "react-icons/lu";
+import { BsPeopleFill } from "react-icons/bs";
+import { IoBookSharp } from "react-icons/io5";
+
 function Services() {
   return (
     <div className="services">
       <div className="services__container">
         <div className="services__header">
-          <small>What We Offer</small>
-          <h1>Our Services</h1>
-          <p>
+          <small className="border border-red-800 rounded-2xl bg-red-800 px-6 py-2">What We Offer</small>
+          <h1 className="font-bold text-white">Our Services</h1>
+          <p className="text-gray-400">
             Experience the authentic taste of Vietnam with our premium services
             tailored to enhance your dining journey.
           </p>
@@ -13,7 +19,11 @@ function Services() {
 
         <div className="services__content">
           <div className="services__item">
-            <div className="services__icon">icon</div>
+            <div className="services__icon">
+              <span>
+                <LuMapPinCheckInside />
+              </span>
+            </div>
             <div className="services__description">
               <div className="services__description-header">
                 <h3>Dine-In Experience</h3>
@@ -23,17 +33,42 @@ function Services() {
                   decor and comforable seating.
                 </p>
               </div>
-              <ul className="services__dexcription-main">
-                <li>Comforable seating for groups and couples</li>
-                <li>Watch our chefs prepare your food</li>
-                <li>Traditional Vietnamese decor and ambiance</li>
-                <li>Full service with trained staff</li>
+              <ul className="services__description-main">
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Comforable seating for groups and couples
+                </li>
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Watch our chefs prepare your food
+                </li>
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Traditional Vietnamese decor and ambiance
+                </li>
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Full service with trained staff
+                </li>
               </ul>
             </div>
           </div>
 
           <div className="services__item">
-            <div className="services__icon">icon2</div>
+            <div className="services__icon">
+              <span>
+                <FaCartFlatbedSuitcase />
+              </span>
+              {/* <h3>icon</h3>{" "} */}
+            </div>
             <div className="services__description">
               <div className="services__description-header">
                 <h3>Takeout & Delivery</h3>
@@ -43,17 +78,41 @@ function Services() {
                   packaging to keep your food hot and fresh.
                 </p>
               </div>
-              <ul className="services__dexcription-main">
-                <li>Tastes hot and fresh upon arrival</li>
-                <li>Easy online ordering system</li>
-                <li>Fast and reliable delivery service</li>
-                <li>Delivery within 10 miles radius</li>
+              <ul className="services__description-main">
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Tastes hot and fresh upon arrival
+                </li>
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Easy online ordering system
+                </li>
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Fast and reliable delivery service
+                </li>
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Delivery within 10 miles radius
+                </li>
               </ul>
             </div>
           </div>
 
           <div className="services__item">
-            <div className="services__icon">icon3</div>
+            <div className="services__icon">
+              <span>
+                <BsPeopleFill />
+              </span>
+            </div>
             <div className="services__description">
               <div className="services__description-header">
                 <h3>Catering Services</h3>
@@ -63,17 +122,41 @@ function Services() {
                   bars and vietnamese cuisine.
                 </p>
               </div>
-              <ul className="services__dexcription-main">
-                <li>Custom pho stations for events</li>
-                <li>Professional staff to serve guests</li>
-                <li>Menu customization options</li>
-                <li>Equipment and setup included</li>
+              <ul className="services__description-main">
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Custom pho stations for events
+                </li>
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Professional staff to serve guests
+                </li>
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Menu customization options
+                </li>
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Equipment and setup included
+                </li>
               </ul>
             </div>
           </div>
 
           <div className="services__item">
-            <div className="services__icon">icon3</div>
+            <div className="services__icon">
+              <span>
+                <IoBookSharp />
+              </span>
+            </div>
             <div className="services__description">
               <div className="services__description-header">
                 <h3>Pho Making Classes</h3>
@@ -83,11 +166,31 @@ function Services() {
                   preparing the perfect broth.
                 </p>
               </div>
-              <ul className="services__dexcription-main">
-                <li>Hands-on experience with professional equipment</li>
-                <li>Small class sizes for personalized attention</li>
-                <li>Take home recipes and techniques</li>
-                <li>Includes meal and sake tasting</li>
+              <ul className="services__description-main">
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Hands-on experience with professional equipment
+                </li>
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Small class sizes for personalized attention
+                </li>
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Take home recipes and techniques
+                </li>
+                <li>
+                  <span>
+                    <FaCircleCheck />
+                  </span>
+                  Includes meal and sake tasting
+                </li>
               </ul>
             </div>
           </div>

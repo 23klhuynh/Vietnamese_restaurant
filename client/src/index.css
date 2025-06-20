@@ -867,7 +867,7 @@ h3 {
 
 .services{
   min-height: 150vh;
-  background-color: grey;
+  background-color: #2A343C;
 }
 .services__container{
   max-width: 1000px;
@@ -875,12 +875,13 @@ h3 {
   padding-top: 80px;
 }
 .services__header{
-  background-color: tomato;
+  /* background-color: tomato; */
   text-align: center;
   max-width: 500px;
   margin: 0 auto;
   margin-bottom: 60px;
   margin-top: 20px;
+  color: whitesmoke;
 }
 .services__content{
   display: grid;
@@ -888,19 +889,49 @@ h3 {
   gap: 20px;
 }
 .services__item{
-  border: 1px solid red;
+  border: 1px solid grey;
   display: flex;
-  
+  padding: 10px;
+  border-radius: 20px;
+  min-height: 275px;
 }
 .services__icon{
   flex: 1;
-  background-color: blue;
+  /* background-color: blue; */
+  place-items: center;
+  font-size: 4rem;
+  color: darkorange;
+  margin-top: 5px;
+}
+.services__icon span{
+  background: #1E252B;
+  display: block;
+  border-radius: 5px;
+  padding: 3px;
 }
 .services__description{
   flex: 4;
-  background-color: green;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
-
+.services__description-header h3{
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
+  font-weight: 700;
+  color: white;
+}
+.services__description-header p{
+  color: #696969;
+}
+.services__description-main li{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: darkgray;
+}
+.services__description-main li span{
+  color: darkorange;
+}
 
 
 

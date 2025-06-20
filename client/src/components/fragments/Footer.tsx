@@ -1,7 +1,7 @@
 import NewIcon from "../../assets/NewIcon.png";
 function Footer() {
   return (
-    <div className="footer-container text-center footer bg-gray-800 text-white py-4 mt-4 ">
+    <div className="footer-container text-center footer bg-gray-800 text-white py-4  ">
       <div className="footer__top grid grid-cols-4 place-items-center max-w-[1000px] mx-auto p-9 text-start gap-5">
         <div className="flex flex-col gap-2 h-[100%]">
           <h3 className="flex items-center justify-start gap-3 bg-gradient-to-r from-orange-300 to-orange-600 bg-clip-text text-transparent mb-5">
