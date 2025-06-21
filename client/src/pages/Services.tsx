@@ -171,7 +171,7 @@ function Services() {
                   <span>
                     <FaCircleCheck />
                   </span>
-                  Hands-on experience with professional equipment
+                  Hands-on experience {/* with professional equipment */}
                 </li>
                 <li>
                   <span>
@@ -192,6 +192,40 @@ function Services() {
                   Includes meal and sake tasting
                 </li>
               </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className="services__offers">
+          <h1 className="services__offers-header">Special Offers</h1>
+
+          <div className="services__offers-items">
+            <div className="services__offers-item">
+              <p>Student Discount</p>
+              <h1>15% OFF</h1>
+              <small>Valid student ID required. Available for dine-in only.</small>
+
+              <button>
+                Claim Offer
+              </button>
+            </div>
+            <div className="services__offers-item">
+              <p>Lunch Special</p>
+              <h1>$9.99</h1>
+              <small>Monday - Friday. 11AM - 2PM. Includes Pho and a drink.</small>
+
+              <button>
+                Claim Offer
+              </button>
+            </div>
+            <div className="services__offers-item">
+              <p>Happy Hour</p>
+              <h1>2 for 1</h1>
+              <small>Appetizers and drinks. Monday - Thursday. 4PM - 6PM.</small>
+
+              <button>
+                Claim Offer
+              </button>
             </div>
           </div>
         </div>
