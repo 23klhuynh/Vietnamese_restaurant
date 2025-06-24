@@ -3,13 +3,16 @@ import { FaCartFlatbedSuitcase } from "react-icons/fa6";
 import { LuMapPinCheckInside } from "react-icons/lu";
 import { BsPeopleFill } from "react-icons/bs";
 import { IoBookSharp } from "react-icons/io5";
+import Reservation from "../assets/Reservation.jpg";
 
 function Services() {
   return (
     <div className="services">
       <div className="services__container">
         <div className="services__header">
-          <small className="border border-red-800 rounded-2xl bg-red-800 px-6 py-2">What We Offer</small>
+          <small className="border border-red-800 rounded-2xl bg-red-800 px-6 py-2">
+            What We Offer
+          </small>
           <h1 className="font-bold text-white">Our Services</h1>
           <p className="text-gray-400">
             Experience the authentic taste of Vietnam with our premium services
@@ -198,35 +201,46 @@ function Services() {
 
         <div className="services__offers">
           <h1 className="services__offers-header">Special Offers</h1>
-
           <div className="services__offers-items">
-            <div className="services__offers-item">
+            <div className="services__offers-item first">
               <p>Student Discount</p>
-              <h1>15% OFF</h1>
-              <small>Valid student ID required. Available for dine-in only.</small>
+              <h1 className="font-bold">15% OFF</h1>
+              <small>
+                Valid student ID required. Available for dine-in only.
+              </small>
 
-              <button>
-                Claim Offer
-              </button>
+              <button>Claim Offer</button>
             </div>
-            <div className="services__offers-item">
+            <div className="services__offers-item second">
               <p>Lunch Special</p>
-              <h1>$9.99</h1>
-              <small>Monday - Friday. 11AM - 2PM. Includes Pho and a drink.</small>
+              <h1 className="font-bold">$9.99</h1>
+              <small>
+                Monday - Friday. 11AM - 2PM. Includes Pho and a drink.
+              </small>
 
-              <button>
-                Claim Offer
-              </button>
+              <button>Claim Offer</button>
             </div>
-            <div className="services__offers-item">
+            <div className="services__offers-item third">
               <p>Happy Hour</p>
-              <h1>2 for 1</h1>
-              <small>Appetizers and drinks. Monday - Thursday. 4PM - 6PM.</small>
+              <h1 className="font-bold">2 for 1</h1>
+              <small>
+                Appetizers and drinks. Monday - Thursday. 4PM - 6PM.
+              </small>
 
-              <button>
-                Claim Offer
-              </button>
+              <button>Claim Offer</button>
             </div>
+          </div>
+
+          <div className="services__offers-footer bg-gray-700 border border-gray-700">
+            <h1>Reserve Your Experience</h1>
+            <p>
+              whather it's a sepcial occasion or casual meal, we're here to
+              provide you with an exceptional pho and Vietnamese cusine
+              experience. Book your table now.
+            </p>
+            <button className="services__offers-footer-btn">
+              Make a Reservation
+            </button>
           </div>
         </div>
       </div>

@@ -34,6 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({ scroll, cartItems, setCartItems }) => {
     contact: "/",
     menu: "/menu",
     about: "/",
+    services: "/services"
   };
 
   const handleNavigation = (targetId: string) => {
