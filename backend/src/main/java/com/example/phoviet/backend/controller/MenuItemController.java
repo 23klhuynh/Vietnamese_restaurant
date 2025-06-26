@@ -1,6 +1,7 @@
 package com.example.phoviet.backend.controller;
 
 import com.example.phoviet.backend.DTO.CategoryDTO;
+import com.example.phoviet.backend.DTO.MenuItemDTO;
 import com.example.phoviet.backend.model.MenuItem;
 import com.example.phoviet.backend.repository.MenuItemRepository;
 import com.example.phoviet.backend.service.MenuItemService;
@@ -16,14 +17,24 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/menu-items")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 public class MenuItemController {
 
     private final MenuItemService menuItemService;
 
     @GetMapping
     public ResponseEntity<List<CategoryDTO>> getAllMenuItems(){
-       return menuItemService.all();
+        try {
+            List<CategoryDTO> categories = menuItemService.getAllMenuCategories();
+            return ResponseEntity.ok(categories);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error fetching categories");
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MenuItem> getItemsById(@PathVariable Long id){
+        return menuItemService.getById(id);
     }
 
     @DeleteMapping("/{id}")
