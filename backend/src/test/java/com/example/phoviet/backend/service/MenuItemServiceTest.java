@@ -1,5 +1,7 @@
 package com.example.phoviet.backend.service;
 
+import com.example.phoviet.backend.DTO.CategoryDTO;
+import com.example.phoviet.backend.DTO.MenuItemDTO;
 import com.example.phoviet.backend.model.MenuItem;
 import com.example.phoviet.backend.repository.MenuItemRepository;
 import com.example.phoviet.backend.service.MenuItemService;
@@ -13,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -97,7 +102,7 @@ public class MenuItemServiceTest {
     public void getById_whenValidId_shouldReturnMenuItem(){
 
         MenuItem trueMenuItem = new MenuItem();
-        trueMenuItem.setId(1);
+        trueMenuItem.setId(1l);
         trueMenuItem.setName("test");
         trueMenuItem.setCategory("test category");
         trueMenuItem.setPrice(11.00);
@@ -133,7 +138,7 @@ public class MenuItemServiceTest {
         oldMenuItem.setDescription("Original description");
 
         MenuItem newMenuItem = new MenuItem();
-        newMenuItem.setId(1L);  // Same ID
+        newMenuItem.setId(1L);
         newMenuItem.setName("new menu item");
         newMenuItem.setCategory("new");
         newMenuItem.setPrice(10.00);
@@ -148,7 +153,34 @@ public class MenuItemServiceTest {
         assertEquals("new menu item", newMenuItem.getName());
         assertEquals("new", newMenuItem.getCategory());
         assertEquals(10.00, newMenuItem.getPrice(), 0.001);
-
+        assertEquals("Updated description", newMenuItem.getDescription());
     }
+
+    @Test
+    public void update_whenInvalidItem_shouldReturnEmpty(){
+
+        MenuItem invalidMenuItem = new MenuItem();
+        invalidMenuItem.setId(999l);
+        invalidMenuItem.setName("invalid menu item");
+        invalidMenuItem.setCategory("invalid");
+        invalidMenuItem.setPrice(11.00);
+        invalidMenuItem.setDescription("invalid dishes");
+
+        when(menuItemRepository.findById(invalidMenuItem.getId())).thenReturn(Optional.empty());
+
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> menuItemService.update(invalidMenuItem.getId(), invalidMenuItem));
+
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+        assertEquals("Menu Item not found", exception.getReason());
+    }
+
+    // get all menu item
+
+    @Test
+    void getAllMenuCategories_ShouldReturnCategorizedMenuItems_WhenItemsExist() {
+        //need work
+    }
+
 
 }
