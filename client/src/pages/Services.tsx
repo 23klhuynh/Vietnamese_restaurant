@@ -1,14 +1,31 @@
+import { useState } from "react";
+import axios from "axios";
 import { FaCircleCheck } from "react-icons/fa6";
 import { FaCartFlatbedSuitcase } from "react-icons/fa6";
 import { LuMapPinCheckInside } from "react-icons/lu";
 import { BsPeopleFill } from "react-icons/bs";
 import { IoBookSharp } from "react-icons/io5";
-import Reservation from "../assets/Reservation.jpg";
 
 function Services() {
+  const [reservation, setReservation] = useState<boolean>(false);
+
+  const handleReservation = () => {
+    setReservation(!reservation);
+  };
+
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    /* need work */
+    try{
+      const response = await axios.post("http://localhost:8080/api/v1/reservation", {})
+    }catch(error){
+      console.error(error)
+    }
+  }
+
   return (
-    <div className="services">
-      <div className="services__container">
+    <div className={`services ${reservation ? "rev" : ""}`}>
+      <div className="services__container ">
         <div className="services__header">
           <small className="border border-red-800 rounded-2xl bg-red-800 px-6 py-2">
             What We Offer
@@ -238,11 +255,48 @@ function Services() {
               provide you with an exceptional pho and Vietnamese cusine
               experience. Book your table now.
             </p>
-            <button className="services__offers-footer-btn">
+            <button
+              className="services__offers-footer-btn"
+              onClick={handleReservation}
+            >
               Make a Reservation
             </button>
           </div>
         </div>
+
+        {reservation && (
+          <div className="reservation">
+            <form action="" className="p-4 flex flex-col gap-2">
+              <div className="grid gap-1">
+                <label htmlFor="">Name:</label>
+                <input type="text" placeholder="Jane Doe" required 
+                className="px-2 py-1 rounded-md"/>
+              </div>
+
+              <div className="grid gap-1">
+                <label htmlFor="">Email:</label>
+                <input type="email" placeholder="testing@gmail.com" required className="px-2 py-1 rounded-md"/>
+              </div>
+
+              <div className="grid gap-1">
+                <label htmlFor="">Number of people:</label>
+                <input type="number"  min="0" step="1" placeholder="2 (not decimal)" required className="px-2 py-1 rounded-md"/>
+              </div>
+
+              <div className="grid gap-1">
+                <label htmlFor="">Date:</label>
+                <input type="date" placeholder="2025-01-01" required className="px-2 py-1 rounded-md"/>
+              </div>
+
+              <div className="grid gap-1">
+                <label htmlFor="">Time:</label>
+                <input type="time" placeholder="10:30" required className="px-2 py-1 rounded-md"/>
+              </div>
+
+              <button className=" w-full mt-auto rounded-lg py-1 bg-gray-600 text-white hover:bg-gray-700">Make Reservation</button>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );

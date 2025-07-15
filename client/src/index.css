@@ -682,7 +682,7 @@ h3 {
 }
 /* menu loading faze */
 .loading-bar {
-  height: 5px;
+  height: 3px;
   position: relative;
   overflow: hidden;
 }
@@ -1024,6 +1024,27 @@ h3 {
     width: 100%;
   }
 }
+
+.reservation{
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+}
+.reservation form{
+  background-color: grey;
+  height: 400px;
+  width: 400px;
+  border-radius: 10px;
+}
+
 
 
 
