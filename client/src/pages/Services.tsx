@@ -8,20 +8,80 @@ import { IoBookSharp } from "react-icons/io5";
 
 function Services() {
   const [reservation, setReservation] = useState<boolean>(false);
+  const [reservationForm, setReservationForm] = useState({
+    customer_email: "",
+    customer_name: "",
+    number_of_people: "",
+    reservation_date: "",
+    reservation_time: "",
+  });
 
   const handleReservation = () => {
     setReservation(!reservation);
   };
 
-  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     /* need work */
-    try{
-      const response = await axios.post("http://localhost:8080/api/v1/reservation", {})
-    }catch(error){
-      console.error(error)
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/reservation",
+        {
+          customer_email: reservationForm.customer_email,
+          customer_name: reservationForm.customer_name,
+          number_of_people: reservationForm.number_of_people,
+          reservation_date: reservationForm.reservation_date,
+          reservation_time: reservationForm.reservation_time,
+        }
+      );
+
+      if (response.status === 200) {
+        setReservationForm({
+          customer_email: "",
+          customer_name: "",
+          number_of_people: "",
+          reservation_date: "",
+          reservation_time: "",
+        });
+      }
+    } catch (error) {
+      console.error(error);
     }
-  }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    if (name === "reservation_time") {
+      toMilitaryTime(value);
+    }
+
+    if (name === "reservation_date") {
+      value.replace("/", "-");
+    }
+
+    setReservationForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  /* need work on the time format */
+  const toMilitaryTime = (standardTime: string): string => {
+    const [time, modifier] = standardTime.trim().split(" ");
+
+    let [hours, minutes] = time.split(":").map(Number);
+
+    if (modifier.toLowerCase() === "pm" && hours !== 12) {
+      hours += 12;
+    }
+
+    if (modifier.toLowerCase() === "am" && hours === 12) {
+      hours = 0;
+    }
+
+    const hourStr = hours.toString().padStart(2, "0");
+    const minuteStr = minutes.toString().padStart(2, "0");
+
+    return `${hourStr}:${minuteStr}`;
+  };
 
   return (
     <div className={`services ${reservation ? "rev" : ""}`}>
@@ -266,34 +326,82 @@ function Services() {
 
         {reservation && (
           <div className="reservation">
-            <form action="" className="p-4 flex flex-col gap-2">
+            <form
+              action=""
+              className="p-4 flex flex-col gap-2"
+              onSubmit={handleSubmit}
+            >
               <div className="grid gap-1">
                 <label htmlFor="">Name:</label>
-                <input type="text" placeholder="Jane Doe" required 
-                className="px-2 py-1 rounded-md"/>
+                <input
+                  type="text"
+                  name="customer_name"
+                  placeholder="Jane Doe"
+                  required
+                  value={reservationForm.customer_name}
+                  onChange={handleChange}
+                  className="px-2 py-1 rounded-md"
+                />
               </div>
 
               <div className="grid gap-1">
                 <label htmlFor="">Email:</label>
-                <input type="email" placeholder="testing@gmail.com" required className="px-2 py-1 rounded-md"/>
+                <input
+                  type="email"
+                  name="customer_email"
+                  placeholder="testing@gmail.com"
+                  required
+                  value={reservationForm.customer_email}
+                  onChange={handleChange}
+                  className="px-2 py-1 rounded-md"
+                />
               </div>
 
               <div className="grid gap-1">
                 <label htmlFor="">Number of people:</label>
-                <input type="number"  min="0" step="1" placeholder="2 (not decimal)" required className="px-2 py-1 rounded-md"/>
+                <input
+                  type="number"
+                  name="number_of_people"
+                  min="0"
+                  step="1"
+                  placeholder="2 (not decimal)"
+                  required
+                  value={reservationForm.number_of_people}
+                  onChange={handleChange}
+                  className="px-2 py-1 rounded-md"
+                />
               </div>
 
               <div className="grid gap-1">
                 <label htmlFor="">Date:</label>
-                <input type="date" placeholder="2025-01-01" required className="px-2 py-1 rounded-md"/>
+                <input
+                  type="date"
+                  name="reservation_date"
+                  required
+                  value={reservationForm.reservation_date}
+                  onChange={handleChange}
+                  className="px-2 py-1 rounded-md"
+                />
               </div>
 
               <div className="grid gap-1">
                 <label htmlFor="">Time:</label>
-                <input type="time" placeholder="10:30" required className="px-2 py-1 rounded-md"/>
+                <input
+                  type="time"
+                  name="reservation_time"
+                  required
+                  value={reservationForm.reservation_time}
+                  onChange={handleChange}
+                  className="px-2 py-1 rounded-md"
+                />
               </div>
 
-              <button className=" w-full mt-auto rounded-lg py-1 bg-gray-600 text-white hover:bg-gray-700">Make Reservation</button>
+              <button
+                className=" w-full mt-auto rounded-lg py-1 bg-gray-600 text-white hover:bg-gray-700"
+                type="submit"
+              >
+                Make Reservation
+              </button>
             </form>
           </div>
         )}
