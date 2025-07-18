@@ -7,15 +7,14 @@ import NavbarLinks from "./NavbarLinks";
 import NavbarNavigation from "./NavbarNavigation";
 import Sidebar from "./Sidebar";
 import Cart from "../cart/Cart";
-/* import Logo from "../../assets/PhoVietLogo.png"; */
-import Logo from "../../assets/NewIcon.png"
+import Logo from "../../assets/NewIcon.png";
 import { debounce } from "lodash";
 
 interface CartItem {
   id: number;
   name: string;
   price: number;
-  quantity: number; 
+  quantity: number;
 }
 
 interface NavbarProps {
@@ -34,7 +33,7 @@ const Navbar: React.FC<NavbarProps> = ({ scroll, cartItems, setCartItems }) => {
     contact: "/",
     menu: "/menu",
     about: "/",
-    services: "/services"
+    services: "/services",
   };
 
   const handleNavigation = (targetId: string) => {
@@ -87,29 +86,32 @@ const Navbar: React.FC<NavbarProps> = ({ scroll, cartItems, setCartItems }) => {
     >
       <div className="navbar__left cursor-pointer">
         <RouterLink className="navbar__left-img" to="/">
-          <img src={Logo} alt="Pho icon" className="invert"/> Phở Việt
+          <img src={Logo} alt="Pho icon" className="invert" /> Phở Việt
         </RouterLink>
 
         <NavbarNavigation onNavigate={handleNavigation} />
-        
+
         <div className="navbar__mobile">
-          {isOpen ? (
-            <AiOutlineClose
-              className="navbar__mobile-icon"
-              onClick={() => setIsOpen(!isOpen)}
-            />
-          ) : (
-            <RxHamburgerMenu
-              className="navbar__mobile-icon"
-              onClick={() => setIsOpen(!isOpen)}
-            />
-          )}
+          {!openCart &&
+            (isOpen ? (
+              <AiOutlineClose
+                className="navbar__mobile-icon"
+                onClick={() => setIsOpen(!isOpen)}
+              />
+            ) : (
+              <RxHamburgerMenu
+                className="navbar__mobile-icon"
+                onClick={() => setIsOpen(!isOpen)}
+              />
+            ))}
         </div>
       </div>
       <Sidebar
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         onNavigate={handleAllClicks}
+        setOpenCart={setOpenCart}
+        openCart={openCart}
       />
       {!isOpen && (
         <>

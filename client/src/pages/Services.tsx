@@ -5,6 +5,21 @@ import { FaCartFlatbedSuitcase } from "react-icons/fa6";
 import { LuMapPinCheckInside } from "react-icons/lu";
 import { BsPeopleFill } from "react-icons/bs";
 import { IoBookSharp } from "react-icons/io5";
+import { MdOutlineCancel } from "react-icons/md";
+
+
+const convert12to24Hour = (time12h: string): string => {
+  const [time, period] = time12h.split(' ');
+  let [hours, minutes] = time.split(':');
+  
+  if (period === 'PM' && hours !== '12') {
+    hours = String(parseInt(hours, 10) + 12);
+  } else if (period === 'AM' && hours === '12') {
+    hours = '00';
+  }
+  
+  return `${hours.padStart(2, '0')}:${minutes}`;
+};
 
 function Services() {
   const [reservation, setReservation] = useState<boolean>(false);
@@ -22,29 +37,35 @@ function Services() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    /* need work */
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/reservation",
-        {
-          customer_email: reservationForm.customer_email,
-          customer_name: reservationForm.customer_name,
-          number_of_people: reservationForm.number_of_people,
-          reservation_date: reservationForm.reservation_date,
-          reservation_time: reservationForm.reservation_time,
-        }
-      );
+    // Convert date from yyyy-MM-dd to MM-dd-yyyy
+    const [year, month, day] = reservationForm.reservation_date.split('-');
+    const formattedDate = `${month}-${day}-${year}`;
 
-      if (response.status === 200) {
-        setReservationForm({
-          customer_email: "",
-          customer_name: "",
-          number_of_people: "",
-          reservation_date: "",
-          reservation_time: "",
-        });
+     const formattedTime = convert12to24Hour(reservationForm.reservation_time);
+
+
+    const response = await axios.post(
+      "http://localhost:8080/api/v1/reservation",
+      {
+        customer_email: reservationForm.customer_email,
+          customer_name: reservationForm.customer_name,
+          number_of_people: parseInt(reservationForm.number_of_people),
+          reservation_date: formattedDate,
+          reservation_time: formattedTime,
       }
-    } catch (error) {
+    );
+
+    if (response.status === 200) {
+      setReservationForm({
+        customer_email: "",
+        customer_name: "",
+        number_of_people: "",
+        reservation_date: "",
+        reservation_time: "",
+      });
+    }
+  } catch (error) {
       console.error(error);
     }
   };
@@ -52,36 +73,9 @@ function Services() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    if (name === "reservation_time") {
-      toMilitaryTime(value);
-    }
-
-    if (name === "reservation_date") {
-      value.replace("/", "-");
-    }
-
     setReservationForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  /* need work on the time format */
-  const toMilitaryTime = (standardTime: string): string => {
-    const [time, modifier] = standardTime.trim().split(" ");
-
-    let [hours, minutes] = time.split(":").map(Number);
-
-    if (modifier.toLowerCase() === "pm" && hours !== 12) {
-      hours += 12;
-    }
-
-    if (modifier.toLowerCase() === "am" && hours === 12) {
-      hours = 0;
-    }
-
-    const hourStr = hours.toString().padStart(2, "0");
-    const minuteStr = minutes.toString().padStart(2, "0");
-
-    return `${hourStr}:${minuteStr}`;
-  };
 
   return (
     <div className={`services ${reservation ? "rev" : ""}`}>
@@ -332,7 +326,13 @@ function Services() {
               onSubmit={handleSubmit}
             >
               <div className="grid gap-1">
-                <label htmlFor="">Name:</label>
+                <span className="flex justify-between items-center">
+                  <label htmlFor="">Name:</label>
+                  
+                  <MdOutlineCancel onClick={()=>setReservation(false)} className="cursor-pointer text-3xl"/>
+
+                </span>
+
                 <input
                   type="text"
                   name="customer_name"

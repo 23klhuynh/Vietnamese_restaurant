@@ -230,7 +230,7 @@ h3 {
   overflow: hidden;
   background-color: black;
   border-top: 1px solid gray;
-  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease;
   
   width: 100%;
   top: 0;
@@ -762,7 +762,7 @@ h3 {
   padding: 40px 30px;
   height: 50px;
   background-color: rgba(0, 0, 0, 0.05);
-  z-index: 2;
+  z-index: 1000;
 }
 .order {
   display: flex;
@@ -1006,25 +1006,6 @@ h3 {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-@media screen and (max-width: 1000px) {
-  .services__content, .services__offers-items{
-    grid-template-columns: repeat(1, 1fr);
-    width: 70%;
-    margin: 0 auto;
-  }
-  .services__offers-footer{
-    width: 70%;
-    margin: 0 auto;
-    margin-top: 30px;
-  }
-  
-}
-@media screen and (max-width: 700px) {
-  .services__content, .services__offers-items, .services__offers-footer{
-    width: 100%;
-  }
-}
-
 .reservation{
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
@@ -1043,7 +1024,36 @@ h3 {
   height: 400px;
   width: 400px;
   border-radius: 10px;
+  overflow-y: auto;
 }
+
+
+@media screen and (max-width: 1000px) {
+  .services__content, .services__offers-items{
+    grid-template-columns: repeat(1, 1fr);
+    width: 70%;
+    margin: 0 auto;
+  }
+  .services__offers-footer{
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+  .reservation form{
+  
+  height: 500px;
+  width: 90%;
+  
+}
+  
+}
+@media screen and (max-width: 700px) {
+  .services__content, .services__offers-items, .services__offers-footer{
+    width: 100%;
+  }
+}
+
+
 
 
 

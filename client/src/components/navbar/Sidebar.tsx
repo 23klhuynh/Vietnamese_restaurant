@@ -5,16 +5,34 @@ interface SidebarProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   onNavigate: (item: string) => void;
+  openCart: boolean;
+  setOpenCart: (openCart: boolean) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, onNavigate }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  isOpen,
+  setIsOpen,
+  onNavigate,
+  openCart,
+  setOpenCart,
+}) => {
   const navigate = useNavigate();
+
+  const handleOpenCart = () => {
+    setIsOpen(!isOpen);
+    setOpenCart(!openCart);
+  };
 
   return (
     <ul className={`navbar__sidebar ${isOpen ? "open" : ""}`}>
-      {["home", "menu", "contact", "about"].map((item) => (
-        <li className="navbar__sidebar-item cursor-pointer py-[10px] px-[40px]" key={item}>
-          <button onClick={() => onNavigate(item)}>{item[0].toUpperCase()+item.slice(1)}</button>
+      {["home", "menu", "services", "contact", "about"].map((item) => (
+        <li
+          className="navbar__sidebar-item cursor-pointer py-[10px] px-[40px]"
+          key={item}
+        >
+          <button onClick={() => onNavigate(item)}>
+            {item[0].toUpperCase() + item.slice(1)}
+          </button>
         </li>
       ))}
       {localStorage.getItem("access_token") ? (
@@ -43,8 +61,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, onNavigate }) => {
         </li>
       )}
       <li
-        className="navbar__sidebar-item special cursor-pointer border border-white margin rounded-xl bg-orange-400 py-[10px]"
-        /* onClick={() => setOpenCart(!openCart)} */
+        className="navbar__sidebar-item special cursor-pointer border border-orange-500 margin rounded-xl bg-orange-400 py-[10px]"
+        onClick={handleOpenCart}
       >
         Order Now
       </li>
