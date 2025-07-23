@@ -12,4 +12,10 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
+	// next will create a order_items section in the db
+	//
+	// in the order_items service, under the order_id, set it equal to order id
+	//
+	// make only one service layer so on the orders either add the order_items to it or some other ways
+
 }
