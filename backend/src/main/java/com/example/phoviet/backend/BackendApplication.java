@@ -12,10 +12,26 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
-	// next will create a order_items section in the db
-	//
-	// in the order_items service, under the order_id, set it equal to order id
-	//
-	// make only one service layer so on the orders either add the order_items to it or some other ways
+	// next
+	// make sure the frontend get the menu item id when check out so that it can be sent to the backend
+	//	make sure the frontend send the menu items in an array
+	//{
+	//    "customerName": "John Doe",
+	//    "items": [
+	//        {
+	//            "menuItemId": 1,
+	//            "quantity": 2
+	//        },
+	//        {
+	//            "menuItemId": 3,
+	//            "quantity": 1
+	//        },
+	//        {
+	//            "menuItemId": 5,
+	//            "quantity": 3
+	//        }
+	//    ]
+	//}
+
 
 }
