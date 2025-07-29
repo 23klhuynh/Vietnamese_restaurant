@@ -4,6 +4,7 @@ import Menu from "./pages/Menu";
 import Services from "./pages/Services";
 import Login from "./pages/Login";
 import Layout from "./layout/Layout";
+import Order from "./pages/Order";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import { Toaster } from "react-hot-toast";
@@ -21,6 +22,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="menu" element={<Menu />} />
           <Route path="services" element={<Services/>}/>
+          <Route path="order" element={<Order/>}/>
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
