@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "../../auth/UserContext";
+import { CiShoppingCart } from "react-icons/ci";
 import toast from "react-hot-toast";
 /* import { CiShoppingCart } from "react-icons/ci"; */
 /* import { flatMap } from "lodash"; */
@@ -52,7 +53,9 @@ function NavbarLinks({ openCart, setOpenCart }: NavbarLinksProps) {
             className="navbar__contact special cursor-auto"
             onClick={() => setOpenCart(!openCart)}
           >
-            Order Now
+            <CiShoppingCart className="text-2xl"/>
+
+            Cart
           </button>
         </>
       ) /* 

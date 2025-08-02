@@ -1,253 +1,311 @@
 import { useState } from "react";
-import { CiTimer } from "react-icons/ci";
+import { CiTimer, CiLock } from "react-icons/ci";
 import { MdOutlineShoppingCart } from "react-icons/md";
 
 function Order() {
-  const [selectedOption, setSelectedOption] = useState("");
+  type OrderOption = "delivery" | "pickup" | "dine-in";
+  type PaymentMethod = "pay-at-store" | "card" | "cash-on-delivery";
 
-  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedOption(event.target.value);
+  const [orderOption, setOrderOption] = useState<OrderOption>();
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
   };
 
   return (
-    <main className="order bg-gray-800 text-gray-200">
-      <section className="order__container">
-        <div className="order__header px-[20px]">
-          <h1>Checkout</h1>
-          <p>Complete your order in just a few steps</p>
+    <main className="order__section bg-gray-800 text-gray-200 md:p-8">
+      <section className="order__container max-w-6xl mx-auto">
+        <div className="order__header mb-8 px-[15px]">
+          <h1 className="text-2xl font-bold">Checkout</h1>
+          <p className="text-gray-400">
+            Complete your order in just a few steps
+          </p>
         </div>
 
-        <div className="order__main">
-          <div className="order__checkout">
-            <form className="order__contact-info " /* onSubmit={} */>
-              <div className="order__contact-info__header bg-gray-600">
-                <span>
-                  <h3>Contact Information</h3>
-                  <p>
-                    We'll use this info to keep you updated about your order
-                  </p>
-                </span>
+        <div className="order__main flex flex-col lg:flex-row gap-8">
+          <div className="order__checkout flex-1">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Contact Information */}
+              <div className="bg-gray-700 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-2">
+                  Contact Information
+                </h3>
+                <p className="text-gray-400 mb-4">
+                  We'll use this info to keep you updated about your order
+                </p>
 
-                <hr />
-
-                <span>
-                  <label htmlFor="">Full Name</label>
-                  <input
-                    type="text"
-                    placeholder="Jane Doe"
-                    className="text-black"
-                    required
-                  />
-                </span>
-
-                <div className="flex justify-between gap-3">
-                  <span className="flex-1">
-                    <label htmlFor="">Email Address</label>
-                    <input
-                      type="email"
-                      placeholder="JaneDoe@gmail.com"
-                      className="text-black"
-                      required
-                    />
-                  </span>
-                  <span className="flex-1">
-                    <label htmlFor="">Phone Number</label>
-                    <input
-                      type="tel"
-                      placeholder="123-456-7890"
-                      className="text-black"
-                      required
-                    />
-                  </span>
-                </div>
-              </div>
-              {/* /// */}
-              <div className="order__contact-info__header bg-gray-600">
-                <span>
-                  <h3>Order Options</h3>
-                  <p>Choose how you want to enjoy your meal</p>
-                </span>
-
-                <hr />
-
-                <div className="flex gap-6">
-                  <div className="border rounded-md px-2 border-gray-400 flex-1">
-                    <label className="flex justify-start items-center">
-                      <input
-                        className="mr-2"
-                        type="radio"
-                        name="option"
-                        value="enable"
-                        onChange={handleRadioChange}
-                      />
-                      Delivery
+                <div className="space-y-4">
+                  <div>
+                    <label htmlFor="fullName" className="block mb-1">
+                      Full Name
                     </label>
-                    <div className="">
-                      <p className="flex items-center gap-1">
-                        <CiTimer />
-                        30–45 minutes
-                      </p>
-                      <p>Delivered to your address</p>
-                    </div>
-                  </div>
-
-                  <div className="border rounded-md px-2 border-gray-400 flex-1">
-                    <label className="flex justify-start items-center">
-                      <input
-                        className="mr-2"
-                        type="radio"
-                        name="option"
-                        value="disable"
-                        onChange={handleRadioChange}
-                      />
-                      Pickup
-                    </label>
-                    <div className="">
-                      <p className="flex items-center gap-1">
-                        <CiTimer />
-                        15–20 minutes
-                      </p>
-                      <p>Ready for pickup at resturant</p>
-                    </div>
-                  </div>
-
-                  <div className="border rounded-md px-2 border-gray-400 flex-1">
-                    <label className="flex justify-start items-center">
-                      <input
-                        className="mr-2"
-                        type="radio"
-                        name="option"
-                        value="disable"
-                        onChange={handleRadioChange}
-                      />
-                      Dine in
-                    </label>
-                    <div className="">
-                      <p className="flex items-center gap-1">
-                        <MdOutlineShoppingCart />
-                        Served immediately
-                      </p>
-                      <p>Enjoy at the resturant</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* neeed work right here */}
-                <span>
-                  <label htmlFor="">Delivery Address</label>
-                  <input
-                    type="text"
-                    placeholder="948 king dr"
-                    disabled={selectedOption === "disable"}
-                    className="text-black"
-                    required
-                  />
-                </span>
-
-                <div className="flex justify-between gap-3">
-                  <span className="flex-1">
-                    <label htmlFor="">City</label>
                     <input
+                      id="fullName"
                       type="text"
-                      placeholder="Morehead City"
-                      disabled={selectedOption === "disable"}
-                      className="text-black"
+                      placeholder="Jane Doe"
+                      className="w-full p-2 rounded text-black"
                       required
                     />
-                  </span>
-                  <span className="flex-1">
-                    <label htmlFor="">ZIP Code</label>
-                    <input
-                      type="tel"
-                      placeholder="123-456-7890"
-                      disabled={selectedOption === "disable"}
-                      className="text-black"
-                      required
-                    />
-                  </span>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex-1">
+                      <label htmlFor="email" className="block mb-1">
+                        Email Address
+                      </label>
+                      <input
+                        id="email"
+                        type="email"
+                        placeholder="JaneDoe@gmail.com"
+                        className="w-full p-2 rounded text-black"
+                        required
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <label htmlFor="phone" className="block mb-1">
+                        Phone Number
+                      </label>
+                      <input
+                        id="phone"
+                        type="tel"
+                        placeholder="123-456-7890"
+                        className="w-full p-2 rounded text-black"
+                        required
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="order__contact-info__header bg-gray-600">
-                <span>
-                  <h3>Payment Method</h3>
-                  <p>All transactions are secure and encrypted</p>
-                </span>
+              {/* Order Options */}
+              <div className="bg-gray-700 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-2">Order Options</h3>
+                <p className="text-gray-400 mb-4">
+                  Choose how you want to enjoy your meal
+                </p>
 
-                <hr />
-
-                <div className="grid">
-                  <label className="flex justify-start items-center">
-                    <input className="mr-2" type="radio" name="option" />
-                    Credit/Debit Card
-                  </label>
-                  <label className="flex justify-start items-center">
-                    <input className="mr-2" type="radio" name="option" />
-                    Cash on Devlivery
-                  </label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                  {[
+                    {
+                      value: "delivery",
+                      title: "Delivery",
+                      time: "30–45 minutes",
+                      description: "Delivered to your address",
+                      icon: <CiTimer />,
+                    },
+                    {
+                      value: "pickup",
+                      title: "Pickup",
+                      time: "15–20 minutes",
+                      description: "Ready for pickup at restaurant",
+                      icon: <CiTimer />,
+                    },
+                    {
+                      value: "dine-in",
+                      title: "Dine in",
+                      time: "Served immediately",
+                      description: "Enjoy at the restaurant",
+                      icon: <MdOutlineShoppingCart />,
+                    },
+                  ].map((option) => (
+                    <label
+                      key={option.value}
+                      className={`border rounded-md p-4 cursor-pointer transition-colors ${
+                        orderOption === option.value
+                          ? "border-blue-500 bg-gray-600"
+                          : "border-gray-500 hover:bg-gray-600"
+                      }`}
+                    >
+                      <div className="flex items-center">
+                        <input
+                          type="radio"
+                          name="orderOption"
+                          value={option.value}
+                          checked={orderOption === option.value}
+                          onChange={() =>
+                            setOrderOption(option.value as OrderOption)
+                          }
+                          className="mr-2"
+                        />
+                        <span className="font-medium">{option.title}</span>
+                      </div>
+                      <div className="mt-2 text-sm">
+                        <p className="flex items-center gap-1">
+                          {option.icon}
+                          {option.time}
+                        </p>
+                        <p className="text-gray-400">{option.description}</p>
+                      </div>
+                    </label> 
+                  ))}
                 </div>
 
-                <span>
-                  <label htmlFor="">Card Number</label>
-                  <input
-                    type="text"
-                    placeholder="Jane Doe"
-                    className="text-black"
-                    required
-                  />
-                </span>
+                {orderOption === "delivery" && (
+                  <div className="space-y-4">
+                    <div>
+                      <label htmlFor="address" className="block mb-1">
+                        Delivery Address
+                      </label>
+                      <input
+                        id="address"
+                        type="text"
+                        placeholder="948 king dr"
+                        className="w-full p-2 rounded text-black"
+                        required
+                      />
+                    </div>
 
-                <div className="flex justify-between gap-3">
-                  <span className="flex-1">
-                    <label htmlFor="">Expiration Date</label>
-                    <input type="date" className="text-black" required />
-                  </span>
-                  <span className="flex-1">
-                    <label htmlFor="">CVS</label>
-                    <input
-                      type="number"
-                      placeholder="392"
-                      className="text-black"
-                      required
-                    />
-                  </span>
-                </div>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <div className="flex-1">
+                        <label htmlFor="city" className="block mb-1">
+                          City
+                        </label>
+                        <input
+                          id="city"
+                          type="text"
+                          placeholder="Morehead City"
+                          className="w-full p-2 rounded text-black"
+                          required
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <label htmlFor="zip" className="block mb-1">
+                          ZIP Code
+                        </label>
+                        <input
+                          id="zip"
+                          type="text"
+                          placeholder="12345"
+                          className="w-full p-2 rounded text-black"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
-              <div className="order__contact-info__header bg-gray-600">
-                <p>Additional Notes (Optional)</p>
+              {/* Payment Method */}
+              <div className="bg-gray-700 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-2">Payment Method</h3>
+                <p className="text-gray-400 mb-4">
+                  All transactions are secure and encrypted
+                </p>
+
+                <div className="space-y-3 mb-6">
+                  {[
+                    { value: "pay-at-store", label: "Pay at store" },
+                    { value: "card", label: "Credit/Debit Card" },
+                    { value: "cash-on-delivery", label: "Cash on Delivery" },
+                  ].map((method) => (
+                    <label
+                      key={method.value}
+                      className="flex items-center space-x-2"
+                    >
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        value={method.value}
+                        checked={paymentMethod === method.value}
+                        onChange={() =>
+                          setPaymentMethod(method.value as PaymentMethod)
+                        }
+                      />
+                      <span>{method.label}</span>
+                    </label>
+                  ))}
+                </div>
+
+                {paymentMethod === "card" && (
+                  <div className="space-y-4">
+                    <div>
+                      <label htmlFor="cardNumber" className="block mb-1">
+                        Card Number
+                      </label>
+                      <input
+                        id="cardNumber"
+                        type="text"
+                        placeholder="1234 5678 9012 3456"
+                        className="w-full p-2 rounded text-black"
+                        required
+                      />
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <div className="flex-1">
+                        <label htmlFor="expiry" className="block mb-1">
+                          Expiration Date
+                        </label>
+                        <input
+                          id="expiry"
+                          type="month"
+                          className="w-full p-2 rounded text-black"
+                          required
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <label htmlFor="cvv" className="block mb-1">
+                          CVV
+                        </label>
+                        <input
+                          id="cvv"
+                          type="text"
+                          placeholder="123"
+                          className="w-full p-2 rounded text-black"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Additional Notes */}
+              <div className="bg-gray-700 p-6 rounded-lg">
+                <label htmlFor="notes" className="block mb-2">
+                  Additional Notes (Optional)
+                </label>
                 <textarea
-                  name=""
-                  id=""
-                  className="h-[150px]"
+                  id="notes"
+                  className="w-full p-2 rounded text-black h-32"
                   placeholder="Special instructions for your order..."
                 ></textarea>
               </div>
 
-              {/* /// */}
+              <button
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+              >
+                Place Order
+              </button>
             </form>
           </div>
 
-          <div className="order__summary ">
-            <div className="order__box bg-gray-600 flex flex-col gap-3">
-              <h1>Order Summary</h1>
-
-              <hr />
-
-              <div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit,
-                  possimus aut. Tempore ullam mollitia magni officiis, unde
-                  recusandae consectetur beatae error, expedita nisi voluptatum,
-                  et nemo eveniet tempora? Culpa, quasi.
-                </p>
-                {/* use a component to filter out the item */}
+          {/* Order Summary */}
+          <div className="lg:w-96 mx-3">
+            <div className="bg-gray-700 p-6 rounded-lg mb-4">
+              <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+              <div className="space-y-4">
+                {/* Replace with actual cart items */}
+                <div className="flex justify-between">
+                  <span>Item 1</span>
+                  <span>$10.99</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Item 2</span>
+                  <span>$8.50</span>
+                </div>
+                <hr className="border-gray-600" />
+                <div className="flex justify-between font-bold">
+                  <span>Total</span>
+                  <span>$19.49</span>
+                </div>
               </div>
-              <p>Total</p>
-              <button className="bg-slate-400 h-[50px] rounded-md">Place Order - (total price)</button>
             </div>
-            <div className="bg-gray-500 text-gray-400 text-center place-content-center w-full h-[50px] secure">
-              <p>Secure Checkout</p>
+            <div className="bg-gray-800 text-gray-400 p-4 rounded-lg flex items-center justify-center gap-2">
+              <CiLock />
+              <span>Secure Checkout</span>
             </div>
           </div>
         </div>

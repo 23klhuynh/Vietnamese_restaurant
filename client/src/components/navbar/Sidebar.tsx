@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { CiShoppingCart } from "react-icons/ci";
+
 
 interface SidebarProps {
   isOpen: boolean;
@@ -25,16 +27,18 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <ul className={`navbar__sidebar ${isOpen ? "open" : ""}`}>
-      {["home", "menu", "services", "contact", "about"].map((item) => (
-        <li
-          className="navbar__sidebar-item cursor-pointer py-[10px] px-[40px]"
-          key={item}
-        >
-          <button onClick={() => onNavigate(item)}>
-            {item[0].toUpperCase() + item.slice(1)}
-          </button>
-        </li>
-      ))}
+      {["home", "menu", "services", /* "contact", "about" */ "order"].map(
+        (item) => (
+          <li
+            className="navbar__sidebar-item cursor-pointer py-[10px] px-[40px]"
+            key={item}
+          >
+            <button onClick={() => onNavigate(item)}>
+              {item[0].toUpperCase() + item.slice(1)}
+            </button>
+          </li>
+        )
+      )}
       {localStorage.getItem("access_token") ? (
         <li className="navbar__sidebar-item cursor-pointer border border-white margin rounded-xl py-[10px]">
           <button
@@ -64,7 +68,8 @@ const Sidebar: React.FC<SidebarProps> = ({
         className="navbar__sidebar-item special cursor-pointer border border-orange-500 margin rounded-xl bg-orange-400 py-[10px]"
         onClick={handleOpenCart}
       >
-        Order Now
+        <CiShoppingCart className="text-2xl" />
+        Cart
       </li>
     </ul>
   );
