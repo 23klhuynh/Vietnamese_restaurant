@@ -137,7 +137,7 @@ function Order() {
                         </p>
                         <p className="text-gray-400">{option.description}</p>
                       </div>
-                    </label> 
+                    </label>
                   ))}
                 </div>
 

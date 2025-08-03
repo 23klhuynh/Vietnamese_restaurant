@@ -7,18 +7,17 @@ import { BsPeopleFill } from "react-icons/bs";
 import { IoBookSharp } from "react-icons/io5";
 import { MdOutlineCancel } from "react-icons/md";
 
-
 const convert12to24Hour = (time12h: string): string => {
-  const [time, period] = time12h.split(' ');
-  let [hours, minutes] = time.split(':');
-  
-  if (period === 'PM' && hours !== '12') {
+  const [time, period] = time12h.split(" ");
+  let [hours, minutes] = time.split(":");
+
+  if (period === "PM" && hours !== "12") {
     hours = String(parseInt(hours, 10) + 12);
-  } else if (period === 'AM' && hours === '12') {
-    hours = '00';
+  } else if (period === "AM" && hours === "12") {
+    hours = "00";
   }
-  
-  return `${hours.padStart(2, '0')}:${minutes}`;
+
+  return `${hours.padStart(2, "0")}:${minutes}`;
 };
 
 function Services() {
@@ -38,34 +37,33 @@ function Services() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-    // Convert date from yyyy-MM-dd to MM-dd-yyyy
-    const [year, month, day] = reservationForm.reservation_date.split('-');
-    const formattedDate = `${month}-${day}-${year}`;
+      // Convert date from yyyy-MM-dd to MM-dd-yyyy
+      const [year, month, day] = reservationForm.reservation_date.split("-");
+      const formattedDate = `${month}-${day}-${year}`;
 
-     const formattedTime = convert12to24Hour(reservationForm.reservation_time);
+      const formattedTime = convert12to24Hour(reservationForm.reservation_time);
 
-
-    const response = await axios.post(
-      "http://localhost:8080/api/v1/reservation",
-      {
-        customer_email: reservationForm.customer_email,
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/reservation",
+        {
+          customer_email: reservationForm.customer_email,
           customer_name: reservationForm.customer_name,
           number_of_people: parseInt(reservationForm.number_of_people),
           reservation_date: formattedDate,
           reservation_time: formattedTime,
-      }
-    );
+        }
+      );
 
-    if (response.status === 200) {
-      setReservationForm({
-        customer_email: "",
-        customer_name: "",
-        number_of_people: "",
-        reservation_date: "",
-        reservation_time: "",
-      });
-    }
-  } catch (error) {
+      if (response.status === 200) {
+        setReservationForm({
+          customer_email: "",
+          customer_name: "",
+          number_of_people: "",
+          reservation_date: "",
+          reservation_time: "",
+        });
+      }
+    } catch (error) {
       console.error(error);
     }
   };
@@ -76,9 +74,8 @@ function Services() {
     setReservationForm((prev) => ({ ...prev, [name]: value }));
   };
 
-
   return (
-    <div className={`services ${reservation ? "rev" : ""}`}>
+    <div className={`services bg-gray-800 ${reservation ? "rev" : ""}`}>
       <div className="services__container ">
         <div className="services__header">
           <small className="border border-red-800 rounded-2xl bg-red-800 px-6 py-2">
@@ -328,9 +325,11 @@ function Services() {
               <div className="grid gap-1">
                 <span className="flex justify-between items-center">
                   <label htmlFor="">Name:</label>
-                  
-                  <MdOutlineCancel onClick={()=>setReservation(false)} className="cursor-pointer text-3xl"/>
 
+                  <MdOutlineCancel
+                    onClick={() => setReservation(false)}
+                    className="cursor-pointer text-3xl"
+                  />
                 </span>
 
                 <input
