@@ -1115,6 +1115,18 @@ h3 {
   border-bottom-right-radius: 15px;
 }
 
+/* 
+/////////////////////////////////// 
+////// Offers /////////////////////
+/////////////////////////////////// 
+*/
+
+@media screen and (max-width: 700px) {
+  .Offers__contents-items {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
 /*
 /////////////////////////////////// 
 ////// LOGIN and REGISTER /////////
