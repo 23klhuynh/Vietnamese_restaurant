@@ -5,7 +5,7 @@ interface NavbarNavigationProps {
 const NavbarNavigation: React.FC<NavbarNavigationProps> = ({ onNavigate }) => {
   return (
     <ul className="navbar__items">
-      {["home", "menu", "services",/* "contact", "about" */ "order"].map((item) => (
+      {["home", "menu", "services",/* "contact", "about" */ "offers","order"].map((item) => (
         <li className="navbar__item" key={item} onClick={() => onNavigate(item)}>
           <button>
             {item[0].toUpperCase()+item.slice(1)}

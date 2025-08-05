@@ -27,7 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <ul className={`navbar__sidebar ${isOpen ? "open" : ""}`}>
-      {["home", "menu", "services", /* "contact", "about" */ "order"].map(
+      {["home", "menu", "services", /* "contact", "about" */ "offers" ,"order"].map(
         (item) => (
           <li
             className="navbar__sidebar-item cursor-pointer py-[10px] px-[40px]"
@@ -65,7 +65,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </li>
       )}
       <li
-        className="navbar__sidebar-item special cursor-pointer border border-orange-500 margin rounded-xl bg-orange-400 py-[10px]"
+        className="navbar__sidebar-item special cursor-pointer border border-orange-500 margin rounded-xl bg-orange-400 py-[10px] flex justify-center items-center gap-2"
         onClick={handleOpenCart}
       >
         <CiShoppingCart className="text-2xl" />

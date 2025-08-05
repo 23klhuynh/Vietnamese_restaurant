@@ -1122,8 +1122,11 @@ h3 {
 */
 
 @media screen and (max-width: 700px) {
-  .Offers__contents-items {
+  .Offers__contents-items, .offers__tier {
     grid-template-columns: repeat(1, 1fr);
+  }
+  .offers__program {
+    flex-direction: column;
   }
 }
 
@@ -1384,6 +1387,9 @@ h3 {
       right: 0;
     }
   }
+  .welcome-section {
+  top:12%
+}
   /* .welcome-section{
     top: 50;
   } */
