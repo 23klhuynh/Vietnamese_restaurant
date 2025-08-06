@@ -17,6 +17,8 @@ public class BackendApplication {
 	//	make sure the frontend send the menu items in an array
 	//{
 	//    "customerName": "John Doe",
+	//    "email": "asvbcou@gmail.com",
+	//    "phoneNumber": 1234567890,
 	//    "items": [
 	//        {
 	//            "menuItemId": 1,

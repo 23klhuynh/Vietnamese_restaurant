@@ -31,6 +31,8 @@ public class OrdersService {
     public ResponseEntity<OrderDTO> createOrder(OrderRequestDTO request) {
         Orders order = new Orders();
         order.setCustomerName(request.getCustomerName());
+        order.setEmail(request.getEmail());
+        order.setPhoneNumber(request.getPhoneNumber());
         order.setCreatedAt(LocalDateTime.now());
         Orders savedOrder = ordersRepository.save(order);
 
@@ -41,12 +43,13 @@ public class OrdersService {
             item.setQuantity(itemDto.getQuantity());
             orderItemRepository.save(item);
         }
-
         // Convert to response
 
         OrderDTO response = new OrderDTO();
         response.setId(savedOrder.getId());
         response.setCustomerName(savedOrder.getCustomerName());
+        response.setEmail(savedOrder.getEmail());
+        response.setPhoneNumber(savedOrder.getPhoneNumber());
         response.setCreatedAt(savedOrder.getCreatedAt());
 
         return ResponseEntity.ok(response);
