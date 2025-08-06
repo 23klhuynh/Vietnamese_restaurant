@@ -1,13 +1,59 @@
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import { CiTimer, CiLock } from "react-icons/ci";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { IoIosRemove } from "react-icons/io";
+import { IoMdAdd } from "react-icons/io";
+import { FaRegTrashAlt } from "react-icons/fa";
 
+/* NEED WORK */
+
+
+type CartItem = {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+};
+
+/* type ContextType = {
+  cartItems: CartItem[];
+  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
+}; */
+
+type ContextType = {
+  addToCart: () => void;
+  cartItems: CartItem[];
+  total: number;
+  setCartItems: (items: any[]) => void;
+  incrementQuantity: (id: number) => void;
+  decrementQuantity: (id: number) => void;
+  handleTotalPrice: () => void;
+};
 function Order() {
   type OrderOption = "delivery" | "pickup" | "dine-in";
   type PaymentMethod = "pay-at-store" | "card" | "cash-on-delivery";
 
   const [orderOption, setOrderOption] = useState<OrderOption>();
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>();
+
+  const {
+    addToCart,
+    cartItems,
+    total,
+    setCartItems,
+    incrementQuantity,
+    decrementQuantity,
+    handleTotalPrice,
+  } = useOutletContext<ContextType>();
+  /* const {
+      cartItems,
+      setCartItems,
+      total,
+      incrementQuantity,
+      decrementQuantity,
+      calculateTotal,
+    } = QuantityControl(); */
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -286,8 +332,8 @@ function Order() {
           <div className="lg:w-96 mx-3">
             <div className="bg-gray-700 p-6 rounded-lg mb-4">
               <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
-              <div className="space-y-4">
-                {/* Replace with actual cart items */}
+              {/* <div className="space-y-4">
+                
                 <div className="flex justify-between">
                   <span>Item 1</span>
                   <span>$10.99</span>
@@ -301,7 +347,51 @@ function Order() {
                   <span>Total</span>
                   <span>$19.49</span>
                 </div>
-              </div>
+              </div> */}
+              {cartItems.length > 0 && (
+                <ul className="cart__items">
+                  {cartItems.map((item) => (
+                    <li key={item.id} className="cart__item">
+                      <div className="cart__info">
+                        {item.name} - ${item.price.toFixed(2)}
+                      </div>
+                      <div className="cart__modify">
+                        {item.quantity > 1 ? (
+                          <IoIosRemove
+                            className="cart-icon"
+                            onClick={() => decrementQuantity(item.id)}
+                          />
+                        ) : (
+                          <FaRegTrashAlt
+                            className="cart-icon"
+                            onClick={() =>
+                              setCartItems(
+                                cartItems.filter((food) => food.id !== item.id)
+                              )
+                            }
+                          />
+                        )}
+
+                        <p>{item.quantity}</p>
+                        <IoMdAdd
+                          className="cart-icon"
+                          onClick={() => incrementQuantity(item.id)}
+                        />
+                      </div>
+                    </li>
+                  ))}
+                  <div className="cart__footer">
+                    <p>TOTAL: ${total.toFixed(2)}</p>
+                    <button
+                      onClick={() => handleTotalPrice()}
+                      className="cart__btn"
+                    >
+                      DONE
+                    </button>
+                    <button className="cart__btn my-2">Place order</button>
+                  </div>
+                </ul>
+              )}
             </div>
             <div className="bg-gray-800 text-gray-400 p-4 rounded-lg flex items-center justify-center gap-2">
               <CiLock />

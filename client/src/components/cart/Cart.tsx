@@ -1,18 +1,22 @@
 import { useState } from "react";
+import QuantityControl from "./QuantityControl";
+import { useOutletContext } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiShoppingBag } from "react-icons/fi";
 import { IoIosRemove } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-interface CartItem {
+/* NEED WORK */
+
+
+/* interface CartItem {
   id: number;
   name: string;
   price: number;
   quantity: number;
-}
+} */
 
 interface NavbarLinksProps {
   openCart: boolean;
@@ -21,14 +25,40 @@ interface NavbarLinksProps {
   setCartItems: (cartItems: CartItem[]) => void;
 }
 
+type CartItem = {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+};
+
+/* type ContextType = {
+  addToCart: () => void;
+  cartItems: CartItem[];
+  total: number;
+  setCartItems: (items: any[]) => void;
+  incrementQuantity: (id: number) => void;
+  decrementQuantity: (id: number) => void;
+  handleTotalPrice: () => void;
+}; */
 function Cart({
   openCart,
-  setOpenCart,
+  setOpenCart ,
   cartItems,
   setCartItems,
 }: NavbarLinksProps) {
   const navigate = useNavigate();
-  const [total, setTotal] = useState<number>(0);
+  /* const {
+    addToCart,
+    cartItems,
+    total,
+    setCartItems,
+    incrementQuantity,
+    decrementQuantity,
+    handleTotalPrice,
+  } = useOutletContext<ContextType>(); */
+
+  const [total, setTotal] = useState<number>(0)
 
   const handleTotalPrice = () => {
     const totalPrice = cartItems.reduce(
@@ -64,62 +94,76 @@ function Cart({
         />
       </section>
       <section className="order">
-        {localStorage.getItem("access_token") ? (
-          <div className="cart__order">
-            {cartItems.length > 0 ? (
-              <ul className="cart__items">
-                {cartItems.map((item) => (
-                  <li key={item.id} className="cart__item">
-                    <div className="cart__info">
-                      {item.name} - ${item.price.toFixed(2)}
-                    </div>
-                    <div className="cart__modify">
-                      {item.quantity > 1 ? (
-                        <IoIosRemove
-                          className="cart-icon"
-                          onClick={() => decrementQuantity(item.id)}
-                        />
-                      ) : (
-                        <FaRegTrashAlt
-                          className="cart-icon"
-                          onClick={() =>
-                            setCartItems(
-                              cartItems.filter((food) => food.id !== item.id)
-                            )
-                          }
-                        />
-                      )}
-
-                      <p>{item.quantity}</p>
-                      <IoMdAdd
+        {/* {localStorage.getItem("access_token") ? ( */}
+        <div className="cart__order">
+          {cartItems.length > 0 ? (
+            <ul className="cart__items">
+              {cartItems.map((item) => (
+                <li key={item.id} className="cart__item">
+                  <div className="cart__info rounded-lg">
+                    {item.name} - ${item.price.toFixed(2)}
+                  </div>
+                  <div className="cart__modify">
+                    {item.quantity > 1 ? (
+                      <IoIosRemove
                         className="cart-icon"
-                        onClick={() => incrementQuantity(item.id)}
+                        onClick={() => decrementQuantity(item.id)}
                       />
-                    </div>
-                  </li>
-                ))}
-                <div className="cart__footer">
-                  <p>TOTAL: ${total.toFixed(2)}</p>
-                  <button onClick={() => handleTotalPrice()} className="cart__btn">DONE</button>
-                </div>
-              </ul>
-            ) : (
-              <div className="cart__order">
-                <FiShoppingBag className="cart__icon" />
-                <h3>You don't have any item</h3>
+                    ) : (
+                      <FaRegTrashAlt
+                        className="cart-icon"
+                        onClick={() =>
+                          setCartItems(
+                            cartItems.filter((food) => food.id !== item.id)
+                          )
+                        }
+                      />
+                    )}
+
+                    <p>{item.quantity}</p>
+                    <IoMdAdd
+                      className="cart-icon"
+                      onClick={() => incrementQuantity(item.id)}
+                    />
+                  </div>
+                </li>
+              ))}
+              <div className="cart__footer">
+                <p>TOTAL: ${total.toFixed(2)}</p>
+                <button
+                  onClick={() => handleTotalPrice()}
+                  className="cart__btn"
+                >
+                  DONE
+                </button>
                 <button
                   onClick={() => {
                     setOpenCart(false);
-                    navigate("/menu");
+                    navigate("/order");
                   }}
-                  className="cart__btn"
+                  className="cart__btn my-2"
                 >
-                  START MY ORDER
+                  Checkout
                 </button>
               </div>
-            )}
-          </div>
-        ) : (
+            </ul>
+          ) : (
+            <div className="cart__order">
+              <FiShoppingBag className="cart__icon" />
+              <h3 className="text-lg">You don't have any item</h3>
+              <button
+                onClick={() => {
+                  setOpenCart(false);
+                  navigate("/menu");
+                }}
+                className="cart__btn"
+              >
+                START MY ORDER
+              </button>
+            </div>
+          )}
+        </div>
+        {/* ) : (
           <div className="cart__order">
             <p>You need to login to access this </p>
 
@@ -127,7 +171,7 @@ function Cart({
               Login
             </Link>
           </div>
-        )}
+        )} */}
       </section>
     </main>
   );

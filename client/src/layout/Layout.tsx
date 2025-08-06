@@ -1,10 +1,12 @@
-import { useState} from "react";
+import { useState } from "react";
 import { Outlet } from "react-router-dom/dist";
+import Order from "../pages/Order";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/fragments/Footer";
 import useScroll from "../hooks/useScroll";
 import SmoothScroll from "../hooks/SmoothScroll";
 
+/* NEED WORK */
 
 type CartItem = {
   id: number;
@@ -18,9 +20,12 @@ function Layout() {
   SmoothScroll();
 
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [total, setTotal] = useState<number>(0);
 
   const addToCart = (item: CartItem) => {
-    const existingItemIndex = cartItems.findIndex(cartItem => cartItem.id === item.id);
+    const existingItemIndex = cartItems.findIndex(
+      (cartItem) => cartItem.id === item.id
+    );
 
     if (existingItemIndex === -1) {
       setCartItems([...cartItems, { ...item, quantity: 1 }]);
@@ -34,10 +39,49 @@ function Layout() {
     }
   };
 
+  const handleTotalPrice = () => {
+    const totalPrice = cartItems.reduce(
+      (acc, item) => acc + item.quantity * item.price,
+      0
+    );
+    setTotal(totalPrice);
+  };
+
+  const incrementQuantity = (id: number) => {
+    const updatedCart = cartItems.map((item) =>
+      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+    );
+    setCartItems(updatedCart);
+  };
+
+  const decrementQuantity = (id: number) => {
+    const updatedCart = cartItems.map((item) =>
+      item.id === id && item.quantity > 1
+        ? { ...item, quantity: item.quantity - 1 }
+        : item
+    );
+    setCartItems(updatedCart);
+  };
+
   return (
     <>
-      <Navbar scroll={scroll} cartItems={cartItems} setCartItems={setCartItems}/>
-      <Outlet context={{ addToCart }} />
+      <Navbar
+        scroll={scroll}
+        cartItems={cartItems}
+        setCartItems={setCartItems}
+      />
+      <Outlet
+        context={{
+          addToCart,
+          cartItems,
+          total,
+          setCartItems,
+          incrementQuantity,
+          decrementQuantity,
+          handleTotalPrice,
+        }}
+      />
+
       <Footer />
     </>
   );
