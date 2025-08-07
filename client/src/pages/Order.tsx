@@ -6,20 +6,12 @@ import { IoIosRemove } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-/* NEED WORK */
-
-
 type CartItem = {
   id: number;
   name: string;
   price: number;
   quantity: number;
 };
-
-/* type ContextType = {
-  cartItems: CartItem[];
-  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
-}; */
 
 type ContextType = {
   addToCart: () => void;
@@ -38,22 +30,12 @@ function Order() {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>();
 
   const {
-    addToCart,
     cartItems,
     total,
     setCartItems,
     incrementQuantity,
     decrementQuantity,
-    handleTotalPrice,
   } = useOutletContext<ContextType>();
-  /* const {
-      cartItems,
-      setCartItems,
-      total,
-      incrementQuantity,
-      decrementQuantity,
-      calculateTotal,
-    } = QuantityControl(); */
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -332,22 +314,6 @@ function Order() {
           <div className="lg:w-96 mx-3">
             <div className="bg-gray-700 p-6 rounded-lg mb-4">
               <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
-              {/* <div className="space-y-4">
-                
-                <div className="flex justify-between">
-                  <span>Item 1</span>
-                  <span>$10.99</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Item 2</span>
-                  <span>$8.50</span>
-                </div>
-                <hr className="border-gray-600" />
-                <div className="flex justify-between font-bold">
-                  <span>Total</span>
-                  <span>$19.49</span>
-                </div>
-              </div> */}
               {cartItems.length > 0 && (
                 <ul className="cart__items">
                   {cartItems.map((item) => (
@@ -358,7 +324,7 @@ function Order() {
                       <div className="cart__modify">
                         {item.quantity > 1 ? (
                           <IoIosRemove
-                            className="cart-icon"
+                            className="cart-icon "
                             onClick={() => decrementQuantity(item.id)}
                           />
                         ) : (
@@ -371,7 +337,6 @@ function Order() {
                             }
                           />
                         )}
-
                         <p>{item.quantity}</p>
                         <IoMdAdd
                           className="cart-icon"
@@ -380,15 +345,9 @@ function Order() {
                       </div>
                     </li>
                   ))}
-                  <div className="cart__footer">
+                  <div className="">
                     <p>TOTAL: ${total.toFixed(2)}</p>
-                    <button
-                      onClick={() => handleTotalPrice()}
-                      className="cart__btn"
-                    >
-                      DONE
-                    </button>
-                    <button className="cart__btn my-2">Place order</button>
+                    {/* <button className=" my-2 border rounded-lg w-full py-2">Place order</button> */}
                   </div>
                 </ul>
               )}

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import QuantityControl from "./QuantityControl";
 import { useOutletContext } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiShoppingBag } from "react-icons/fi";
@@ -8,15 +7,8 @@ import { IoMdAdd } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { FaRegTrashAlt } from "react-icons/fa";
 
+/* Need to recover the authentication */
 /* NEED WORK */
-
-
-/* interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-} */
 
 interface NavbarLinksProps {
   openCart: boolean;
@@ -41,13 +33,16 @@ type CartItem = {
   decrementQuantity: (id: number) => void;
   handleTotalPrice: () => void;
 }; */
+
 function Cart({
   openCart,
-  setOpenCart ,
+  setOpenCart,
   cartItems,
   setCartItems,
-}: NavbarLinksProps) {
+}: 
+NavbarLinksProps) {
   const navigate = useNavigate();
+
   /* const {
     addToCart,
     cartItems,
@@ -58,7 +53,7 @@ function Cart({
     handleTotalPrice,
   } = useOutletContext<ContextType>(); */
 
-  const [total, setTotal] = useState<number>(0)
+  const [total, setTotal] = useState<number>(0);
 
   const handleTotalPrice = () => {
     const totalPrice = cartItems.reduce(

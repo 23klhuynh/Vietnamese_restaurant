@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom/dist";
-import Order from "../pages/Order";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/fragments/Footer";
 import useScroll from "../hooks/useScroll";
@@ -62,6 +61,18 @@ function Layout() {
     );
     setCartItems(updatedCart);
   };
+
+  useEffect(() => {
+    const handleTotalPrice = () => {
+      const totalPrice = cartItems.reduce(
+        (acc, item) => acc + item.quantity * item.price,
+        0
+      );
+      setTotal(totalPrice);
+    };
+
+    handleTotalPrice();
+  }, [cartItems]);
 
   return (
     <>

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
+
+/* NOT NEEDED */
 type CartItem = {
   id: number;
   price: number;

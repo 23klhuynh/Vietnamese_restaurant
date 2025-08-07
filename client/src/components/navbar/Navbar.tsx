@@ -35,7 +35,7 @@ const Navbar: React.FC<NavbarProps> = ({ scroll, cartItems, setCartItems }) => {
     about: "/",
     services: "/services",
     offers: "/offers",
-    order: "/order"
+    order: "/order",
   };
 
   const handleNavigation = (targetId: string) => {
