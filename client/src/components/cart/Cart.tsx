@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiShoppingBag } from "react-icons/fi";
 import { IoIosRemove } from "react-icons/io";
@@ -7,8 +6,7 @@ import { IoMdAdd } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-/* Need to recover the authentication */
-/* NEED WORK */
+/* Need TO RECOVER THE AUTHENTICATION */
 
 interface NavbarLinksProps {
   openCart: boolean;
@@ -24,44 +22,23 @@ type CartItem = {
   quantity: number;
 };
 
-/* type ContextType = {
-  addToCart: () => void;
-  cartItems: CartItem[];
-  total: number;
-  setCartItems: (items: any[]) => void;
-  incrementQuantity: (id: number) => void;
-  decrementQuantity: (id: number) => void;
-  handleTotalPrice: () => void;
-}; */
-
 function Cart({
   openCart,
   setOpenCart,
   cartItems,
   setCartItems,
-}: 
-NavbarLinksProps) {
+}: NavbarLinksProps) {
   const navigate = useNavigate();
-
-  /* const {
-    addToCart,
-    cartItems,
-    total,
-    setCartItems,
-    incrementQuantity,
-    decrementQuantity,
-    handleTotalPrice,
-  } = useOutletContext<ContextType>(); */
 
   const [total, setTotal] = useState<number>(0);
 
-  const handleTotalPrice = () => {
+  /* const handleTotalPrice = () => {
     const totalPrice = cartItems.reduce(
       (acc, item) => acc + item.quantity * item.price,
       0
     );
     setTotal(totalPrice);
-  };
+  }; */
 
   const incrementQuantity = (id: number) => {
     const updatedCart = cartItems.map((item) =>
@@ -78,6 +55,18 @@ NavbarLinksProps) {
     );
     setCartItems(updatedCart);
   };
+
+  useEffect(() => {
+    const handleTotalPrice = () => {
+      const totalPrice = cartItems.reduce(
+        (acc, item) => acc + item.quantity * item.price,
+        0
+      );
+      setTotal(totalPrice);
+    };
+
+    handleTotalPrice();
+  }, [cartItems]);
 
   return (
     <main className={`cart ${openCart ? "open-cart" : "closing-cart"}`}>
@@ -125,12 +114,12 @@ NavbarLinksProps) {
               ))}
               <div className="cart__footer">
                 <p>TOTAL: ${total.toFixed(2)}</p>
-                <button
+                {/* <button
                   onClick={() => handleTotalPrice()}
                   className="cart__btn"
                 >
                   DONE
-                </button>
+                </button> */}
                 <button
                   onClick={() => {
                     setOpenCart(false);

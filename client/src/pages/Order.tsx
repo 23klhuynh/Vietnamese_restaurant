@@ -1,10 +1,39 @@
 import { useState } from "react";
+import axios from "axios";
 import { useOutletContext } from "react-router-dom";
 import { CiTimer, CiLock } from "react-icons/ci";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { IoIosRemove } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 import { FaRegTrashAlt } from "react-icons/fa";
+
+/* WORK ON THE PART WHEN SUBMIT ORDER TO THE BACKEND */
+
+/* Next is work on part like the email has to be email, phone number do not have "-", and has 
+to select "pay at store" */
+
+/* "customerName": "John Doe",
+	    "email": "asvbcou@gmail.com",
+	    "phoneNumber": 1234567890,
+	    "items": [
+	        {
+	            "menuItemId": 1,
+	            "quantity": 2
+	        },
+	        {
+	            "menuItemId": 3,
+	            "quantity": 1
+	        },
+	        {
+	            "menuItemId": 5,
+	            "quantity": 3
+	        }
+	    ]
+	} 
+      
+  localhost:8080/api/v1/orders
+
+  */
 
 type CartItem = {
   id: number;
@@ -22,13 +51,25 @@ type ContextType = {
   decrementQuantity: (id: number) => void;
   handleTotalPrice: () => void;
 };
+
+type OrderItem = {
+  menuItemId: number | null;
+  quantity: number | null;
+};
+
+type Order = {
+  customerName: string;
+  email: string;
+  phoneNumber: string;
+  items: OrderItem[];
+};
+
 function Order() {
   type OrderOption = "delivery" | "pickup" | "dine-in";
   type PaymentMethod = "pay-at-store" | "card" | "cash-on-delivery";
 
   const [orderOption, setOrderOption] = useState<OrderOption>();
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>();
-
   const {
     cartItems,
     total,
@@ -37,8 +78,56 @@ function Order() {
     decrementQuantity,
   } = useOutletContext<ContextType>();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [order, setOrder] = useState<Order>({
+    customerName: "",
+    email: "",
+    phoneNumber: "",
+    items: [
+      {
+        menuItemId: null,
+        quantity: null,
+      },
+    ],
+  });
+
+  const handleOrderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setOrder((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    try {
+      const orderItems = cartItems.map((item) => ({
+        menuItemId: item.id,
+        quantity: item.quantity,
+      }));
+      const response = await axios.post("http://localhost:8080/api/v1/orders", {
+        customerName: order.customerName,
+        email: order.email,
+        phoneNumber: order.phoneNumber,
+        items: orderItems,
+      });
+
+      if (response.status === 200) {
+        setOrder({
+          customerName: "",
+          email: "",
+          phoneNumber: "",
+          items: [
+            {
+              menuItemId: null,
+              quantity: null,
+            },
+          ],
+        });
+        setCartItems([])
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -71,6 +160,9 @@ function Order() {
                     <input
                       id="fullName"
                       type="text"
+                      name="customerName"
+                      onChange={handleOrderChange}
+                      value={order.customerName}
                       placeholder="Jane Doe"
                       className="w-full p-2 rounded text-black"
                       required
@@ -83,8 +175,10 @@ function Order() {
                         Email Address
                       </label>
                       <input
-                        id="email"
                         type="email"
+                        name="email"
+                        value={order.email}
+                        onChange={handleOrderChange}
                         placeholder="JaneDoe@gmail.com"
                         className="w-full p-2 rounded text-black"
                         required
@@ -97,6 +191,9 @@ function Order() {
                       <input
                         id="phone"
                         type="tel"
+                        name="phoneNumber"
+                        value={order.phoneNumber}
+                        onChange={handleOrderChange}
                         placeholder="123-456-7890"
                         className="w-full p-2 rounded text-black"
                         required
@@ -303,6 +400,7 @@ function Order() {
 
               <button
                 type="submit"
+                onClick={handleSubmit}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
               >
                 Place Order
