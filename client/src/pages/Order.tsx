@@ -35,6 +35,8 @@ to select "pay at store" */
 
   */
 
+/* NOTE: The payment using credit or debit card is not yet implemented. */
+
 type CartItem = {
   id: number;
   name: string;
@@ -60,16 +62,17 @@ type OrderItem = {
 type Order = {
   customerName: string;
   email: string;
-  phoneNumber: string;
+  phoneNumber: number | null;
   items: OrderItem[];
 };
 
 function Order() {
   type OrderOption = "delivery" | "pickup" | "dine-in";
-  type PaymentMethod = "pay-at-store" | "card" | "cash-on-delivery";
+  type PaymentMethod = "pay-at-store" | "card" /* | "cash-on-delivery" */;
 
   const [orderOption, setOrderOption] = useState<OrderOption>();
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>();
+
   const {
     cartItems,
     total,
@@ -81,7 +84,7 @@ function Order() {
   const [order, setOrder] = useState<Order>({
     customerName: "",
     email: "",
-    phoneNumber: "",
+    phoneNumber: null,
     items: [
       {
         menuItemId: null,
@@ -100,6 +103,20 @@ function Order() {
     e.preventDefault();
 
     try {
+      if (!orderOption || !paymentMethod) {
+        throw new Error("Please select an order option and payment method");
+      }
+
+      if (cartItems.length === 0) {
+        throw new Error("Your cart is empty");
+      }
+
+      if (!order.customerName || !order.email || !order.phoneNumber) {
+        throw new Error("Please fill in all required fields");
+      }
+
+      const finalPhoneNumber = convertToPhoneNumber(order.phoneNumber);
+
       const orderItems = cartItems.map((item) => ({
         menuItemId: item.id,
         quantity: item.quantity,
@@ -107,7 +124,7 @@ function Order() {
       const response = await axios.post("http://localhost:8080/api/v1/orders", {
         customerName: order.customerName,
         email: order.email,
-        phoneNumber: order.phoneNumber,
+        phoneNumber: finalPhoneNumber,
         items: orderItems,
       });
 
@@ -115,7 +132,7 @@ function Order() {
         setOrder({
           customerName: "",
           email: "",
-          phoneNumber: "",
+          phoneNumber: null,
           items: [
             {
               menuItemId: null,
@@ -123,10 +140,22 @@ function Order() {
             },
           ],
         });
-        setCartItems([])
+        setCartItems([]);
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const convertToPhoneNumber = (phoneNumber: Number) => {
+    const convertToPhoneNumber = phoneNumber.toString();
+    const removeDash = convertToPhoneNumber.split("-");
+
+    if (removeDash.length > 1) {
+      const result = removeDash.join("");
+      return parseInt(result);
+    } else {
+      return phoneNumber;
     }
   };
 
@@ -321,7 +350,7 @@ function Order() {
                 <div className="space-y-3 mb-6">
                   {[
                     { value: "pay-at-store", label: "Pay at store" },
-                    { value: "card", label: "Credit/Debit Card" },
+                    /* { value: "card", label: "Credit/Debit Card" }, */
                     { value: "cash-on-delivery", label: "Cash on Delivery" },
                   ].map((method) => (
                     <label
@@ -342,7 +371,7 @@ function Order() {
                   ))}
                 </div>
 
-                {paymentMethod === "card" && (
+                {/* {paymentMethod === "card" && (
                   <div className="space-y-4">
                     <div>
                       <label htmlFor="cardNumber" className="block mb-1">
@@ -383,11 +412,11 @@ function Order() {
                       </div>
                     </div>
                   </div>
-                )}
+                )} */}
               </div>
 
               {/* Additional Notes */}
-              <div className="bg-gray-700 p-6 rounded-lg">
+              {/* <div className="bg-gray-700 p-6 rounded-lg">
                 <label htmlFor="notes" className="block mb-2">
                   Additional Notes (Optional)
                 </label>
@@ -396,16 +425,15 @@ function Order() {
                   className="w-full p-2 rounded text-black h-32"
                   placeholder="Special instructions for your order..."
                 ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                onClick={handleSubmit}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
-              >
-                Place Order
-              </button>
+              </div> */}
             </form>
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors mt-3"
+            >
+              Place Order
+            </button>
           </div>
 
           {/* Order Summary */}
