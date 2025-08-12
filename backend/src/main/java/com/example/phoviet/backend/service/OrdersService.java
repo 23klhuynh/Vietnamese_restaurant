@@ -1,5 +1,6 @@
 package com.example.phoviet.backend.service;
 
+import com.example.phoviet.backend.DTO.DeliveryDTO;
 import com.example.phoviet.backend.DTO.OrderDTO;
 import com.example.phoviet.backend.DTO.OrderItemDTO;
 import com.example.phoviet.backend.DTO.OrderRequestDTO;
@@ -9,6 +10,7 @@ import com.example.phoviet.backend.repository.MenuItemRepository;
 import com.example.phoviet.backend.repository.OrderItemRepository;
 import com.example.phoviet.backend.repository.OrdersRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -53,5 +55,17 @@ public class OrdersService {
         response.setCreatedAt(savedOrder.getCreatedAt());
 
         return ResponseEntity.ok(response);
+        // the frontend should be passing the response with reponse.id
     }
+
+    //create devlivery
+//    @Transactional
+//    public ResponseEntity<DeliveryDTO> createDelivery(DeliveryDTO deliveryDTO){
+//        //this should be using
+//
+//    }
+
+
+
+
 }

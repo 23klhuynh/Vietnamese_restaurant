@@ -13,6 +13,12 @@ public class BackendApplication {
 	}
 
 	// next
+	// *Delivery table = order_id, address, city, state, zipcode
+
+
+
+
+
 	// make sure the frontend get the menu item id when check out so that it can be sent to the backend
 	//	make sure the frontend send the menu items in an array
 	//{

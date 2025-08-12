@@ -22,7 +22,7 @@ public class OrderDTO {
     @NotNull
     private Integer phoneNumber;
 
-    @JsonIgnore
+    //@JsonIgnore
     private Long id;
 
     @JsonIgnore
