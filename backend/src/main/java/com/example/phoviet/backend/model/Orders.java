@@ -23,7 +23,7 @@ public class Orders {
     private String email;
 
     @Column(nullable = false)
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;

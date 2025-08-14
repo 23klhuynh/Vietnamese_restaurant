@@ -19,7 +19,9 @@ public class OrderRequestDTO {
     private String email;
 
     @NotNull
-    private Integer phoneNumber;
+    private String phoneNumber;
+
+    private DeliveryDTO deliveryDTO;
 
     @NotEmpty
     private List<@Valid OrderItemDTO> items;

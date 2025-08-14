@@ -20,9 +20,9 @@ public class OrderDTO {
     private String email;
 
     @NotNull
-    private Integer phoneNumber;
+    private String phoneNumber;
 
-    //@JsonIgnore
+    @JsonIgnore
     private Long id;
 
     @JsonIgnore
