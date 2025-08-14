@@ -9,8 +9,12 @@ import { FaRegTrashAlt } from "react-icons/fa";
 
 /* WORK ON THE PART WHEN SUBMIT ORDER TO THE BACKEND */
 
-/* Next is work on part like the email has to be email, phone number do not have "-", and has 
-to select "pay at store" */
+/* 
+WORK ON WHEN THE OPTION IS SELECTED AND WE MIGHT NEED 
+TO MAKE A TABLE TO HOLD THE ADDRESS WITH THE ORDER_ID:
+LOOK AT THE ORDER_ITEMS, THIS SHOULD BE SIMILAR
+*Delivery table = order_id, address, city, state, zipcode
+*/
 
 /* "customerName": "John Doe",
 	    "email": "asvbcou@gmail.com",
@@ -62,7 +66,7 @@ type OrderItem = {
 type Order = {
   customerName: string;
   email: string;
-  phoneNumber: number | null;
+  phoneNumber: number;
   items: OrderItem[];
 };
 
@@ -84,7 +88,7 @@ function Order() {
   const [order, setOrder] = useState<Order>({
     customerName: "",
     email: "",
-    phoneNumber: null,
+    phoneNumber: 0,
     items: [
       {
         menuItemId: null,
@@ -103,7 +107,7 @@ function Order() {
     e.preventDefault();
 
     try {
-      if (!orderOption || !paymentMethod) {
+      /* if (!orderOption || !paymentMethod) {
         throw new Error("Please select an order option and payment method");
       }
 
@@ -113,7 +117,7 @@ function Order() {
 
       if (!order.customerName || !order.email || !order.phoneNumber) {
         throw new Error("Please fill in all required fields");
-      }
+      } */
 
       const finalPhoneNumber = convertToPhoneNumber(order.phoneNumber);
 
@@ -128,11 +132,15 @@ function Order() {
         items: orderItems,
       });
 
+      /* *************** IMPORTANT ************************* USE THE order_id: RESPONSE.data.id 
+      Basically need to do another axios post method if the order option is for delivery
+      */
+
       if (response.status === 200) {
         setOrder({
           customerName: "",
           email: "",
-          phoneNumber: null,
+          phoneNumber: 0,
           items: [
             {
               menuItemId: null,
@@ -147,9 +155,9 @@ function Order() {
     }
   };
 
-  const convertToPhoneNumber = (phoneNumber: Number) => {
-    const convertToPhoneNumber = phoneNumber.toString();
-    const removeDash = convertToPhoneNumber.split("-");
+  const convertToPhoneNumber = (phoneNumber: number) => {
+    const convertToString = phoneNumber.toString();
+    const removeDash = convertToString.split("-");
 
     if (removeDash.length > 1) {
       const result = removeDash.join("");
