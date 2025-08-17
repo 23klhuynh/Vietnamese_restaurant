@@ -16,5 +16,5 @@ public class DeliveryDTO {
 
     private String city;
 
-    private Long zipcode;
+    private String zipcode;
 }

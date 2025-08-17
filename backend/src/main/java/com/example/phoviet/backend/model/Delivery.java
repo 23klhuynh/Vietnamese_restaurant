@@ -12,13 +12,6 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // The delivery table will extract the order id column
-    // and then create a column name order_id in the delivery table
-    //
-//    @ManyToOne // Many deliveries could be linked to one order (usually 1 though)
-//    @JoinColumn(name = "order_id", nullable = false)
-//    private Orders order;
-
     @Column(nullable = false)
     private Long orderId;
 
@@ -29,7 +22,7 @@ public class Delivery {
     private String city;
 
     @Column(nullable = false)
-    private Long zipcode;
+    private String zipcode;
 
     // *Delivery table = order_id, address, city, state, zipcode
 

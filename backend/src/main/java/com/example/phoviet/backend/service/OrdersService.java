@@ -31,7 +31,6 @@ public class OrdersService {
     private final MenuItemRepository menuItemRepository;
     private final DeliveryRepository deliveryRepository;
 
-
     @Transactional
     public ResponseEntity<OrderDTO> createOrder(OrderRequestDTO request) {
         Orders order = new Orders();
@@ -52,8 +51,6 @@ public class OrdersService {
 
         if (request.getDeliveryDTO() != null) {
             Delivery deliveryEntity = new Delivery();
-            // extract the id from order then move it to the delivery
-            //deliveryEntity.setOrder(savedOrder); // link to the saved order
             deliveryEntity.setOrderId(savedOrder.getId());
             deliveryEntity.setAddress(request.getDeliveryDTO().getAddress());
             deliveryEntity.setCity(request.getDeliveryDTO().getCity());

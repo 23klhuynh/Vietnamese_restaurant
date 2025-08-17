@@ -12,33 +12,22 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
-	// next
-	// *Delivery table = order_id, address, city, state, zipcode
-
-
-
-
-
-	// make sure the frontend get the menu item id when check out so that it can be sent to the backend
-	//	make sure the frontend send the menu items in an array
-	//{
-	//    "customerName": "John Doe",
-	//    "email": "asvbcou@gmail.com",
-	//    "phoneNumber": 1234567890,
-	//    "items": [
-	//        {
-	//            "menuItemId": 1,
-	//            "quantity": 2
-	//        },
-	//        {
-	//            "menuItemId": 3,
-	//            "quantity": 1
-	//        },
-	//        {
-	//            "menuItemId": 5,
-	//            "quantity": 3
-	//        }
-	//    ]
+	// Next combine the orderDTO and the OrderRequestDTO because it's basically repeating
+	//
+	//
+	// {
+	//  "customerName": "Jane Smith",
+	//  "email": "jane.smith@example.com",
+	//  "phoneNumber": 9876543210,
+	//  "items": [
+	//    { "menuItemId": 1, "quantity": 2 },
+	//    { "menuItemId": 2, "quantity": 1 }
+	//  ],
+	//  "deliveryDTO": {
+	//    "address": "456 Elm Street",
+	//    "city": "Los Angeles",
+	//    "zipcode": 90001
+	//  }
 	//}
 
 
