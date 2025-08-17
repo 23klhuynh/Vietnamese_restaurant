@@ -7,39 +7,20 @@ import { IoIosRemove } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-/* WORK ON THE PART WHEN SUBMIT ORDER TO THE BACKEND */
-
 /* 
-WORK ON WHEN THE OPTION IS SELECTED AND WE MIGHT NEED 
-TO MAKE A TABLE TO HOLD THE ADDRESS WITH THE ORDER_ID:
-LOOK AT THE ORDER_ITEMS, THIS SHOULD BE SIMILAR
-*Delivery table = order_id, address, city, state, zipcode
+DONE WITH THE ORDERING SYSTEM
+
+NOW NEED TO ADD SOME EFFECT LIKE THE  TOASTER WHERE WHEN WE ORDER THE 
+MESSEGE WOULD APPEAR
+
+AUTHENTICATION
+
+EXCEPTION IN THE BACKEND
+
+DEPLOY THE BACKEND WITH REDIS
+
+TEST
 */
-
-/* "customerName": "John Doe",
-	    "email": "asvbcou@gmail.com",
-	    "phoneNumber": 1234567890,
-	    "items": [
-	        {
-	            "menuItemId": 1,
-	            "quantity": 2
-	        },
-	        {
-	            "menuItemId": 3,
-	            "quantity": 1
-	        },
-	        {
-	            "menuItemId": 5,
-	            "quantity": 3
-	        }
-	    ]
-	} 
-      
-  localhost:8080/api/v1/orders
-
-  */
-
-/* NOTE: The payment using credit or debit card is not yet implemented. */
 
 type CartItem = {
   id: number;
@@ -66,8 +47,13 @@ type OrderItem = {
 type Order = {
   customerName: string;
   email: string;
-  phoneNumber: number;
+  phoneNumber: string 
   items: OrderItem[];
+  deliveryDTO: {
+    address: string;
+    city: string;
+    zipcode: string;
+  };
 };
 
 function Order() {
@@ -88,19 +74,33 @@ function Order() {
   const [order, setOrder] = useState<Order>({
     customerName: "",
     email: "",
-    phoneNumber: 0,
+    phoneNumber: "",
     items: [
       {
         menuItemId: null,
         quantity: null,
       },
     ],
+    deliveryDTO: {
+      address: "",
+      city: "",
+      zipcode: "",
+    },
   });
 
   const handleOrderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setOrder((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleDeliveryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setOrder((prev) => ({
+      ...prev,
+      deliveryDTO: { ...prev.deliveryDTO, [name]: value },
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -119,51 +119,47 @@ function Order() {
         throw new Error("Please fill in all required fields");
       } */
 
-      const finalPhoneNumber = convertToPhoneNumber(order.phoneNumber);
+      const cleanedPhoneNumber = order.phoneNumber.replace(/-/g, "");
 
       const orderItems = cartItems.map((item) => ({
         menuItemId: item.id,
         quantity: item.quantity,
       }));
+
       const response = await axios.post("http://localhost:8080/api/v1/orders", {
         customerName: order.customerName,
         email: order.email,
-        phoneNumber: finalPhoneNumber,
+        phoneNumber: cleanedPhoneNumber,
         items: orderItems,
+        deliveryDTO: {
+          address: order.deliveryDTO.address,
+          city: order.deliveryDTO.city,
+          zipcode: order.deliveryDTO.zipcode,
+        },
       });
-
-      /* *************** IMPORTANT ************************* USE THE order_id: RESPONSE.data.id 
-      Basically need to do another axios post method if the order option is for delivery
-      */
 
       if (response.status === 200) {
         setOrder({
           customerName: "",
           email: "",
-          phoneNumber: 0,
+          phoneNumber: "",
           items: [
             {
               menuItemId: null,
               quantity: null,
             },
           ],
+          deliveryDTO: {
+            address: "",
+            city: "",
+            zipcode: "",
+          },
         });
         setCartItems([]);
+        setPaymentMethod(undefined);
       }
     } catch (error) {
       console.log(error);
-    }
-  };
-
-  const convertToPhoneNumber = (phoneNumber: number) => {
-    const convertToString = phoneNumber.toString();
-    const removeDash = convertToString.split("-");
-
-    if (removeDash.length > 1) {
-      const result = removeDash.join("");
-      return parseInt(result);
-    } else {
-      return phoneNumber;
     }
   };
 
@@ -227,7 +223,7 @@ function Order() {
                       </label>
                       <input
                         id="phone"
-                        type="tel"
+                        type="text"
                         name="phoneNumber"
                         value={order.phoneNumber}
                         onChange={handleOrderChange}
@@ -312,6 +308,9 @@ function Order() {
                       <input
                         id="address"
                         type="text"
+                        name="address"
+                        value={order.deliveryDTO.address}
+                        onChange={handleDeliveryChange} //wrong
                         placeholder="948 king dr"
                         className="w-full p-2 rounded text-black"
                         required
@@ -326,6 +325,9 @@ function Order() {
                         <input
                           id="city"
                           type="text"
+                          name="city"
+                          value={order.deliveryDTO.city}
+                          onChange={handleDeliveryChange}
                           placeholder="Morehead City"
                           className="w-full p-2 rounded text-black"
                           required
@@ -338,6 +340,9 @@ function Order() {
                         <input
                           id="zip"
                           type="text"
+                          name="zipcode"
+                          value={order.deliveryDTO.zipcode}
+                          onChange={handleDeliveryChange}
                           placeholder="12345"
                           className="w-full p-2 rounded text-black"
                           required
